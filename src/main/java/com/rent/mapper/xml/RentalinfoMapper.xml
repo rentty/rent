@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.mapper.RentalinfoMapper">
+  <resultMap id="BaseResultMap" type="com.rent.bean.Rentalinfo">
+    <id column="rtlf_Id" jdbcType="INTEGER" property="rtlfId" />
+    <result column="rtlf_Rent
+rtlf_Rent" jdbcType="INTEGER" property="rtlfRent
+rtlfRent" />
+    <result column="rtlf_ReleaseTime" jdbcType="TIMESTAMP" property="rtlfReleasetime" />
+    <result column="rtlf_RentalType" jdbcType="INTEGER" property="rtlfRentaltype" />
+    <result column="rtlf_HHId" jdbcType="INTEGER" property="rtlfHhid" />
+    <result column="rtlf_Request" jdbcType="VARCHAR" property="rtlfRequest" />
+    <result column="rtlf_Calendar" jdbcType="VARCHAR" property="rtlfCalendar" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    rtlf_Id, rtlf_Rent
+rtlf_Rent, rtlf_ReleaseTime, rtlf_RentalType, rtlf_HHId, rtlf_Request, 
+    rtlf_Calendar
+  </sql>
+  <select id="selectByExample" parameterType="com.rent.bean.RentalinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rent_rentalinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rent_rentalinfo
+    where rtlf_Id = #{rtlfId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rent_rentalinfo
+    where rtlf_Id = #{rtlfId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rent.bean.RentalinfoExample">
+    delete from rent_rentalinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rent.bean.Rentalinfo">
+    insert into rent_rentalinfo (rtlf_Id, rtlf_Rent
+rtlf_Rent, rtlf_ReleaseTime, 
+      rtlf_RentalType, rtlf_HHId, rtlf_Request, 
+      rtlf_Calendar)
+    values (#{rtlfId,jdbcType=INTEGER}, #{rtlfRent
+rtlfRent,jdbcType=INTEGER}, #{rtlfReleasetime,jdbcType=TIMESTAMP}, 
+      #{rtlfRentaltype,jdbcType=INTEGER}, #{rtlfHhid,jdbcType=INTEGER}, #{rtlfRequest,jdbcType=VARCHAR}, 
+      #{rtlfCalendar,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rent.bean.Rentalinfo">
+    insert into rent_rentalinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rtlfId != null">
+        rtlf_Id,
+      </if>
+      <if test="rtlfRent
+rtlfRent != null">
+        rtlf_Rent
+rtlf_Rent,
+      </if>
+      <if test="rtlfReleasetime != null">
+        rtlf_ReleaseTime,
+      </if>
+      <if test="rtlfRentaltype != null">
+        rtlf_RentalType,
+      </if>
+      <if test="rtlfHhid != null">
+        rtlf_HHId,
+      </if>
+      <if test="rtlfRequest != null">
+        rtlf_Request,
+      </if>
+      <if test="rtlfCalendar != null">
+        rtlf_Calendar,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rtlfId != null">
+        #{rtlfId,jdbcType=INTEGER},
+      </if>
+      <if test="rtlfRent
+rtlfRent != null">
+        #{rtlfRent
+rtlfRent,jdbcType=INTEGER},
+      </if>
+      <if test="rtlfReleasetime != null">
+        #{rtlfReleasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rtlfRentaltype != null">
+        #{rtlfRentaltype,jdbcType=INTEGER},
+      </if>
+      <if test="rtlfHhid != null">
+        #{rtlfHhid,jdbcType=INTEGER},
+      </if>
+      <if test="rtlfRequest != null">
+        #{rtlfRequest,jdbcType=VARCHAR},
+      </if>
+      <if test="rtlfCalendar != null">
+        #{rtlfCalendar,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rent.bean.RentalinfoExample" resultType="java.lang.Integer">
+    select count(*) from rent_rentalinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update rent_rentalinfo
+    <set>
+      <if test="record.rtlfId != null">
+        rtlf_Id = #{record.rtlfId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rtlfRent
+rtlfRent != null">
+        rtlf_Rent
+rtlf_Rent = #{record.rtlfRent
+rtlfRent,jdbcType=INTEGER},
+      </if>
+      <if test="record.rtlfReleasetime != null">
+        rtlf_ReleaseTime = #{record.rtlfReleasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rtlfRentaltype != null">
+        rtlf_RentalType = #{record.rtlfRentaltype,jdbcType=INTEGER},
+      </if>
+      <if test="record.rtlfHhid != null">
+        rtlf_HHId = #{record.rtlfHhid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rtlfRequest != null">
+        rtlf_Request = #{record.rtlfRequest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rtlfCalendar != null">
+        rtlf_Calendar = #{record.rtlfCalendar,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update rent_rentalinfo
+    set rtlf_Id = #{record.rtlfId,jdbcType=INTEGER},
+      rtlf_Rent
+rtlf_Rent = #{record.rtlfRent
+rtlfRent,jdbcType=INTEGER},
+      rtlf_ReleaseTime = #{record.rtlfReleasetime,jdbcType=TIMESTAMP},
+      rtlf_RentalType = #{record.rtlfRentaltype,jdbcType=INTEGER},
+      rtlf_HHId = #{record.rtlfHhid,jdbcType=INTEGER},
+      rtlf_Request = #{record.rtlfRequest,jdbcType=VARCHAR},
+      rtlf_Calendar = #{record.rtlfCalendar,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rent.bean.Rentalinfo">
+    update rent_rentalinfo
+    <set>
+      <if test="rtlfRent
+rtlfRent != null">
+        rtlf_Rent
+rtlf_Rent = #{rtlfRent
+rtlfRent,jdbcType=INTEGER},
+      </if>
+      <if test="rtlfReleasetime != null">
+        rtlf_ReleaseTime = #{rtlfReleasetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rtlfRentaltype != null">
+        rtlf_RentalType = #{rtlfRentaltype,jdbcType=INTEGER},
+      </if>
+      <if test="rtlfHhid != null">
+        rtlf_HHId = #{rtlfHhid,jdbcType=INTEGER},
+      </if>
+      <if test="rtlfRequest != null">
+        rtlf_Request = #{rtlfRequest,jdbcType=VARCHAR},
+      </if>
+      <if test="rtlfCalendar != null">
+        rtlf_Calendar = #{rtlfCalendar,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rtlf_Id = #{rtlfId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rent.bean.Rentalinfo">
+    update rent_rentalinfo
+    set rtlf_Rent
+rtlf_Rent = #{rtlfRent
+rtlfRent,jdbcType=INTEGER},
+      rtlf_ReleaseTime = #{rtlfReleasetime,jdbcType=TIMESTAMP},
+      rtlf_RentalType = #{rtlfRentaltype,jdbcType=INTEGER},
+      rtlf_HHId = #{rtlfHhid,jdbcType=INTEGER},
+      rtlf_Request = #{rtlfRequest,jdbcType=VARCHAR},
+      rtlf_Calendar = #{rtlfCalendar,jdbcType=VARCHAR}
+    where rtlf_Id = #{rtlfId,jdbcType=INTEGER}
+  </update>
+</mapper>

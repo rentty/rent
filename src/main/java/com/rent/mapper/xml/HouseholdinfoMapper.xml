@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.mapper.HouseholdinfoMapper">
+  <resultMap id="BaseResultMap" type="com.rent.bean.Householdinfo">
+    <id column="hhif_Id" jdbcType="INTEGER" property="hhifId" />
+    <result column="hhif_Name" jdbcType="VARCHAR" property="hhifName" />
+    <result column="hhif_IdCard" jdbcType="VARCHAR" property="hhifIdcard" />
+    <result column="hhif_Deed" jdbcType="VARCHAR" property="hhifDeed" />
+    <result column="hhif_Phone" jdbcType="VARCHAR" property="hhifPhone" />
+    <result column="hhif_Status" jdbcType="INTEGER" property="hhifStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    hhif_Id, hhif_Name, hhif_IdCard, hhif_Deed, hhif_Phone, hhif_Status
+  </sql>
+  <select id="selectByExample" parameterType="com.rent.bean.HouseholdinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rent_householdinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rent_householdinfo
+    where hhif_Id = #{hhifId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rent_householdinfo
+    where hhif_Id = #{hhifId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rent.bean.HouseholdinfoExample">
+    delete from rent_householdinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rent.bean.Householdinfo">
+    insert into rent_householdinfo (hhif_Id, hhif_Name, hhif_IdCard, 
+      hhif_Deed, hhif_Phone, hhif_Status
+      )
+    values (#{hhifId,jdbcType=INTEGER}, #{hhifName,jdbcType=VARCHAR}, #{hhifIdcard,jdbcType=VARCHAR}, 
+      #{hhifDeed,jdbcType=VARCHAR}, #{hhifPhone,jdbcType=VARCHAR}, #{hhifStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rent.bean.Householdinfo">
+    insert into rent_householdinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hhifId != null">
+        hhif_Id,
+      </if>
+      <if test="hhifName != null">
+        hhif_Name,
+      </if>
+      <if test="hhifIdcard != null">
+        hhif_IdCard,
+      </if>
+      <if test="hhifDeed != null">
+        hhif_Deed,
+      </if>
+      <if test="hhifPhone != null">
+        hhif_Phone,
+      </if>
+      <if test="hhifStatus != null">
+        hhif_Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hhifId != null">
+        #{hhifId,jdbcType=INTEGER},
+      </if>
+      <if test="hhifName != null">
+        #{hhifName,jdbcType=VARCHAR},
+      </if>
+      <if test="hhifIdcard != null">
+        #{hhifIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="hhifDeed != null">
+        #{hhifDeed,jdbcType=VARCHAR},
+      </if>
+      <if test="hhifPhone != null">
+        #{hhifPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hhifStatus != null">
+        #{hhifStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rent.bean.HouseholdinfoExample" resultType="java.lang.Integer">
+    select count(*) from rent_householdinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update rent_householdinfo
+    <set>
+      <if test="record.hhifId != null">
+        hhif_Id = #{record.hhifId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hhifName != null">
+        hhif_Name = #{record.hhifName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hhifIdcard != null">
+        hhif_IdCard = #{record.hhifIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hhifDeed != null">
+        hhif_Deed = #{record.hhifDeed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hhifPhone != null">
+        hhif_Phone = #{record.hhifPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hhifStatus != null">
+        hhif_Status = #{record.hhifStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update rent_householdinfo
+    set hhif_Id = #{record.hhifId,jdbcType=INTEGER},
+      hhif_Name = #{record.hhifName,jdbcType=VARCHAR},
+      hhif_IdCard = #{record.hhifIdcard,jdbcType=VARCHAR},
+      hhif_Deed = #{record.hhifDeed,jdbcType=VARCHAR},
+      hhif_Phone = #{record.hhifPhone,jdbcType=VARCHAR},
+      hhif_Status = #{record.hhifStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rent.bean.Householdinfo">
+    update rent_householdinfo
+    <set>
+      <if test="hhifName != null">
+        hhif_Name = #{hhifName,jdbcType=VARCHAR},
+      </if>
+      <if test="hhifIdcard != null">
+        hhif_IdCard = #{hhifIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="hhifDeed != null">
+        hhif_Deed = #{hhifDeed,jdbcType=VARCHAR},
+      </if>
+      <if test="hhifPhone != null">
+        hhif_Phone = #{hhifPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hhifStatus != null">
+        hhif_Status = #{hhifStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where hhif_Id = #{hhifId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rent.bean.Householdinfo">
+    update rent_householdinfo
+    set hhif_Name = #{hhifName,jdbcType=VARCHAR},
+      hhif_IdCard = #{hhifIdcard,jdbcType=VARCHAR},
+      hhif_Deed = #{hhifDeed,jdbcType=VARCHAR},
+      hhif_Phone = #{hhifPhone,jdbcType=VARCHAR},
+      hhif_Status = #{hhifStatus,jdbcType=INTEGER}
+    where hhif_Id = #{hhifId,jdbcType=INTEGER}
+  </update>
+</mapper>

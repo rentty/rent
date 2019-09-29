@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.mapper.HousedlMapper">
+  <resultMap id="BaseResultMap" type="com.rent.bean.Housedl">
+    <id column="hsd_Id" jdbcType="INTEGER" property="hsdId" />
+    <result column="hsd_IdoorMAddr" jdbcType="VARCHAR" property="hsdIdoormaddr" />
+    <result column="hsd_FloorPAddr" jdbcType="VARCHAR" property="hsdFloorpaddr" />
+    <result column="hsd_ConditionMAddr" jdbcType="VARCHAR" property="hsdConditionmaddr" />
+    <result column="hsd_Facility desc" jdbcType="VARCHAR" property="hsdFacilityDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    hsd_Id, hsd_IdoorMAddr, hsd_FloorPAddr, hsd_ConditionMAddr, `hsd_Facility desc`
+  </sql>
+  <select id="selectByExample" parameterType="com.rent.bean.HousedlExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rent_housedl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rent_housedl
+    where hsd_Id = #{hsdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rent_housedl
+    where hsd_Id = #{hsdId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rent.bean.HousedlExample">
+    delete from rent_housedl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rent.bean.Housedl">
+    insert into rent_housedl (hsd_Id, hsd_IdoorMAddr, hsd_FloorPAddr, 
+      hsd_ConditionMAddr, `hsd_Facility desc`)
+    values (#{hsdId,jdbcType=INTEGER}, #{hsdIdoormaddr,jdbcType=VARCHAR}, #{hsdFloorpaddr,jdbcType=VARCHAR}, 
+      #{hsdConditionmaddr,jdbcType=VARCHAR}, #{hsdFacilityDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rent.bean.Housedl">
+    insert into rent_housedl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hsdId != null">
+        hsd_Id,
+      </if>
+      <if test="hsdIdoormaddr != null">
+        hsd_IdoorMAddr,
+      </if>
+      <if test="hsdFloorpaddr != null">
+        hsd_FloorPAddr,
+      </if>
+      <if test="hsdConditionmaddr != null">
+        hsd_ConditionMAddr,
+      </if>
+      <if test="hsdFacilityDesc != null">
+        `hsd_Facility desc`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hsdId != null">
+        #{hsdId,jdbcType=INTEGER},
+      </if>
+      <if test="hsdIdoormaddr != null">
+        #{hsdIdoormaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="hsdFloorpaddr != null">
+        #{hsdFloorpaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="hsdConditionmaddr != null">
+        #{hsdConditionmaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="hsdFacilityDesc != null">
+        #{hsdFacilityDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rent.bean.HousedlExample" resultType="java.lang.Integer">
+    select count(*) from rent_housedl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update rent_housedl
+    <set>
+      <if test="record.hsdId != null">
+        hsd_Id = #{record.hsdId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hsdIdoormaddr != null">
+        hsd_IdoorMAddr = #{record.hsdIdoormaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsdFloorpaddr != null">
+        hsd_FloorPAddr = #{record.hsdFloorpaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsdConditionmaddr != null">
+        hsd_ConditionMAddr = #{record.hsdConditionmaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsdFacilityDesc != null">
+        `hsd_Facility desc` = #{record.hsdFacilityDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update rent_housedl
+    set hsd_Id = #{record.hsdId,jdbcType=INTEGER},
+      hsd_IdoorMAddr = #{record.hsdIdoormaddr,jdbcType=VARCHAR},
+      hsd_FloorPAddr = #{record.hsdFloorpaddr,jdbcType=VARCHAR},
+      hsd_ConditionMAddr = #{record.hsdConditionmaddr,jdbcType=VARCHAR},
+      `hsd_Facility desc` = #{record.hsdFacilityDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rent.bean.Housedl">
+    update rent_housedl
+    <set>
+      <if test="hsdIdoormaddr != null">
+        hsd_IdoorMAddr = #{hsdIdoormaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="hsdFloorpaddr != null">
+        hsd_FloorPAddr = #{hsdFloorpaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="hsdConditionmaddr != null">
+        hsd_ConditionMAddr = #{hsdConditionmaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="hsdFacilityDesc != null">
+        `hsd_Facility desc` = #{hsdFacilityDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hsd_Id = #{hsdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rent.bean.Housedl">
+    update rent_housedl
+    set hsd_IdoorMAddr = #{hsdIdoormaddr,jdbcType=VARCHAR},
+      hsd_FloorPAddr = #{hsdFloorpaddr,jdbcType=VARCHAR},
+      hsd_ConditionMAddr = #{hsdConditionmaddr,jdbcType=VARCHAR},
+      `hsd_Facility desc` = #{hsdFacilityDesc,jdbcType=VARCHAR}
+    where hsd_Id = #{hsdId,jdbcType=INTEGER}
+  </update>
+</mapper>

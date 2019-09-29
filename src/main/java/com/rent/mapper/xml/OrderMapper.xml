@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rent.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.rent.bean.Order">
+    <id column="od_Id" jdbcType="INTEGER" property="odId" />
+    <result column="od_OrderTime" jdbcType="TIMESTAMP" property="odOrdertime" />
+    <result column="uif_Id" jdbcType="INTEGER" property="uifId" />
+    <result column="hhif_Id" jdbcType="INTEGER" property="hhifId" />
+    <result column="od_BookTime" jdbcType="TIMESTAMP" property="odBooktime" />
+    <result column="od_duration" jdbcType="INTEGER" property="odDuration" />
+    <result column="hs_Id" jdbcType="INTEGER" property="hsId" />
+    <result column="od_Rent" jdbcType="INTEGER" property="odRent" />
+    <result column="od_Status" jdbcType="INTEGER" property="odStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    od_Id, od_OrderTime, uif_Id, hhif_Id, od_BookTime, od_duration, hs_Id, od_Rent, od_Status
+  </sql>
+  <select id="selectByExample" parameterType="com.rent.bean.OrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rent_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rent_order
+    where od_Id = #{odId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rent_order
+    where od_Id = #{odId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rent.bean.OrderExample">
+    delete from rent_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rent.bean.Order">
+    insert into rent_order (od_Id, od_OrderTime, uif_Id, 
+      hhif_Id, od_BookTime, od_duration, 
+      hs_Id, od_Rent, od_Status
+      )
+    values (#{odId,jdbcType=INTEGER}, #{odOrdertime,jdbcType=TIMESTAMP}, #{uifId,jdbcType=INTEGER}, 
+      #{hhifId,jdbcType=INTEGER}, #{odBooktime,jdbcType=TIMESTAMP}, #{odDuration,jdbcType=INTEGER}, 
+      #{hsId,jdbcType=INTEGER}, #{odRent,jdbcType=INTEGER}, #{odStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rent.bean.Order">
+    insert into rent_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="odId != null">
+        od_Id,
+      </if>
+      <if test="odOrdertime != null">
+        od_OrderTime,
+      </if>
+      <if test="uifId != null">
+        uif_Id,
+      </if>
+      <if test="hhifId != null">
+        hhif_Id,
+      </if>
+      <if test="odBooktime != null">
+        od_BookTime,
+      </if>
+      <if test="odDuration != null">
+        od_duration,
+      </if>
+      <if test="hsId != null">
+        hs_Id,
+      </if>
+      <if test="odRent != null">
+        od_Rent,
+      </if>
+      <if test="odStatus != null">
+        od_Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="odId != null">
+        #{odId,jdbcType=INTEGER},
+      </if>
+      <if test="odOrdertime != null">
+        #{odOrdertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uifId != null">
+        #{uifId,jdbcType=INTEGER},
+      </if>
+      <if test="hhifId != null">
+        #{hhifId,jdbcType=INTEGER},
+      </if>
+      <if test="odBooktime != null">
+        #{odBooktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odDuration != null">
+        #{odDuration,jdbcType=INTEGER},
+      </if>
+      <if test="hsId != null">
+        #{hsId,jdbcType=INTEGER},
+      </if>
+      <if test="odRent != null">
+        #{odRent,jdbcType=INTEGER},
+      </if>
+      <if test="odStatus != null">
+        #{odStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rent.bean.OrderExample" resultType="java.lang.Integer">
+    select count(*) from rent_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update rent_order
+    <set>
+      <if test="record.odId != null">
+        od_Id = #{record.odId,jdbcType=INTEGER},
+      </if>
+      <if test="record.odOrdertime != null">
+        od_OrderTime = #{record.odOrdertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.uifId != null">
+        uif_Id = #{record.uifId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hhifId != null">
+        hhif_Id = #{record.hhifId,jdbcType=INTEGER},
+      </if>
+      <if test="record.odBooktime != null">
+        od_BookTime = #{record.odBooktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.odDuration != null">
+        od_duration = #{record.odDuration,jdbcType=INTEGER},
+      </if>
+      <if test="record.hsId != null">
+        hs_Id = #{record.hsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.odRent != null">
+        od_Rent = #{record.odRent,jdbcType=INTEGER},
+      </if>
+      <if test="record.odStatus != null">
+        od_Status = #{record.odStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update rent_order
+    set od_Id = #{record.odId,jdbcType=INTEGER},
+      od_OrderTime = #{record.odOrdertime,jdbcType=TIMESTAMP},
+      uif_Id = #{record.uifId,jdbcType=INTEGER},
+      hhif_Id = #{record.hhifId,jdbcType=INTEGER},
+      od_BookTime = #{record.odBooktime,jdbcType=TIMESTAMP},
+      od_duration = #{record.odDuration,jdbcType=INTEGER},
+      hs_Id = #{record.hsId,jdbcType=INTEGER},
+      od_Rent = #{record.odRent,jdbcType=INTEGER},
+      od_Status = #{record.odStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rent.bean.Order">
+    update rent_order
+    <set>
+      <if test="odOrdertime != null">
+        od_OrderTime = #{odOrdertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uifId != null">
+        uif_Id = #{uifId,jdbcType=INTEGER},
+      </if>
+      <if test="hhifId != null">
+        hhif_Id = #{hhifId,jdbcType=INTEGER},
+      </if>
+      <if test="odBooktime != null">
+        od_BookTime = #{odBooktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="odDuration != null">
+        od_duration = #{odDuration,jdbcType=INTEGER},
+      </if>
+      <if test="hsId != null">
+        hs_Id = #{hsId,jdbcType=INTEGER},
+      </if>
+      <if test="odRent != null">
+        od_Rent = #{odRent,jdbcType=INTEGER},
+      </if>
+      <if test="odStatus != null">
+        od_Status = #{odStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where od_Id = #{odId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rent.bean.Order">
+    update rent_order
+    set od_OrderTime = #{odOrdertime,jdbcType=TIMESTAMP},
+      uif_Id = #{uifId,jdbcType=INTEGER},
+      hhif_Id = #{hhifId,jdbcType=INTEGER},
+      od_BookTime = #{odBooktime,jdbcType=TIMESTAMP},
+      od_duration = #{odDuration,jdbcType=INTEGER},
+      hs_Id = #{hsId,jdbcType=INTEGER},
+      od_Rent = #{odRent,jdbcType=INTEGER},
+      od_Status = #{odStatus,jdbcType=INTEGER}
+    where od_Id = #{odId,jdbcType=INTEGER}
+  </update>
+</mapper>
