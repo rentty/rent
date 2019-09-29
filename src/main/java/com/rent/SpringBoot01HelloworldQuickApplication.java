@@ -1,8 +1,8 @@
-package com.jl.springboot;
+package com.rent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ImportResource;
+
 //123
 //@ImportResource(locations={"classpath:bean.xml"})
 @SpringBootApplication
