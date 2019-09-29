@@ -1,15 +1,39 @@
-package com.jl.springboot.controller;
+package com.rent.controller;
 
+import com.rent.bean.Dialog;
+import com.rent.bean.Userinfo;
+import com.rent.service.HelloService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
+@Api(tags = "HelloController", description = "hehe管理")
 public class HelloController {
 
-    @RequestMapping("/hehe")
+    @Autowired
+    HelloService helloService;
+
+    @GetMapping("/hehe")
     @ResponseBody
-    public String hello() {
+    @ApiOperation("swagger测试")
+    public String hello(@ApiParam("搜索目录图")Dialog dialog)  {
+
         return "hello world";
     }
+    @GetMapping("/userInfo")
+    @ResponseBody
+    @ApiOperation("查询用户信息")
+    public List<Userinfo> selectAll()  {
+        List<Userinfo> userinfos = helloService.selectAll();
+
+        return userinfos;
+    }
+
 }

@@ -31,7 +31,7 @@
         <!--指定生成model的路径-->
         <javaModelGenerator targetPackage="com.rent.bean" targetProject=".\src\main\java"/>
         <!--指定生成mapper.xml的路径-->
-        <sqlMapGenerator targetPackage="com.rent.mapper.xml" targetProject=".\src\main\java"/>
+        <sqlMapGenerator targetPackage="com.rent.mapper" targetProject=".\src\main\resources"/>
         <!--指定生成mapper接口的的路径-->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.rent.mapper"
                              targetProject=".\src\main\java"/>
