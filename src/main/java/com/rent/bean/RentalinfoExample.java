@@ -165,97 +165,63 @@ public class RentalinfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentIsNull() {
-            addCriterion("rtlf_Rent
-rtlf_Rent is null");
+        public Criteria andRtlfRentIsNull() {
+            addCriterion("rtlf_Rent is null");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentIsNotNull() {
-            addCriterion("rtlf_Rent
-rtlf_Rent is not null");
+        public Criteria andRtlfRentIsNotNull() {
+            addCriterion("rtlf_Rent is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentEqualTo(Integer value) {
-            addCriterion("rtlf_Rent
-rtlf_Rent =", value, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentEqualTo(Integer value) {
+            addCriterion("rtlf_Rent =", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentNotEqualTo(Integer value) {
-            addCriterion("rtlf_Rent
-rtlf_Rent <>", value, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentNotEqualTo(Integer value) {
+            addCriterion("rtlf_Rent <>", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentGreaterThan(Integer value) {
-            addCriterion("rtlf_Rent
-rtlf_Rent >", value, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentGreaterThan(Integer value) {
+            addCriterion("rtlf_Rent >", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentGreaterThanOrEqualTo(Integer value) {
-            addCriterion("rtlf_Rent
-rtlf_Rent >=", value, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentGreaterThanOrEqualTo(Integer value) {
+            addCriterion("rtlf_Rent >=", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentLessThan(Integer value) {
-            addCriterion("rtlf_Rent
-rtlf_Rent <", value, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentLessThan(Integer value) {
+            addCriterion("rtlf_Rent <", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentLessThanOrEqualTo(Integer value) {
-            addCriterion("rtlf_Rent
-rtlf_Rent <=", value, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentLessThanOrEqualTo(Integer value) {
+            addCriterion("rtlf_Rent <=", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentIn(List<Integer> values) {
-            addCriterion("rtlf_Rent
-rtlf_Rent in", values, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentIn(List<Integer> values) {
+            addCriterion("rtlf_Rent in", values, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentNotIn(List<Integer> values) {
-            addCriterion("rtlf_Rent
-rtlf_Rent not in", values, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentNotIn(List<Integer> values) {
+            addCriterion("rtlf_Rent not in", values, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentBetween(Integer value1, Integer value2) {
-            addCriterion("rtlf_Rent
-rtlf_Rent between", value1, value2, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentBetween(Integer value1, Integer value2) {
+            addCriterion("rtlf_Rent between", value1, value2, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRent
-rtlfRentNotBetween(Integer value1, Integer value2) {
-            addCriterion("rtlf_Rent
-rtlf_Rent not between", value1, value2, "rtlfRent
-rtlfRent");
+        public Criteria andRtlfRentNotBetween(Integer value1, Integer value2) {
+            addCriterion("rtlf_Rent not between", value1, value2, "rtlfRent");
             return (Criteria) this;
         }
 

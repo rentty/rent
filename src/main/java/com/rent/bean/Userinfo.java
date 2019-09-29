@@ -17,8 +17,7 @@ public class Userinfo implements Serializable {
     private String uifPhone;
 
     @ApiModelProperty(value = "微信二维码图片")
-    private String "uifWechatcode
-";
+    private String uifWechatcode;
 
     @ApiModelProperty(value = "用户类型")
     private Integer uifUsertype;
@@ -57,18 +56,12 @@ public class Userinfo implements Serializable {
         this.uifPhone = uifPhone;
     }
 
-    public String get"uifWechatcode
-"() {
-        return "uifWechatcode
-";
+    public String getUifWechatcode() {
+        return uifWechatcode;
     }
 
-    public void set"uifWechatcode
-"(String "uifWechatcode
-") {
-        this."uifWechatcode
-" = "uifWechatcode
-";
+    public void setUifWechatcode(String uifWechatcode) {
+        this.uifWechatcode = uifWechatcode;
     }
 
     public Integer getUifUsertype() {
@@ -89,9 +82,7 @@ public class Userinfo implements Serializable {
         sb.append(", uifNickname=").append(uifNickname);
         sb.append(", uifAvatar=").append(uifAvatar);
         sb.append(", uifPhone=").append(uifPhone);
-        sb.append(", "uifWechatcode
-"=").append("uifWechatcode
-");
+        sb.append(", uifWechatcode=").append(uifWechatcode);
         sb.append(", uifUsertype=").append(uifUsertype);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

@@ -8,8 +8,7 @@ public class Rentalinfo implements Serializable {
     private Integer rtlfId;
 
     @ApiModelProperty(value = "租金")
-    private Integer rtlfRent
-rtlfRent;
+    private Integer rtlfRent;
 
     @ApiModelProperty(value = "出租信息发布时间")
     private Date rtlfReleasetime;
@@ -36,18 +35,12 @@ rtlfRent;
         this.rtlfId = rtlfId;
     }
 
-    public Integer getRtlfRent
-rtlfRent() {
-        return rtlfRent
-rtlfRent;
+    public Integer getRtlfRent() {
+        return rtlfRent;
     }
 
-    public void setRtlfRent
-rtlfRent(Integer rtlfRent
-rtlfRent) {
-        this.rtlfRent
-rtlfRent = rtlfRent
-rtlfRent;
+    public void setRtlfRent(Integer rtlfRent) {
+        this.rtlfRent = rtlfRent;
     }
 
     public Date getRtlfReleasetime() {
@@ -97,9 +90,7 @@ rtlfRent;
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", rtlfId=").append(rtlfId);
-        sb.append(", rtlfRent
-rtlfRent=").append(rtlfRent
-rtlfRent);
+        sb.append(", rtlfRent=").append(rtlfRent);
         sb.append(", rtlfReleasetime=").append(rtlfReleasetime);
         sb.append(", rtlfRentaltype=").append(rtlfRentaltype);
         sb.append(", rtlfHhid=").append(rtlfHhid);

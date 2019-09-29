@@ -374,113 +374,73 @@ public class UserinfoExample {
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"IsNull() {
-            addCriterion(""uif_WechatCode
-" is null");
+        public Criteria andUifWechatcodeIsNull() {
+            addCriterion("uif_WeChatCode is null");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"IsNotNull() {
-            addCriterion(""uif_WechatCode
-" is not null");
+        public Criteria andUifWechatcodeIsNotNull() {
+            addCriterion("uif_WeChatCode is not null");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"EqualTo(String value) {
-            addCriterion(""uif_WechatCode
-" =", value, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeEqualTo(String value) {
+            addCriterion("uif_WeChatCode =", value, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"NotEqualTo(String value) {
-            addCriterion(""uif_WechatCode
-" <>", value, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeNotEqualTo(String value) {
+            addCriterion("uif_WeChatCode <>", value, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"GreaterThan(String value) {
-            addCriterion(""uif_WechatCode
-" >", value, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeGreaterThan(String value) {
+            addCriterion("uif_WeChatCode >", value, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"GreaterThanOrEqualTo(String value) {
-            addCriterion(""uif_WechatCode
-" >=", value, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeGreaterThanOrEqualTo(String value) {
+            addCriterion("uif_WeChatCode >=", value, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"LessThan(String value) {
-            addCriterion(""uif_WechatCode
-" <", value, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeLessThan(String value) {
+            addCriterion("uif_WeChatCode <", value, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"LessThanOrEqualTo(String value) {
-            addCriterion(""uif_WechatCode
-" <=", value, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeLessThanOrEqualTo(String value) {
+            addCriterion("uif_WeChatCode <=", value, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"Like(String value) {
-            addCriterion(""uif_WechatCode
-" like", value, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeLike(String value) {
+            addCriterion("uif_WeChatCode like", value, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"NotLike(String value) {
-            addCriterion(""uif_WechatCode
-" not like", value, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeNotLike(String value) {
+            addCriterion("uif_WeChatCode not like", value, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"In(List<String> values) {
-            addCriterion(""uif_WechatCode
-" in", values, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeIn(List<String> values) {
+            addCriterion("uif_WeChatCode in", values, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"NotIn(List<String> values) {
-            addCriterion(""uif_WechatCode
-" not in", values, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeNotIn(List<String> values) {
+            addCriterion("uif_WeChatCode not in", values, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"Between(String value1, String value2) {
-            addCriterion(""uif_WechatCode
-" between", value1, value2, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeBetween(String value1, String value2) {
+            addCriterion("uif_WeChatCode between", value1, value2, "uifWechatcode");
             return (Criteria) this;
         }
 
-        public Criteria and"uifWechatcode
-"NotBetween(String value1, String value2) {
-            addCriterion(""uif_WechatCode
-" not between", value1, value2, ""uifWechatcode
-"");
+        public Criteria andUifWechatcodeNotBetween(String value1, String value2) {
+            addCriterion("uif_WeChatCode not between", value1, value2, "uifWechatcode");
             return (Criteria) this;
         }
 
