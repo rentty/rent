@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class Dialog implements Serializable {
-    @ApiModelProperty(value = "条目编号,0：方式  1：类型 2：户型 3：租金 4：更多》》》》》")
+    @ApiModelProperty(value = "条目编号,0：方式  1：类型 2：户型 3：租金 4：更多...")
     private Integer dlId;
 
     @ApiModelProperty(value = "条目")
