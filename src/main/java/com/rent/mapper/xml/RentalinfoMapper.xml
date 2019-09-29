@@ -3,9 +3,7 @@
 <mapper namespace="com.rent.mapper.RentalinfoMapper">
   <resultMap id="BaseResultMap" type="com.rent.bean.Rentalinfo">
     <id column="rtlf_Id" jdbcType="INTEGER" property="rtlfId" />
-    <result column="rtlf_Rent
-rtlf_Rent" jdbcType="INTEGER" property="rtlfRent
-rtlfRent" />
+    <result column="rtlf_Rent" jdbcType="INTEGER" property="rtlfRent" />
     <result column="rtlf_ReleaseTime" jdbcType="TIMESTAMP" property="rtlfReleasetime" />
     <result column="rtlf_RentalType" jdbcType="INTEGER" property="rtlfRentaltype" />
     <result column="rtlf_HHId" jdbcType="INTEGER" property="rtlfHhid" />
@@ -71,9 +69,7 @@ rtlfRent" />
     </where>
   </sql>
   <sql id="Base_Column_List">
-    rtlf_Id, rtlf_Rent
-rtlf_Rent, rtlf_ReleaseTime, rtlf_RentalType, rtlf_HHId, rtlf_Request, 
-    rtlf_Calendar
+    rtlf_Id, rtlf_Rent, rtlf_ReleaseTime, rtlf_RentalType, rtlf_HHId, rtlf_Request, rtlf_Calendar
   </sql>
   <select id="selectByExample" parameterType="com.rent.bean.RentalinfoExample" resultMap="BaseResultMap">
     select
@@ -106,12 +102,10 @@ rtlf_Rent, rtlf_ReleaseTime, rtlf_RentalType, rtlf_HHId, rtlf_Request,
     </if>
   </delete>
   <insert id="insert" parameterType="com.rent.bean.Rentalinfo">
-    insert into rent_rentalinfo (rtlf_Id, rtlf_Rent
-rtlf_Rent, rtlf_ReleaseTime, 
+    insert into rent_rentalinfo (rtlf_Id, rtlf_Rent, rtlf_ReleaseTime, 
       rtlf_RentalType, rtlf_HHId, rtlf_Request, 
       rtlf_Calendar)
-    values (#{rtlfId,jdbcType=INTEGER}, #{rtlfRent
-rtlfRent,jdbcType=INTEGER}, #{rtlfReleasetime,jdbcType=TIMESTAMP}, 
+    values (#{rtlfId,jdbcType=INTEGER}, #{rtlfRent,jdbcType=INTEGER}, #{rtlfReleasetime,jdbcType=TIMESTAMP}, 
       #{rtlfRentaltype,jdbcType=INTEGER}, #{rtlfHhid,jdbcType=INTEGER}, #{rtlfRequest,jdbcType=VARCHAR}, 
       #{rtlfCalendar,jdbcType=VARCHAR})
   </insert>
@@ -121,10 +115,8 @@ rtlfRent,jdbcType=INTEGER}, #{rtlfReleasetime,jdbcType=TIMESTAMP},
       <if test="rtlfId != null">
         rtlf_Id,
       </if>
-      <if test="rtlfRent
-rtlfRent != null">
-        rtlf_Rent
-rtlf_Rent,
+      <if test="rtlfRent != null">
+        rtlf_Rent,
       </if>
       <if test="rtlfReleasetime != null">
         rtlf_ReleaseTime,
@@ -146,10 +138,8 @@ rtlf_Rent,
       <if test="rtlfId != null">
         #{rtlfId,jdbcType=INTEGER},
       </if>
-      <if test="rtlfRent
-rtlfRent != null">
-        #{rtlfRent
-rtlfRent,jdbcType=INTEGER},
+      <if test="rtlfRent != null">
+        #{rtlfRent,jdbcType=INTEGER},
       </if>
       <if test="rtlfReleasetime != null">
         #{rtlfReleasetime,jdbcType=TIMESTAMP},
@@ -180,11 +170,8 @@ rtlfRent,jdbcType=INTEGER},
       <if test="record.rtlfId != null">
         rtlf_Id = #{record.rtlfId,jdbcType=INTEGER},
       </if>
-      <if test="record.rtlfRent
-rtlfRent != null">
-        rtlf_Rent
-rtlf_Rent = #{record.rtlfRent
-rtlfRent,jdbcType=INTEGER},
+      <if test="record.rtlfRent != null">
+        rtlf_Rent = #{record.rtlfRent,jdbcType=INTEGER},
       </if>
       <if test="record.rtlfReleasetime != null">
         rtlf_ReleaseTime = #{record.rtlfReleasetime,jdbcType=TIMESTAMP},
@@ -209,9 +196,7 @@ rtlfRent,jdbcType=INTEGER},
   <update id="updateByExample" parameterType="map">
     update rent_rentalinfo
     set rtlf_Id = #{record.rtlfId,jdbcType=INTEGER},
-      rtlf_Rent
-rtlf_Rent = #{record.rtlfRent
-rtlfRent,jdbcType=INTEGER},
+      rtlf_Rent = #{record.rtlfRent,jdbcType=INTEGER},
       rtlf_ReleaseTime = #{record.rtlfReleasetime,jdbcType=TIMESTAMP},
       rtlf_RentalType = #{record.rtlfRentaltype,jdbcType=INTEGER},
       rtlf_HHId = #{record.rtlfHhid,jdbcType=INTEGER},
@@ -224,11 +209,8 @@ rtlfRent,jdbcType=INTEGER},
   <update id="updateByPrimaryKeySelective" parameterType="com.rent.bean.Rentalinfo">
     update rent_rentalinfo
     <set>
-      <if test="rtlfRent
-rtlfRent != null">
-        rtlf_Rent
-rtlf_Rent = #{rtlfRent
-rtlfRent,jdbcType=INTEGER},
+      <if test="rtlfRent != null">
+        rtlf_Rent = #{rtlfRent,jdbcType=INTEGER},
       </if>
       <if test="rtlfReleasetime != null">
         rtlf_ReleaseTime = #{rtlfReleasetime,jdbcType=TIMESTAMP},
@@ -250,9 +232,7 @@ rtlfRent,jdbcType=INTEGER},
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rent.bean.Rentalinfo">
     update rent_rentalinfo
-    set rtlf_Rent
-rtlf_Rent = #{rtlfRent
-rtlfRent,jdbcType=INTEGER},
+    set rtlf_Rent = #{rtlfRent,jdbcType=INTEGER},
       rtlf_ReleaseTime = #{rtlfReleasetime,jdbcType=TIMESTAMP},
       rtlf_RentalType = #{rtlfRentaltype,jdbcType=INTEGER},
       rtlf_HHId = #{rtlfHhid,jdbcType=INTEGER},

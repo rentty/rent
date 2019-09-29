@@ -6,9 +6,7 @@
     <result column="uif_NickName" jdbcType="VARCHAR" property="uifNickname" />
     <result column="uif_Avatar" jdbcType="VARCHAR" property="uifAvatar" />
     <result column="uif_Phone" jdbcType="VARCHAR" property="uifPhone" />
-    <result column=""uif_WechatCode
-"" jdbcType="VARCHAR" property=""uifWechatcode
-"" />
+    <result column="uif_WeChatCode" jdbcType="VARCHAR" property="uifWechatcode" />
     <result column="uif_UserType" jdbcType="INTEGER" property="uifUsertype" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,8 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uif_Id, uif_NickName, uif_Avatar, uif_Phone, "uif_WechatCode
-", uif_UserType
+    uif_Id, uif_NickName, uif_Avatar, uif_Phone, uif_WeChatCode, uif_UserType
   </sql>
   <select id="selectByExample" parameterType="com.rent.bean.UserinfoExample" resultMap="BaseResultMap">
     select
@@ -105,12 +102,10 @@
   </delete>
   <insert id="insert" parameterType="com.rent.bean.Userinfo">
     insert into rent_userinfo (uif_Id, uif_NickName, uif_Avatar, 
-      uif_Phone, "uif_WechatCode
-", uif_UserType
+      uif_Phone, uif_WeChatCode, uif_UserType
       )
     values (#{uifId,jdbcType=INTEGER}, #{uifNickname,jdbcType=VARCHAR}, #{uifAvatar,jdbcType=VARCHAR}, 
-      #{uifPhone,jdbcType=VARCHAR}, #{"uifWechatcode
-",jdbcType=VARCHAR}, #{uifUsertype,jdbcType=INTEGER}
+      #{uifPhone,jdbcType=VARCHAR}, #{uifWechatcode,jdbcType=VARCHAR}, #{uifUsertype,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.rent.bean.Userinfo">
@@ -128,10 +123,8 @@
       <if test="uifPhone != null">
         uif_Phone,
       </if>
-      <if test=""uifWechatcode
-" != null">
-        "uif_WechatCode
-",
+      <if test="uifWechatcode != null">
+        uif_WeChatCode,
       </if>
       <if test="uifUsertype != null">
         uif_UserType,
@@ -150,10 +143,8 @@
       <if test="uifPhone != null">
         #{uifPhone,jdbcType=VARCHAR},
       </if>
-      <if test=""uifWechatcode
-" != null">
-        #{"uifWechatcode
-",jdbcType=VARCHAR},
+      <if test="uifWechatcode != null">
+        #{uifWechatcode,jdbcType=VARCHAR},
       </if>
       <if test="uifUsertype != null">
         #{uifUsertype,jdbcType=INTEGER},
@@ -181,11 +172,8 @@
       <if test="record.uifPhone != null">
         uif_Phone = #{record.uifPhone,jdbcType=VARCHAR},
       </if>
-      <if test="record."uifWechatcode
-" != null">
-        "uif_WechatCode
-" = #{record."uifWechatcode
-",jdbcType=VARCHAR},
+      <if test="record.uifWechatcode != null">
+        uif_WeChatCode = #{record.uifWechatcode,jdbcType=VARCHAR},
       </if>
       <if test="record.uifUsertype != null">
         uif_UserType = #{record.uifUsertype,jdbcType=INTEGER},
@@ -201,9 +189,7 @@
       uif_NickName = #{record.uifNickname,jdbcType=VARCHAR},
       uif_Avatar = #{record.uifAvatar,jdbcType=VARCHAR},
       uif_Phone = #{record.uifPhone,jdbcType=VARCHAR},
-      "uif_WechatCode
-" = #{record."uifWechatcode
-",jdbcType=VARCHAR},
+      uif_WeChatCode = #{record.uifWechatcode,jdbcType=VARCHAR},
       uif_UserType = #{record.uifUsertype,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -221,11 +207,8 @@
       <if test="uifPhone != null">
         uif_Phone = #{uifPhone,jdbcType=VARCHAR},
       </if>
-      <if test=""uifWechatcode
-" != null">
-        "uif_WechatCode
-" = #{"uifWechatcode
-",jdbcType=VARCHAR},
+      <if test="uifWechatcode != null">
+        uif_WeChatCode = #{uifWechatcode,jdbcType=VARCHAR},
       </if>
       <if test="uifUsertype != null">
         uif_UserType = #{uifUsertype,jdbcType=INTEGER},
@@ -238,9 +221,7 @@
     set uif_NickName = #{uifNickname,jdbcType=VARCHAR},
       uif_Avatar = #{uifAvatar,jdbcType=VARCHAR},
       uif_Phone = #{uifPhone,jdbcType=VARCHAR},
-      "uif_WechatCode
-" = #{"uifWechatcode
-",jdbcType=VARCHAR},
+      uif_WeChatCode = #{uifWechatcode,jdbcType=VARCHAR},
       uif_UserType = #{uifUsertype,jdbcType=INTEGER}
     where uif_Id = #{uifId,jdbcType=INTEGER}
   </update>
