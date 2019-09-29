@@ -7,7 +7,7 @@ public class Entrydl implements Serializable {
     @ApiModelProperty(value = "条目详情编号")
     private Integer edlId;
 
-    @ApiModelProperty(value = "条目编号,0：长租 0：短租 1：公寓 1：》》》")
+    @ApiModelProperty(value = "条目编号,0：长租 0：短租 1：公寓 1：...")
     private Integer dlId;
 
     @ApiModelProperty(value = "条件内容")
