@@ -43,7 +43,7 @@ public class Entrydl implements Serializable {
         this.edlId = edlId;
         this.dlId = dlId;
         this.edlDetail = edlDetail;
-        //4
+        //0
     }
 
     @Override
