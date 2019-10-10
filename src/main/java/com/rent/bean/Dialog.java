@@ -32,7 +32,7 @@ public class Dialog implements Serializable {
         this.dlId = dlId;
         this.dlEntry = dlEntry;
     }
-
+    //
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
