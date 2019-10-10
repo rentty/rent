@@ -105,6 +105,18 @@ public class Order implements Serializable {
         this.odStatus = odStatus;
     }
 
+    public Order(Integer odId, Date odOrdertime, Integer uifId, Integer hhifId, Date odBooktime, Integer odDuration, Integer hsId, Integer odRent, Integer odStatus) {
+        this.odId = odId;
+        this.odOrdertime = odOrdertime;
+        this.uifId = uifId;
+        this.hhifId = hhifId;
+        this.odBooktime = odBooktime;
+        this.odDuration = odDuration;
+        this.hsId = hsId;
+        this.odRent = odRent;
+        this.odStatus = odStatus;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
