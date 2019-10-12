@@ -38,6 +38,12 @@ public class Favorites implements Serializable {
         this.hsId = hsId;
     }
 
+    public Favorites(Integer fvrId, Integer uifId, Integer hsId) {
+        this.fvrId = fvrId;
+        this.uifId = uifId;
+        this.hsId = hsId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

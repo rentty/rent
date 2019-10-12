@@ -2,6 +2,7 @@ package com.rent.controller;
 
 import com.rent.bean.Dialog;
 import com.rent.bean.Userinfo;
+import com.rent.service.FastDFSClientUtil;
 import com.rent.service.HelloService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,8 +10,13 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -34,6 +40,21 @@ public class HelloController {
         List<Userinfo> userinfos = helloService.selectAll();
 
         return userinfos;
+    }
+    @Autowired
+    FastDFSClientUtil dfsClient;
+    @PostMapping("/upload")
+    public String fdfsUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+
+
+        try {
+            String fileUrl = dfsClient.uploadFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return "index";
     }
 
 }
