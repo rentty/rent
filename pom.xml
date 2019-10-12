@@ -71,6 +71,12 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.7.0</version>
         </dependency>
+        <!--FastDFS分布式文件系统-->
+        <dependency>
+            <groupId>com.github.tobato</groupId>
+            <artifactId>fastdfs-client</artifactId>
+            <version>1.26.2</version>
+        </dependency>
     </dependencies>
 
     <build>
