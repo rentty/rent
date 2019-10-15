@@ -1,19 +1,35 @@
 package com.rent.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradeCancelRequest;
+import com.alipay.api.request.AlipayTradeCloseRequest;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.request.AlipayTradeRefundRequest;
+import com.alipay.api.response.AlipayTradeCancelResponse;
+import com.alipay.api.response.AlipayTradeCloseResponse;
+import com.alipay.api.response.AlipayTradeRefundResponse;
+import com.rent.bean.Order;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Random;
 
 @Controller
 public class PayController {
+
+
 
     private final String APP_ID = "2016092500590169";
     private final String APP_PRIVATE_KEY = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgw"
@@ -43,57 +59,201 @@ public class PayController {
     private final String RETURN_URL = "http://localhost:8080/returnUrl";
 
 
+    AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",APP_ID,APP_PRIVATE_KEY,"json","GBK",ALIPAY_PUBLIC_KEY,"RSA2");
 
+    @ApiOperation(value = "交易支付接口",notes = "PC场景下单并支付")
     @RequestMapping("alipay")
-    public void alipay(HttpServletResponse httpResponse) throws IOException {
+    public void alipay( Order order, HttpServletResponse httpResponse,Model model) throws IOException {
 
         //获取从数据库通过订单编号获取订单详情
+        //判断订单状态是否未支付,是则进入事务逻辑
+        if (order != null && order.getOdStatus() == 0) {
+            //实例化客户端,填入所需参数
+            AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
+            //在公共参数中设置回跳和通知地址
+            request.setReturnUrl(RETURN_URL);
+            request.setNotifyUrl(NOTIFY_URL);
 
+            //商户订单号，商户网站订单系统中唯一订单号，必填
+            //生成随机Id
+            String out_trade_no = "111";
+            //付款金额，必填
+            String total_amount = "2222";
+            //订单名称，必填
+            String subject = "ceshi";
+            //商品描述，可空
+            String body = order.getOdRent()+"";
+            request.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
+                    + "\"total_amount\":\""+ total_amount +"\","
+                    + "\"subject\":\""+ subject +"\","
+                    + "\"body\":\""+ body +"\","
+                    +"\"time_expire\":\"30m\","
+                    + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
+            String form = "";
+            try {
+                form = alipayClient.pageExecute(request).getBody(); // 调用SDK生成表单
 
-        Random r=new Random();
-        //实例化客户端,填入所需参数
-        AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, APP_ID, APP_PRIVATE_KEY, FORMAT, CHARSET, ALIPAY_PUBLIC_KEY, SIGN_TYPE);
-        AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
-        //在公共参数中设置回跳和通知地址
-        request.setReturnUrl(RETURN_URL);
-        request.setNotifyUrl(NOTIFY_URL);
+                System.out.println(alipayClient.pageExecute(request).getParams());
+                System.out.println(alipayClient.pageExecute(request).getSubMsg());
+                System.out.println(alipayClient.pageExecute(request).getSubCode());
+                System.out.println("============================================");
+                System.out.println(alipayClient.pageExecute(request).getMerchantOrderNo());
+                System.out.println(alipayClient.pageExecute(request).getOutTradeNo());
+                System.out.println(alipayClient.pageExecute(request).getSellerId());
+                System.out.println(alipayClient.pageExecute(request).getTradeNo());
 
-        //商户订单号，商户网站订单系统中唯一订单号，必填
-        //生成随机Id
-        String out_trade_no = "353733";
-        //付款金额，必填
-        String total_amount =Integer.toString(r.nextInt(999)+1000);
-        //订单名称，必填
-        String subject ="奥迪A8 2016款 A8L 60 TFSl quattro豪华型";
-        //商品描述，可空
-        String body = "尊敬的会员欢迎购买奥迪A8 2016款 A8L 60 TFSl quattro豪华型";
-        request.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
-                + "\"total_amount\":\""+ total_amount +"\","
-                + "\"subject\":\""+ subject +"\","
-                + "\"body\":\""+ body +"\","
-                + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
-        String form = "";
-        try {
-            form = alipayClient.pageExecute(request).getBody(); // 调用SDK生成表单
-        } catch (AlipayApiException e) {
-            e.printStackTrace();
+                //                JSON ob = (JSON) JSON.parse(form);
+//                model.addAttribute("pay_response_json",ob);//model 添加 pay_response
+            } catch (AlipayApiException e) {
+                e.printStackTrace();
+            }
+            httpResponse.setContentType("text/html;charset=" + CHARSET);
+            httpResponse.getWriter().write(form);// 直接将完整的表单html输出到页面
+            httpResponse.getWriter().flush();
+            httpResponse.getWriter().close();
+        }else {
+            //处理订单已支付过的错误调用
+            System.out.println("something erro");
         }
-        httpResponse.setContentType("text/html;charset=" + CHARSET);
-        httpResponse.getWriter().write(form);// 直接将完整的表单html输出到页面
-        httpResponse.getWriter().flush();
-        httpResponse.getWriter().close();
-    }
-
-
-
-
-    @RequestMapping("notifyUrl")
-    public void niotice(HttpServletResponse httpResponse) throws IOException {
 
     }
 
 
 
+    @ApiOperation(value = "交易关闭接口",notes = "用于交易创建后，用户在一定时间内未进行支付，可调用该接口直" +
+            "接将未付款的交易进行关闭")
+    @RequestMapping("closePay")
+    public void closePay(HttpServletResponse httpResponse) throws Exception {
+        AlipayTradeCloseRequest request = new AlipayTradeCloseRequest();
+
+        //
+        String trade_no = "";
+        //
+        String out_trade_no = "";
+        //
+        String operator_id = "";
+
+        request.setBizContent("{" +
+                "\"trade_no\":\""+trade_no+"\"," +
+                "\"out_trade_no\":\""+out_trade_no+"\"," +
+                "\"operator_id\":\""+operator_id+"\"" +
+                "  }");
+        AlipayTradeCloseResponse response = alipayClient.execute(request);
+        if(response.isSuccess()){
+            System.out.println("调用成功");
+        } else {
+            System.out.println("调用失败");
+        }
+
+    }
+
+    @ApiOperation(value = "交易撤销接口",notes ="支付交易返回失败或支付系统超时，调用该接口撤销交易" )
+    @RequestMapping("cancelPay")
+    public void cancelPay(HttpServletResponse httpResponse, Model model) throws Exception {
+
+
+        String out_trade_no = null;
+        String trade_no = null;
+
+        AlipayTradeCancelRequest request = new AlipayTradeCancelRequest();
+        request.setBizContent("{" +
+                "\"out_trade_no\":\""+out_trade_no+"\"," +
+                "\"trade_no\":\""+trade_no+"\"" +
+                "  }");
+        AlipayTradeCancelResponse response = alipayClient.execute(request);
+        if(response.isSuccess()){
+            System.out.println("调用成功");
+        } else {
+            System.out.println("调用失败");
+        }
+
+    }
+
+
+    @ApiOperation(value = "交易退款接口",notes ="交易发生之后一段时间内，由于买家或者卖家的原因需要退款时卖家" +
+            "可以通过退款接口将支付款退还给买家，支付宝将在收到退款请求并且验证成功之后，按照退款规则将支付款按原路退到买家帐号上" )
+
+    @RequestMapping("refoundPay")
+    public void refoundPay(HttpServletResponse httpResponse, Model model) throws Exception {
+
+
+        //订单支付时传入的商户订单号
+        String out_trade_no = "";
+        //支付宝交易号
+        String trade_no = "";
+        //需要退款的金额，该金额不能大于订单金额
+        String refound_amount = "";
+
+        String refund_currency = "";
+        String refunnd_reason = "";
+        String out_request_no = "";
+        String operator_id = "";
+        String store_id = "";
+        String terminal_id = "";
+        //商品的编号
+        String goods_id = "";
+        String alipay_good_id = "";
+        //商品名称
+        String goods_name = "";
+        //商品数量
+        String quantity = "";
+        //商品单价，单位为元
+        String price = "";
+        String goods_category = "";
+        String categories_tree = "";
+        String body = "";
+        String show_url = "";
+
+        String royalty_type = "";
+        String trans_out = "";
+        String trans_out_type = "";
+        String trans_in_type = "";
+        String trans_in = "";
+        String amount = "";
+        String amount_percentage = "";
+        String desc = "";
+        String org_pid = "";
+        AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+        request.setBizContent("{" +
+                "\"out_trade_no\":\""+out_trade_no+"\"," +
+                "\"trade_no\":\""+trade_no+"\"," +
+                "\"refund_amount\":"+refound_amount+"," +
+                "\"refund_currency\":\""+refund_currency+"\"," +
+                "\"refund_reason\":\""+refunnd_reason+"\"," +
+                "\"out_request_no\":\""+out_request_no+"\"," +
+                "\"operator_id\":\""+operator_id+"\"," +
+                "\"store_id\":\""+store_id+"\"," +
+                "\"terminal_id\":\""+terminal_id+"\"," +
+                "      \"goods_detail\":[{" +
+                "        \"goods_id\":\""+goods_id+"\"," +
+                "\"alipay_goods_id\":\""+alipay_good_id+"\"," +
+                "\"goods_name\":\""+goods_name+"\"," +
+                "\"quantity\":"+quantity+"," +
+                "\"price\":"+price+"," +
+                "\"goods_category\":\""+goods_category+"\"," +
+                "\"categories_tree\":\""+categories_tree+"\"," +
+                "\"body\":\""+body+"\"," +
+                "\"show_url\":\""+show_url+"\"" +
+                "        }]," +
+                "      \"refund_royalty_parameters\":[{" +
+                "        \"royalty_type\":\""+royalty_type+"\"," +
+                "\"trans_out\":\""+trans_out+"\"," +
+                "\"trans_out_type\":\""+trans_out_type+"\"," +
+                "\"trans_in_type\":\""+trans_in_type+"\"," +
+                "\"trans_in\":\""+trans_in+"\"," +
+                "\"amount\":"+amount+"," +
+                "\"amount_percentage\":"+amount_percentage+"," +
+                "\"desc\":\""+desc+"\"" +
+                "        }]," +
+                "\"org_pid\":\""+org_pid+"\"" +
+                "  }");
+        AlipayTradeRefundResponse response = alipayClient.execute(request);
+        if(response.isSuccess()){
+            System.out.println("调用成功");
+        } else {
+            System.out.println("调用失败");
+        }
+    }
 
 }
 

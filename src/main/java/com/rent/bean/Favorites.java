@@ -10,6 +10,7 @@ public class Favorites implements Serializable {
     @ApiModelProperty(value = "用户编号")
     private Integer uifId;
 
+    @ApiModelProperty(value = "收藏房屋编号")
     private Integer hsId;
 
     private static final long serialVersionUID = 1L;
