@@ -151,7 +151,6 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         favoritesMapper.deleteByPrimaryKey(fvr_Id);
         Registy registy = registyMapper.selectByPrimaryKey(id);
 
-
         return registy.getRgtUser();
 
     }

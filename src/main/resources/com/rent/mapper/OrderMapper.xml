@@ -103,7 +103,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rent.bean.Order">
+  <insert id="insert" parameterType="com.rent.bean.Order" useGeneratedKeys="true" keyProperty="odId">
     insert into rent_order (od_Id, od_OrderTime, uif_Id, 
       hhif_Id, od_BookTime, od_duration, 
       hs_Id, od_Rent, od_Status
@@ -113,7 +113,7 @@
       #{hsId,jdbcType=INTEGER}, #{odRent,jdbcType=INTEGER}, #{odStatus,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.rent.bean.Order">
+  <insert id="insertSelective" parameterType="com.rent.bean.Order" useGeneratedKeys="true" keyProperty="odId">
     insert into rent_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="odId != null">

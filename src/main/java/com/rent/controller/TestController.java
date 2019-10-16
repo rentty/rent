@@ -3,6 +3,7 @@ package com.rent.controller;
 import com.rent.bean.*;
 import com.rent.mapper.ExpandMapper;
 import com.rent.service.House_managementService;
+import com.rent.service.OrdermanagementService;
 import com.rent.service.UsermanagementService;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -20,9 +22,10 @@ public class    TestController {
     ExpandMapper expandMapper;
     @GetMapping("/tests")
     @ResponseBody
-    public  List<HouseExpand> tests(String username)
+    public  Date tests(String username)
     {
-        return   expandMapper.getHouseByRgt_Id(16);
+        Date date = new Date();
+        return   date;
 
     }
   @Autowired
@@ -100,15 +103,42 @@ public class    TestController {
         return s;
     }
 
-    @Autowired
-    House_managementService house_managementService;
-/*  @GetMapping("/entryRent_house")
-  @ResponseBody
-  public void entryRent_house(House house,String username)
-  {
-      house_managementService.entryRent_house(house,username);
-  }*/
 
+@Autowired
+OrdermanagementService ordermanagementService;
+    @GetMapping("/EntryOrder")
+    @ResponseBody
+    public String EntryOrder(Order order,String username)
+    {
 
+        ordermanagementService.EntryOrder(order,username);
+        return "ok";
+    }
 
+    @GetMapping("/getAllOrderByUsername")
+    @ResponseBody
+    public String getAllOrderByUsername(String username)
+    {
+
+        String allOrderByUsername = ordermanagementService.getAllOrderByUsername(username);
+        return allOrderByUsername;
+    }
+
+    @GetMapping("/MotifyOrderStatus")
+    @ResponseBody
+    public String MotifyOrderStatus(int od_Status,int od_Id)
+    {
+        String s = ordermanagementService.MotifyOrderStatus(od_Status, od_Id);
+        return s;
+
+    }
+
+    @GetMapping("/deleteOrderByOd_Id")
+    @ResponseBody
+    public String deleteOrderByOd_Id(int od_Id)
+    {
+       ordermanagementService.deleteOrderByOd_Id(od_Id);
+        return "ok";
+
+    }
 }
