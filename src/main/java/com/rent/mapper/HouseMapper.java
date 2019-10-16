@@ -2,8 +2,9 @@ package com.rent.mapper;
 
 import com.rent.bean.House;
 import com.rent.bean.HouseExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface HouseMapper {
     int countByExample(HouseExample example);

@@ -8,23 +8,29 @@ import java.util.List;
 
 public interface House_managementService {
     /**
-     *   录入房屋基本信息表,为rent_housedl、rent_rentalInfo创建一条记录，主键一样,在rent_rentalInfo绑定户主编号
+     *   录入房屋信息表(三表)，三表主键一样,在rent_rentalInfo绑定户主编号
      * @param house 审核状态默认0,hs_Id是自增
-     * @param hhif_Id 户主编号
+     * @param housedl hs_Id
+     * @param  rentalinfo hs_Id
+     * @param username ExpandMapper获取用户id
      */
-    public void entryRent_house(House house,String hhif_Id);
-
+    public void entryHouse(House house,Housedl housedl,Rentalinfo rentalinfo,String username);
     /**
-     *  修改房屋详情----------------------初始有默认值,这里添加与修改通用
-     * @param housedl  id与房屋基本信息表id一致
+     *  获取该用户的所有房屋信息
+     * @param username
+     * @return json
      */
-    public void  modifyRent_housedl(Housedl housedl);
+    public  String getAllHouseByUsername(String username);
+
 
     /**
      *
-     * @param rentalinfo id与房屋基本信息表id一致
+     * @param house
+     * @param housedl
+     * @param rentalinfo
+     * @param username ExpandMapper获取用户id
      */
-   public void modifyRent_rentalInfo(Rentalinfo rentalinfo);
+    public void  modifyHouse(House house,Housedl housedl,Rentalinfo rentalinfo,String username);
 
     /**
      *  删除房屋信息表、详情、出租
@@ -32,12 +38,6 @@ public interface House_managementService {
      */
    public void deleteHouse(String hs_Id);
 
-    /**
-     *  获取房屋信息
-     * @param hs_Id
-     * @return json
-     */
-   public  String getHouseByHs_Id(int hs_Id);
 
 
 

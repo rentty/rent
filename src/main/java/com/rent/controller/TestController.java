@@ -1,10 +1,8 @@
 package com.rent.controller;
 
-import com.rent.bean.House;
-import com.rent.bean.Householdinfo;
-import com.rent.bean.Registy;
-import com.rent.bean.Userinfo;
+import com.rent.bean.*;
 import com.rent.mapper.ExpandMapper;
+import com.rent.service.House_managementService;
 import com.rent.service.UsermanagementService;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
@@ -22,10 +20,9 @@ public class    TestController {
     ExpandMapper expandMapper;
     @GetMapping("/tests")
     @ResponseBody
-    public List<House> tests(String username)
+    public  List<HouseExpand> tests(String username)
     {
-
-        return  expandMapper.selectAllFavoritesByUif_Id(16);
+        return   expandMapper.getHouseByRgt_Id(16);
 
     }
   @Autowired
@@ -102,6 +99,15 @@ public class    TestController {
 
         return s;
     }
+
+    @Autowired
+    House_managementService house_managementService;
+/*  @GetMapping("/entryRent_house")
+  @ResponseBody
+  public void entryRent_house(House house,String username)
+  {
+      house_managementService.entryRent_house(house,username);
+  }*/
 
 
 

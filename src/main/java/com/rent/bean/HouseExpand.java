@@ -1,10 +1,23 @@
 package com.rent.bean;
 
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
+
 import java.util.Date;
 
-public class Rentalinfo implements Serializable {
+public class HouseExpand extends House{
+    private Integer hsdId;
+
+    @ApiModelProperty(value = "室内图地址，图片服务器上的地址")
+    private String hsdIdoormaddr;
+
+    @ApiModelProperty(value = "户型图地址，图片服务器上的地址")
+    private String hsdFloorpaddr;
+
+    @ApiModelProperty(value = "环境图地址，图片服务器上的地址")
+    private String hsdConditionmaddr;
+
+    @ApiModelProperty(value = "房屋设施描述，每个位置代表一件事物，为0表示不存在，为1存在")
+    private String hsdFacilityDesc;
     private Integer rtlfId;
 
     @ApiModelProperty(value = "租金")
@@ -25,7 +38,45 @@ public class Rentalinfo implements Serializable {
     @ApiModelProperty(value = "日历")
     private String rtlfCalendar;
 
-    private static final long serialVersionUID = 1L;
+    public Integer getHsdId() {
+        return hsdId;
+    }
+
+    public void setHsdId(Integer hsdId) {
+        this.hsdId = hsdId;
+    }
+
+    public String getHsdIdoormaddr() {
+        return hsdIdoormaddr;
+    }
+
+    public void setHsdIdoormaddr(String hsdIdoormaddr) {
+        this.hsdIdoormaddr = hsdIdoormaddr;
+    }
+
+    public String getHsdFloorpaddr() {
+        return hsdFloorpaddr;
+    }
+
+    public void setHsdFloorpaddr(String hsdFloorpaddr) {
+        this.hsdFloorpaddr = hsdFloorpaddr;
+    }
+
+    public String getHsdConditionmaddr() {
+        return hsdConditionmaddr;
+    }
+
+    public void setHsdConditionmaddr(String hsdConditionmaddr) {
+        this.hsdConditionmaddr = hsdConditionmaddr;
+    }
+
+    public String getHsdFacilityDesc() {
+        return hsdFacilityDesc;
+    }
+
+    public void setHsdFacilityDesc(String hsdFacilityDesc) {
+        this.hsdFacilityDesc = hsdFacilityDesc;
+    }
 
     public Integer getRtlfId() {
         return rtlfId;
@@ -81,36 +132,5 @@ public class Rentalinfo implements Serializable {
 
     public void setRtlfCalendar(String rtlfCalendar) {
         this.rtlfCalendar = rtlfCalendar;
-    }
-
-    public Rentalinfo(Integer rtlfId, Integer rtlfRent, Date rtlfReleasetime, Integer rtlfRentaltype, Integer rtlfHhid, String rtlfRequest, String rtlfCalendar) {
-        this.rtlfId = rtlfId;
-        this.rtlfRent = rtlfRent;
-        this.rtlfReleasetime = rtlfReleasetime;
-        this.rtlfRentaltype = rtlfRentaltype;
-        this.rtlfHhid = rtlfHhid;
-        this.rtlfRequest = rtlfRequest;
-        this.rtlfCalendar = rtlfCalendar;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", rtlfId=").append(rtlfId);
-        sb.append(", rtlfRent=").append(rtlfRent);
-        sb.append(", rtlfReleasetime=").append(rtlfReleasetime);
-        sb.append(", rtlfRentaltype=").append(rtlfRentaltype);
-        sb.append(", rtlfHhid=").append(rtlfHhid);
-        sb.append(", rtlfRequest=").append(rtlfRequest);
-        sb.append(", rtlfCalendar=").append(rtlfCalendar);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
-
-    public Rentalinfo() {
     }
 }

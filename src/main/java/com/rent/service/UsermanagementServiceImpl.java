@@ -144,7 +144,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     @Override
 
-    @CacheEvict(key="#result")
+    @CacheEvict(key="#result",value = "Favorites")
     public String deleteFavoritesByFvr_Id(int fvr_Id) {
         int id=0;
         id=favoritesMapper.selectByPrimaryKey(fvr_Id).getUifId();
