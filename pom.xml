@@ -101,8 +101,60 @@
             <artifactId>gson</artifactId>
         </dependency>
 
-    </dependencies>
 
+
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <!--支付宝SDK-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.5.0.ALL</version>
+        </dependency>
+        <!--不用写get和set方法的辅助依赖，可以根据需要选择不添加，那就要手动添加get()和set()方法-->
+        <!--若仅添加依赖还是报错，需要在File-settings-Plugins中搜索添加，也可百度详细安装方式-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--FastDFS分布式文件系统-->
+       <!-- 图片服务器-->
+        <dependency>
+            <groupId>com.github.tobato</groupId>
+            <artifactId>fastdfs-client</artifactId>
+            <version>1.26.2</version>
+        </dependency>
+
+        <!--redis作为缓存-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!--spring2.0集成redis所需common-pool2-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+        <!--fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
