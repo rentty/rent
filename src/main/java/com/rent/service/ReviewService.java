@@ -17,5 +17,5 @@ public interface ReviewService {
      * 评论信息录入
      * @param review
      */
-    public void review(Review review);
+    public void review(Review review,String username);
 }

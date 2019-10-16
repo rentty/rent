@@ -4,6 +4,7 @@ import com.rent.bean.*;
 import com.rent.mapper.ExpandMapper;
 import com.rent.service.House_managementService;
 import com.rent.service.OrdermanagementService;
+import com.rent.service.ReviewService;
 import com.rent.service.UsermanagementService;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
@@ -141,4 +142,23 @@ OrdermanagementService ordermanagementService;
         return "ok";
 
     }
+    @Autowired
+    ReviewService reviewService;
+    @GetMapping("/review")
+    @ResponseBody
+    public String review(Review review,String username)
+    {
+        reviewService.review(review,username);
+        return "ok";
+
+    }
+    @GetMapping("/getAllReviewByHs_Id")
+    @ResponseBody
+    public String getAllReviewByHs_Id(int hs_Id)
+    {
+        String allReviewByHs_id = reviewService.getAllReviewByHs_Id(hs_Id);
+        return allReviewByHs_id;
+
+    }
+
 }
