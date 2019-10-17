@@ -89,6 +89,9 @@ public class Userinfo implements Serializable {
         return sb.toString();
     }
 
+    public Userinfo() {
+    }
+
     public Userinfo(Integer uifId, String uifNickname, String uifAvatar, String uifPhone, String uifWechatcode, Integer uifUsertype) {
         this.uifId = uifId;
         this.uifNickname = uifNickname;

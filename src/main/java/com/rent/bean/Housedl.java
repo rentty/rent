@@ -76,6 +76,9 @@ public class Housedl implements Serializable {
         return sb.toString();
     }
 
+    public Housedl() {
+    }
+
     public Housedl(Integer hsdId, String hsdIdoormaddr, String hsdFloorpaddr, String hsdConditionmaddr, String hsdFacilityDesc) {
         this.hsdId = hsdId;
         this.hsdIdoormaddr = hsdIdoormaddr;

@@ -41,6 +41,9 @@ public class Dialog implements Serializable {
         return sb.toString();
     }
 
+    public Dialog() {
+    }
+
     public Dialog(Integer dlId, String dlEntry) {
         this.dlId = dlId;
         this.dlEntry = dlEntry;
