@@ -83,16 +83,6 @@ public class Review implements Serializable {
         this.rvPicurl = rvPicurl;
     }
 
-    public Review(Integer rvId, Integer rgtId, Integer hsId, Integer rvServiceRat, Integer rvFacilityRat, String rvReview, String rvPicurl) {
-        this.rvId = rvId;
-        this.rgtId = rgtId;
-        this.hsId = hsId;
-        this.rvServiceRat = rvServiceRat;
-        this.rvFacilityRat = rvFacilityRat;
-        this.rvReview = rvReview;
-        this.rvPicurl = rvPicurl;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
