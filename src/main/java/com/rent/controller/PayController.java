@@ -76,11 +76,11 @@ public class PayController {
 
             //商户订单号，商户网站订单系统中唯一订单号，必填
             //生成随机Id
-            String out_trade_no = "111";
+            String out_trade_no = order.getOdId()+"";
             //付款金额，必填
-            String total_amount = "2222";
+            String total_amount = order.getOdRent()+"";
             //订单名称，必填
-            String subject = "ceshi";
+            String subject = order.getHhifId()+"_"+order.getHsId()+"";
             //商品描述，可空
             String body = order.getOdRent()+"";
             request.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
@@ -91,19 +91,26 @@ public class PayController {
                     + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
             String form = "";
             try {
+                /**
+                 *         "code": "10000",
+                 *         "msg": "Success",
+                 *         "trade_no": "2013112011001004330000121536",
+                 *         "out_trade_no": "6823789339978248",
+                 *         "seller_id": "2088111111116894",
+                 *         "total_amount": 128,
+                 *         "merchant_order_no": "20161008001"
+                 */
                 form = alipayClient.pageExecute(request).getBody(); // 调用SDK生成表单
 
-                System.out.println(alipayClient.pageExecute(request).getParams());
-                System.out.println(alipayClient.pageExecute(request).getSubMsg());
-                System.out.println(alipayClient.pageExecute(request).getSubCode());
-                System.out.println("============================================");
-                System.out.println(alipayClient.pageExecute(request).getMerchantOrderNo());
+                System.out.println(alipayClient.pageExecute(request).getCode());
+                System.out.println(alipayClient.pageExecute(request).getMsg());
+                System.out.println(alipayClient.pageExecute(request).getTradeNo());
                 System.out.println(alipayClient.pageExecute(request).getOutTradeNo());
                 System.out.println(alipayClient.pageExecute(request).getSellerId());
-                System.out.println(alipayClient.pageExecute(request).getTradeNo());
+                System.out.println(alipayClient.pageExecute(request).getTotalAmount());
+                System.out.println(alipayClient.pageExecute(request).getMerchantOrderNo());
 
-                //                JSON ob = (JSON) JSON.parse(form);
-//                model.addAttribute("pay_response_json",ob);//model 添加 pay_response
+
             } catch (AlipayApiException e) {
                 e.printStackTrace();
             }
@@ -111,6 +118,7 @@ public class PayController {
             httpResponse.getWriter().write(form);// 直接将完整的表单html输出到页面
             httpResponse.getWriter().flush();
             httpResponse.getWriter().close();
+
         }else {
             //处理订单已支付过的错误调用
             System.out.println("something erro");
