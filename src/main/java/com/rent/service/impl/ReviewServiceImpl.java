@@ -35,4 +35,16 @@ public class ReviewServiceImpl implements ReviewService {
         reviewMapper.insertSelective(review);
 
     }
+
+    @Override
+    public List<Review> findAllReview() {
+
+        return reviewMapper.selectByExample(null);
+    }
+
+    @Override
+    public int deleteReview(int id) {
+
+        return reviewMapper.deleteByPrimaryKey(id);
+    }
 }

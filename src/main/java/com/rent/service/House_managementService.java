@@ -38,9 +38,30 @@ public interface House_managementService {
      */
    public void deleteHouse(String hs_Id);
 
+    /**
+     *  查询所有的房屋基本信息
+     */
+    public List<House> findAllHouse();
 
+    /**
+     *  查询所有的房屋详细信息
+     */
+    public List<Housedl> findAllHousedl();
 
+    /**
+     *  根据审核状态查询房屋基本信息
+     */
+    public List<House> findAllHouseByStatus(int status);
 
+    /**
+     *  更改房屋审核状态
+     */
+    public int changeStatus(int id,int status);
+
+    /**
+     *  查询所有的出租信息
+     */
+    public List<Rentalinfo> findAllRentalinfo();
 
 
 }

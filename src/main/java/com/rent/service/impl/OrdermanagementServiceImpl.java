@@ -17,6 +17,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @CacheConfig(cacheNames = "OrdermanagementService",cacheManager = "cacheManager")
@@ -80,5 +81,11 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
 
         return registy.getRgtUser();
 
+    }
+
+    @Override
+    public List<Order> findAllOrder() {
+
+        return orderMapper.selectByExample(null);
     }
 }

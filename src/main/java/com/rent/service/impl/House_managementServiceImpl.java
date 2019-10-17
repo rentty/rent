@@ -1,9 +1,6 @@
 package com.rent.service.impl;
 
-import com.rent.bean.House;
-import com.rent.bean.HouseExpand;
-import com.rent.bean.Housedl;
-import com.rent.bean.Rentalinfo;
+import com.rent.bean.*;
 import com.rent.mapper.ExpandMapper;
 import com.rent.mapper.HouseMapper;
 import com.rent.mapper.HousedlMapper;
@@ -20,6 +17,17 @@ import java.util.List;
 public class House_managementServiceImpl implements House_managementService {
   @Autowired
   ExpandMapper expandMapper;
+
+  @Autowired
+  HouseMapper houseMapper;
+
+  @Autowired
+  HousedlMapper housedlMapper;
+
+  @Autowired
+  RentalinfoMapper rentalinfoMapper;
+
+  HouseExample houseExample = new HouseExample();
 /*    @Override
     public void entryRent_house(House house, String username) {
     int id=0;
@@ -57,5 +65,36 @@ public class House_managementServiceImpl implements House_managementService {
     @Override
     public void deleteHouse(String hs_Id) {
 
+    }
+
+    @Override
+    public List<House> findAllHouse() {
+
+        return houseMapper.selectByExample(null);
+    }
+
+    @Override
+    public List<Housedl> findAllHousedl() {
+        return housedlMapper.selectByExample(null);
+    }
+
+    @Override
+    public List<House> findAllHouseByStatus(int status) {
+        HouseExample.Criteria criteria = houseExample.createCriteria();
+        criteria.andHsStatusEqualTo(status);
+        return houseMapper.selectByExample(houseExample);
+    }
+
+    @Override
+    public int changeStatus(int id, int status) {
+        House house = new House();
+        house.setHsId(id);
+        house.setHsStatus(status);
+        return houseMapper.updateByPrimaryKeySelective(house);
+    }
+
+    @Override
+    public List<Rentalinfo> findAllRentalinfo() {
+        return rentalinfoMapper.selectByExample(null);
     }
 }

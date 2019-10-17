@@ -102,7 +102,19 @@ public interface UsermanagementService {
 
     public String  deleteFavoritesByFvr_Id(int fvr_Id);
 
+    /**
+     * 获取所有用户信息
+     * @return List<Userinfo>
+     */
 
+    public List<Userinfo>  findAllUserinfo();
+
+    /**
+     * 获取所有户主信息
+     * @return List<Householdinfo>
+     */
+
+    public List<Householdinfo>  findAllHouseholdinfo();
 
 }
 

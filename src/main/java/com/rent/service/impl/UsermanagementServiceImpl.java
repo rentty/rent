@@ -157,4 +157,15 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     }
 
+    @Override
+    public List<Userinfo> findAllUserinfo() {
+        return userinfoMapper.selectByExample(null);
+    }
+
+    @Override
+    public List<Householdinfo> findAllHouseholdinfo() {
+
+        return householdinfoMapper.selectByExample(null);
+    }
+
 }

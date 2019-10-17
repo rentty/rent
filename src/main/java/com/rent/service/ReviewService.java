@@ -18,4 +18,14 @@ public interface ReviewService {
      * @param review
      */
     public void review(Review review,String username);
+
+    /**
+     * 获取所有评论信息
+     */
+    public List<Review> findAllReview();
+
+    /**
+     * 删除评论信息
+     */
+    public int deleteReview(int id);
 }
