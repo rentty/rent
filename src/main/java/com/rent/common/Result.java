@@ -43,6 +43,22 @@ public class Result {
         return r;
     }
 
+    public static Result loginfail(){
+        Result r = new Result();
+        r.setSuccess(ResultCode.LOGIN_FAIL.getSuccess());
+        r.setCode(ResultCode.LOGIN_FAIL.getCode());
+        r.setMessage(ResultCode.LOGIN_FAIL.getMessage());
+        return r;
+    }
+
+    public static Result notadmin(){
+        Result r = new Result();
+        r.setSuccess(ResultCode.NOT_A_ADMIN.getSuccess());
+        r.setCode(ResultCode.NOT_A_ADMIN.getCode());
+        r.setMessage(ResultCode.NOT_A_ADMIN.getMessage());
+        return r;
+    }
+
     public static Result setResult(ResultCode resultCode){
         Result r = new Result();
         r.setSuccess(resultCode.getSuccess());
