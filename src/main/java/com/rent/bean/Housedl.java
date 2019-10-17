@@ -83,4 +83,7 @@ public class Housedl implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Housedl() {
+    }
 }

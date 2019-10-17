@@ -1,6 +1,8 @@
 package com.rent.bean;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,14 +11,17 @@ public class Order implements Serializable {
     private Integer odId;
 
     @ApiModelProperty(value = "下单时间")
+    @DateTimeFormat(pattern = "yyyy.MM.dd")//前台传递字符串日期,后台为Date
     private Date odOrdertime;
 
     @ApiModelProperty(value = "用户编号")
     private Integer uifId;
 
+    @ApiModelProperty(value = "房东编号")
     private Integer hhifId;
 
     @ApiModelProperty(value = "预定时间")
+    @DateTimeFormat(pattern = "yyyy.MM.dd")
     private Date odBooktime;
 
     @ApiModelProperty(value = "租期时长,单位为 /天")
@@ -135,5 +140,8 @@ public class Order implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Order() {
     }
 }

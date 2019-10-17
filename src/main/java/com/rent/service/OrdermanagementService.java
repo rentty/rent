@@ -8,25 +8,28 @@ public interface OrdermanagementService {
     /**
      * 订单录入
      * @param order
+     * @param username 获取用户id
+     *
      */
-    public void EntryOrder(Order order);
+    public void EntryOrder(Order order,String username);
 
     /**
      * 修改订单状态
      * @param od_Status
+     * @param od_Id 订单编号
      */
-    public void MotifyOrderStatus(int od_Status);
+    public String MotifyOrderStatus(int od_Status,int od_Id);
 
     /**
      * 查找用户所有订单--------------将list也装换json?????????????-------------------------------------------
-     * @param uif_Id
+     * @param username 获取用户编号
      * @return json-----List
      */
-    public String getAllOrderByUif_Id(int uif_Id);
+    public String getAllOrderByUsername(String username);
 
     /**
      * 删除订单
      * @param od_Id
      */
-    public void deleteOrderByOd_Id(int od_Id);
+    public String deleteOrderByOd_Id(int od_Id);
 }

@@ -18,6 +18,9 @@ mybatis:
   mapper-locations:
     - classpath:mapper/*.xml
     - classpath*:com/rent/mapper/*.xml
+
+
+
 # 分布式文件系统FDFS配置
 fdfs:
   soTimeout: 1500 #socket连接超时时长
