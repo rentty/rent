@@ -141,4 +141,7 @@ public class Order implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Order() {
+    }
 }
