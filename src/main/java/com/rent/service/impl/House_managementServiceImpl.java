@@ -1,4 +1,4 @@
-package com.rent.service;
+package com.rent.service.impl;
 
 import com.rent.bean.House;
 import com.rent.bean.HouseExpand;
@@ -8,6 +8,8 @@ import com.rent.mapper.ExpandMapper;
 import com.rent.mapper.HouseMapper;
 import com.rent.mapper.HousedlMapper;
 import com.rent.mapper.RentalinfoMapper;
+import com.rent.service.House_managementService;
+import com.rent.service.JSonPool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
