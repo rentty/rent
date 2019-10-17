@@ -83,16 +83,6 @@ public class Rentalinfo implements Serializable {
         this.rtlfCalendar = rtlfCalendar;
     }
 
-    public Rentalinfo(Integer rtlfId, Integer rtlfRent, Date rtlfReleasetime, Integer rtlfRentaltype, Integer rtlfHhid, String rtlfRequest, String rtlfCalendar) {
-        this.rtlfId = rtlfId;
-        this.rtlfRent = rtlfRent;
-        this.rtlfReleasetime = rtlfReleasetime;
-        this.rtlfRentaltype = rtlfRentaltype;
-        this.rtlfHhid = rtlfHhid;
-        this.rtlfRequest = rtlfRequest;
-        this.rtlfCalendar = rtlfCalendar;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -109,8 +99,5 @@ public class Rentalinfo implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
-    }
-
-    public Rentalinfo() {
     }
 }

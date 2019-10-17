@@ -294,213 +294,73 @@ public class HouseExample {
             return (Criteria) this;
         }
 
-        public Criteria andHsCityIsNull() {
-            addCriterion("hs_City is null");
+        public Criteria andHsRegionIsNull() {
+            addCriterion("hs_Region is null");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityIsNotNull() {
-            addCriterion("hs_City is not null");
+        public Criteria andHsRegionIsNotNull() {
+            addCriterion("hs_Region is not null");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityEqualTo(String value) {
-            addCriterion("hs_City =", value, "hsCity");
+        public Criteria andHsRegionEqualTo(String value) {
+            addCriterion("hs_Region =", value, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityNotEqualTo(String value) {
-            addCriterion("hs_City <>", value, "hsCity");
+        public Criteria andHsRegionNotEqualTo(String value) {
+            addCriterion("hs_Region <>", value, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityGreaterThan(String value) {
-            addCriterion("hs_City >", value, "hsCity");
+        public Criteria andHsRegionGreaterThan(String value) {
+            addCriterion("hs_Region >", value, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityGreaterThanOrEqualTo(String value) {
-            addCriterion("hs_City >=", value, "hsCity");
+        public Criteria andHsRegionGreaterThanOrEqualTo(String value) {
+            addCriterion("hs_Region >=", value, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityLessThan(String value) {
-            addCriterion("hs_City <", value, "hsCity");
+        public Criteria andHsRegionLessThan(String value) {
+            addCriterion("hs_Region <", value, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityLessThanOrEqualTo(String value) {
-            addCriterion("hs_City <=", value, "hsCity");
+        public Criteria andHsRegionLessThanOrEqualTo(String value) {
+            addCriterion("hs_Region <=", value, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityLike(String value) {
-            addCriterion("hs_City like", value, "hsCity");
+        public Criteria andHsRegionLike(String value) {
+            addCriterion("hs_Region like", value, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityNotLike(String value) {
-            addCriterion("hs_City not like", value, "hsCity");
+        public Criteria andHsRegionNotLike(String value) {
+            addCriterion("hs_Region not like", value, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityIn(List<String> values) {
-            addCriterion("hs_City in", values, "hsCity");
+        public Criteria andHsRegionIn(List<String> values) {
+            addCriterion("hs_Region in", values, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityNotIn(List<String> values) {
-            addCriterion("hs_City not in", values, "hsCity");
+        public Criteria andHsRegionNotIn(List<String> values) {
+            addCriterion("hs_Region not in", values, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityBetween(String value1, String value2) {
-            addCriterion("hs_City between", value1, value2, "hsCity");
+        public Criteria andHsRegionBetween(String value1, String value2) {
+            addCriterion("hs_Region between", value1, value2, "hsRegion");
             return (Criteria) this;
         }
 
-        public Criteria andHsCityNotBetween(String value1, String value2) {
-            addCriterion("hs_City not between", value1, value2, "hsCity");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictIsNull() {
-            addCriterion("hs_District is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictIsNotNull() {
-            addCriterion("hs_District is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictEqualTo(String value) {
-            addCriterion("hs_District =", value, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictNotEqualTo(String value) {
-            addCriterion("hs_District <>", value, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictGreaterThan(String value) {
-            addCriterion("hs_District >", value, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictGreaterThanOrEqualTo(String value) {
-            addCriterion("hs_District >=", value, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictLessThan(String value) {
-            addCriterion("hs_District <", value, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictLessThanOrEqualTo(String value) {
-            addCriterion("hs_District <=", value, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictLike(String value) {
-            addCriterion("hs_District like", value, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictNotLike(String value) {
-            addCriterion("hs_District not like", value, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictIn(List<String> values) {
-            addCriterion("hs_District in", values, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictNotIn(List<String> values) {
-            addCriterion("hs_District not in", values, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictBetween(String value1, String value2) {
-            addCriterion("hs_District between", value1, value2, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsDistrictNotBetween(String value1, String value2) {
-            addCriterion("hs_District not between", value1, value2, "hsDistrict");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateIsNull() {
-            addCriterion("hs_HousingEstate is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateIsNotNull() {
-            addCriterion("hs_HousingEstate is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateEqualTo(String value) {
-            addCriterion("hs_HousingEstate =", value, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateNotEqualTo(String value) {
-            addCriterion("hs_HousingEstate <>", value, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateGreaterThan(String value) {
-            addCriterion("hs_HousingEstate >", value, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateGreaterThanOrEqualTo(String value) {
-            addCriterion("hs_HousingEstate >=", value, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateLessThan(String value) {
-            addCriterion("hs_HousingEstate <", value, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateLessThanOrEqualTo(String value) {
-            addCriterion("hs_HousingEstate <=", value, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateLike(String value) {
-            addCriterion("hs_HousingEstate like", value, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateNotLike(String value) {
-            addCriterion("hs_HousingEstate not like", value, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateIn(List<String> values) {
-            addCriterion("hs_HousingEstate in", values, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateNotIn(List<String> values) {
-            addCriterion("hs_HousingEstate not in", values, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateBetween(String value1, String value2) {
-            addCriterion("hs_HousingEstate between", value1, value2, "hsHousingestate");
-            return (Criteria) this;
-        }
-
-        public Criteria andHsHousingestateNotBetween(String value1, String value2) {
-            addCriterion("hs_HousingEstate not between", value1, value2, "hsHousingestate");
+        public Criteria andHsRegionNotBetween(String value1, String value2) {
+            addCriterion("hs_Region not between", value1, value2, "hsRegion");
             return (Criteria) this;
         }
 

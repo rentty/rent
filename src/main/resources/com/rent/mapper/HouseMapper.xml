@@ -5,6 +5,293 @@
     <id column="hs_Id" jdbcType="INTEGER" property="hsId" />
     <result column="hs_Type" jdbcType="VARCHAR" property="hsType" />
     <result column="hs_Area" jdbcType="INTEGER" property="hsArea" />
+    <result column="hs_Region" jdbcType="VARCHAR" property="hsRegion" />
+    <result column="hs_Address" jdbcType="VARCHAR" property="hsAddress" />
+    <result column="hs_Layer" jdbcType="INTEGER" property="hsLayer" />
+    <result column="hs_Oriented" jdbcType="VARCHAR" property="hsOriented" />
+    <result column="hs_Longitude" jdbcType="DOUBLE" property="hsLongitude" />
+    <result column="hs_Latitude" jdbcType="DOUBLE" property="hsLatitude" />
+    <result column="hs_Status" jdbcType="INTEGER" property="hsStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    hs_Id, hs_Type, hs_Area, hs_Region, hs_Address, hs_Layer, hs_Oriented, hs_Longitude, 
+    hs_Latitude, hs_Status
+  </sql>
+  <select id="selectByExample" parameterType="com.rent.bean.HouseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rent_house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rent_house
+    where hs_Id = #{hsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rent_house
+    where hs_Id = #{hsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rent.bean.HouseExample">
+    delete from rent_house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rent.bean.House">
+    insert into rent_house (hs_Id, hs_Type, hs_Area, 
+      hs_Region, hs_Address, hs_Layer, 
+      hs_Oriented, hs_Longitude, hs_Latitude, 
+      hs_Status)
+    values (#{hsId,jdbcType=INTEGER}, #{hsType,jdbcType=VARCHAR}, #{hsArea,jdbcType=INTEGER}, 
+      #{hsRegion,jdbcType=VARCHAR}, #{hsAddress,jdbcType=VARCHAR}, #{hsLayer,jdbcType=INTEGER}, 
+      #{hsOriented,jdbcType=VARCHAR}, #{hsLongitude,jdbcType=DOUBLE}, #{hsLatitude,jdbcType=DOUBLE}, 
+      #{hsStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rent.bean.House">
+    insert into rent_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hsId != null">
+        hs_Id,
+      </if>
+      <if test="hsType != null">
+        hs_Type,
+      </if>
+      <if test="hsArea != null">
+        hs_Area,
+      </if>
+      <if test="hsRegion != null">
+        hs_Region,
+      </if>
+      <if test="hsAddress != null">
+        hs_Address,
+      </if>
+      <if test="hsLayer != null">
+        hs_Layer,
+      </if>
+      <if test="hsOriented != null">
+        hs_Oriented,
+      </if>
+      <if test="hsLongitude != null">
+        hs_Longitude,
+      </if>
+      <if test="hsLatitude != null">
+        hs_Latitude,
+      </if>
+      <if test="hsStatus != null">
+        hs_Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hsId != null">
+        #{hsId,jdbcType=INTEGER},
+      </if>
+      <if test="hsType != null">
+        #{hsType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsArea != null">
+        #{hsArea,jdbcType=INTEGER},
+      </if>
+      <if test="hsRegion != null">
+        #{hsRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddress != null">
+        #{hsAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hsLayer != null">
+        #{hsLayer,jdbcType=INTEGER},
+      </if>
+      <if test="hsOriented != null">
+        #{hsOriented,jdbcType=VARCHAR},
+      </if>
+      <if test="hsLongitude != null">
+        #{hsLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="hsLatitude != null">
+        #{hsLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="hsStatus != null">
+        #{hsStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rent.bean.HouseExample" resultType="java.lang.Integer">
+    select count(*) from rent_house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update rent_house
+    <set>
+      <if test="record.hsId != null">
+        hs_Id = #{record.hsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hsType != null">
+        hs_Type = #{record.hsType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsArea != null">
+        hs_Area = #{record.hsArea,jdbcType=INTEGER},
+      </if>
+      <if test="record.hsRegion != null">
+        hs_Region = #{record.hsRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsAddress != null">
+        hs_Address = #{record.hsAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsLayer != null">
+        hs_Layer = #{record.hsLayer,jdbcType=INTEGER},
+      </if>
+      <if test="record.hsOriented != null">
+        hs_Oriented = #{record.hsOriented,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsLongitude != null">
+        hs_Longitude = #{record.hsLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.hsLatitude != null">
+        hs_Latitude = #{record.hsLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.hsStatus != null">
+        hs_Status = #{record.hsStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update rent_house
+    set hs_Id = #{record.hsId,jdbcType=INTEGER},
+      hs_Type = #{record.hsType,jdbcType=VARCHAR},
+      hs_Area = #{record.hsArea,jdbcType=INTEGER},
+      hs_Region = #{record.hsRegion,jdbcType=VARCHAR},
+      hs_Address = #{record.hsAddress,jdbcType=VARCHAR},
+      hs_Layer = #{record.hsLayer,jdbcType=INTEGER},
+      hs_Oriented = #{record.hsOriented,jdbcType=VARCHAR},
+      hs_Longitude = #{record.hsLongitude,jdbcType=DOUBLE},
+      hs_Latitude = #{record.hsLatitude,jdbcType=DOUBLE},
+      hs_Status = #{record.hsStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rent.bean.House">
+    update rent_house
+    <set>
+      <if test="hsType != null">
+        hs_Type = #{hsType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsArea != null">
+        hs_Area = #{hsArea,jdbcType=INTEGER},
+      </if>
+      <if test="hsRegion != null">
+        hs_Region = #{hsRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddress != null">
+        hs_Address = #{hsAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hsLayer != null">
+        hs_Layer = #{hsLayer,jdbcType=INTEGER},
+      </if>
+      <if test="hsOriented != null">
+        hs_Oriented = #{hsOriented,jdbcType=VARCHAR},
+      </if>
+      <if test="hsLongitude != null">
+        hs_Longitude = #{hsLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="hsLatitude != null">
+        hs_Latitude = #{hsLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="hsStatus != null">
+        hs_Status = #{hsStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where hs_Id = #{hsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rent.bean.House">
+    update rent_house
+    set hs_Type = #{hsType,jdbcType=VARCHAR},
+      hs_Area = #{hsArea,jdbcType=INTEGER},
+      hs_Region = #{hsRegion,jdbcType=VARCHAR},
+      hs_Address = #{hsAddress,jdbcType=VARCHAR},
+      hs_Layer = #{hsLayer,jdbcType=INTEGER},
+      hs_Oriented = #{hsOriented,jdbcType=VARCHAR},
+      hs_Longitude = #{hsLongitude,jdbcType=DOUBLE},
+      hs_Latitude = #{hsLatitude,jdbcType=DOUBLE},
+      hs_Status = #{hsStatus,jdbcType=INTEGER}
+    where hs_Id = #{hsId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.rent.bean.House">
+    <id column="hs_Id" jdbcType="INTEGER" property="hsId" />
+    <result column="hs_Type" jdbcType="VARCHAR" property="hsType" />
+    <result column="hs_Area" jdbcType="INTEGER" property="hsArea" />
     <result column="hs_City" jdbcType="VARCHAR" property="hsCity" />
     <result column="hs_District" jdbcType="VARCHAR" property="hsDistrict" />
     <result column="hs_HousingEstate" jdbcType="VARCHAR" property="hsHousingestate" />
@@ -107,7 +394,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rent.bean.House" useGeneratedKeys="true" keyProperty="hsId">
+  <insert id="insert" keyProperty="hsId" parameterType="com.rent.bean.House" useGeneratedKeys="true">
     insert into rent_house (hs_Id, hs_Type, hs_Area, 
       hs_City, hs_District, hs_HousingEstate, 
       hs_Address, hs_Layer, hs_Oriented, 
@@ -119,7 +406,7 @@
       #{hsLongitude,jdbcType=DOUBLE}, #{hsLatitude,jdbcType=DOUBLE}, #{hsStatus,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.rent.bean.House" useGeneratedKeys="true" keyProperty="hsId">
+  <insert id="insertSelective" keyProperty="hsId" parameterType="com.rent.bean.House" useGeneratedKeys="true">
     insert into rent_house
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="hsId != null">

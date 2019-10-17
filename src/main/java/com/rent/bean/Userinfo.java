@@ -72,15 +72,6 @@ public class Userinfo implements Serializable {
         this.uifUsertype = uifUsertype;
     }
 
-    public Userinfo(Integer uifId, String uifNickname, String uifAvatar, String uifPhone, String uifWechatcode, Integer uifUsertype) {
-        this.uifId = uifId;
-        this.uifNickname = uifNickname;
-        this.uifAvatar = uifAvatar;
-        this.uifPhone = uifPhone;
-        this.uifWechatcode = uifWechatcode;
-        this.uifUsertype = uifUsertype;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -97,5 +88,4 @@ public class Userinfo implements Serializable {
         sb.append("]");
         return sb.toString();
     }
-
 }

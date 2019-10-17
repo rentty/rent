@@ -72,15 +72,6 @@ public class Householdinfo implements Serializable {
         this.hhifStatus = hhifStatus;
     }
 
-    public Householdinfo(Integer hhifId, String hhifName, String hhifIdcard, String hhifDeed, String hhifPhone, Integer hhifStatus) {
-        this.hhifId = hhifId;
-        this.hhifName = hhifName;
-        this.hhifIdcard = hhifIdcard;
-        this.hhifDeed = hhifDeed;
-        this.hhifPhone = hhifPhone;
-        this.hhifStatus = hhifStatus;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
