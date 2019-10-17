@@ -75,4 +75,12 @@ public class Housedl implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Housedl(Integer hsdId, String hsdIdoormaddr, String hsdFloorpaddr, String hsdConditionmaddr, String hsdFacilityDesc) {
+        this.hsdId = hsdId;
+        this.hsdIdoormaddr = hsdIdoormaddr;
+        this.hsdFloorpaddr = hsdFloorpaddr;
+        this.hsdConditionmaddr = hsdConditionmaddr;
+        this.hsdFacilityDesc = hsdFacilityDesc;
+    }
 }

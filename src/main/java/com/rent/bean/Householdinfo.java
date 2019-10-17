@@ -88,4 +88,13 @@ public class Householdinfo implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Householdinfo(Integer hhifId, String hhifName, String hhifIdcard, String hhifDeed, String hhifPhone, Integer hhifStatus) {
+        this.hhifId = hhifId;
+        this.hhifName = hhifName;
+        this.hhifIdcard = hhifIdcard;
+        this.hhifDeed = hhifDeed;
+        this.hhifPhone = hhifPhone;
+        this.hhifStatus = hhifStatus;
+    }
 }

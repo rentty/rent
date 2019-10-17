@@ -52,4 +52,10 @@ public class Entrydl implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Entrydl(Integer edlId, Integer dlId, String edlDetail) {
+        this.edlId = edlId;
+        this.dlId = dlId;
+        this.edlDetail = edlDetail;
+    }
 }

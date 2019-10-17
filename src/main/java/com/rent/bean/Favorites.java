@@ -51,4 +51,10 @@ public class Favorites implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Favorites(Integer fvrId, Integer uifId, Integer hsId) {
+        this.fvrId = fvrId;
+        this.uifId = uifId;
+        this.hsId = hsId;
+    }
 }

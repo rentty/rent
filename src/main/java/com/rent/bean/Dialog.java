@@ -40,4 +40,9 @@ public class Dialog implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Dialog(Integer dlId, String dlEntry) {
+        this.dlId = dlId;
+        this.dlEntry = dlEntry;
+    }
 }

@@ -51,4 +51,10 @@ public class Housenum implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Housenum(Integer hsnId, String hsnRegion, Integer hsnHousenum) {
+        this.hsnId = hsnId;
+        this.hsnRegion = hsnRegion;
+        this.hsnHousenum = hsnHousenum;
+    }
 }

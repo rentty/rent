@@ -19,4 +19,12 @@ public class ShowHouse {
 
     @ApiModelProperty("房屋租金")
     private String rtlfRent;
+
+    public ShowHouse(String hsdldoormaddr, String hsdFacilityDesc, String hsRegion, String hsType, String rtlfRent) {
+        this.hsdldoormaddr = hsdldoormaddr;
+        this.hsdFacilityDesc = hsdFacilityDesc;
+        this.hsRegion = hsRegion;
+        this.hsType = hsType;
+        this.rtlfRent = rtlfRent;
+    }
 }
