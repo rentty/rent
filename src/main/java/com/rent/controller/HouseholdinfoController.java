@@ -2,7 +2,6 @@ package com.rent.controller;
 
 import com.rent.bean.Householdinfo;
 import com.rent.common.Result;
-import com.rent.serviceImpl.HouseholdinfoServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,12 @@ import java.util.List;
 @Controller
 @Api(tags = "Householdinfo", description = "户主管理")
 public class HouseholdinfoController {
-    @Autowired
+    /*@Autowired
     HouseholdinfoServiceImpl householdinfoService;
 
-    /**
+    *//**
      * 用户类型更改为户主类型（新增户主）
-     */
+     *//*
     @GetMapping("/householdinfo/insert")
     @ResponseBody
     @ApiOperation("新增户主信息")
@@ -34,9 +33,9 @@ public class HouseholdinfoController {
         }
     }
 
-    /**
+    *//**
      * 修改
-     */
+     *//*
     @GetMapping("/householdinfo/update")
     @ResponseBody
     @ApiOperation("修改户主信息")
@@ -49,9 +48,9 @@ public class HouseholdinfoController {
 
     }
 
-    /**
+    *//**
      * 删除
-     */
+     *//*
     @GetMapping("/householdinfo/delete")
     @ResponseBody
     @ApiOperation("删除户主信息")
@@ -64,11 +63,11 @@ public class HouseholdinfoController {
 
     }
 
-    /**
+    *//**
      * 查询所有户主
      *
      * @return list<Householdinfo>
-     */
+     *//*
     @GetMapping("/householdinfo/findAll")
     @ResponseBody
     @ApiOperation("查询所有户主")
@@ -82,11 +81,11 @@ public class HouseholdinfoController {
 
     }
 
-    /**
+    *//**
      * 根据id查找
      *
      * @return Householdinfo
-     */
+     *//*
     @GetMapping("/householdinfo/findById")
     @ResponseBody
     @ApiOperation("根据id查找户主信息")
@@ -99,9 +98,9 @@ public class HouseholdinfoController {
         }
     }
 
-    /**
+    *//**
      * 更改审核信息
-     */
+     *//*
     @GetMapping("/householdinfo/updateStatus")
     @ResponseBody
     @ApiOperation("更改审核信息")
@@ -111,5 +110,5 @@ public class HouseholdinfoController {
         }else {
             return Result.ok();
         }
-    }
+    }*/
 }
