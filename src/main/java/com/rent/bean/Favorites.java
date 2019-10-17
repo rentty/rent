@@ -52,6 +52,9 @@ public class Favorites implements Serializable {
         return sb.toString();
     }
 
+    public Favorites() {
+    }
+
     public Favorites(Integer fvrId, Integer uifId, Integer hsId) {
         this.fvrId = fvrId;
         this.uifId = uifId;

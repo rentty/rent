@@ -137,6 +137,9 @@ public class House implements Serializable {
         return sb.toString();
     }
 
+    public House() {
+    }
+
     public House(Integer hsId, String hsType, Integer hsArea, String hsRegion, String hsAddress, Integer hsLayer, String hsOriented, Double hsLongitude, Double hsLatitude, Integer hsStatus) {
         this.hsId = hsId;
         this.hsType = hsType;

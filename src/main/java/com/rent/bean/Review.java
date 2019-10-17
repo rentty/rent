@@ -101,6 +101,9 @@ public class Review implements Serializable {
         return sb.toString();
     }
 
+    public Review() {
+    }
+
     public Review(Integer rvId, Integer rgtId, Integer hsId, Integer rvServiceRat, Integer rvFacilityRat, String rvReview, String rvPicurl) {
         this.rvId = rvId;
         this.rgtId = rgtId;

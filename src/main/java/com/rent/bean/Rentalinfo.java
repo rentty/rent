@@ -101,6 +101,9 @@ public class Rentalinfo implements Serializable {
         return sb.toString();
     }
 
+    public Rentalinfo() {
+    }
+
     public Rentalinfo(Integer rtlfId, Integer rtlfRent, Date rtlfReleasetime, Integer rtlfRentaltype, Integer rtlfHhid, String rtlfRequest, String rtlfCalendar) {
         this.rtlfId = rtlfId;
         this.rtlfRent = rtlfRent;

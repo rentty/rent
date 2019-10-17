@@ -65,6 +65,9 @@ public class Registy implements Serializable {
         return sb.toString();
     }
 
+    public Registy() {
+    }
+
     public Registy(Integer rgtId, String rgtUser, String rgtPassword, String rgtToken) {
         this.rgtId = rgtId;
         this.rgtUser = rgtUser;

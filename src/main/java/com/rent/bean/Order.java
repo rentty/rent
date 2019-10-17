@@ -125,6 +125,9 @@ public class Order implements Serializable {
         return sb.toString();
     }
 
+    public Order() {
+    }
+
     public Order(Integer odId, Date odOrdertime, Integer uifId, Integer hhifId, Date odBooktime, Integer odDuration, Integer hsId, Integer odRent, Integer odStatus) {
         this.odId = odId;
         this.odOrdertime = odOrdertime;

@@ -52,6 +52,9 @@ public class Housenum implements Serializable {
         return sb.toString();
     }
 
+    public Housenum() {
+    }
+
     public Housenum(Integer hsnId, String hsnRegion, Integer hsnHousenum) {
         this.hsnId = hsnId;
         this.hsnRegion = hsnRegion;

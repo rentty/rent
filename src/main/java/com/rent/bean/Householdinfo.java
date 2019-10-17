@@ -89,6 +89,9 @@ public class Householdinfo implements Serializable {
         return sb.toString();
     }
 
+    public Householdinfo() {
+    }
+
     public Householdinfo(Integer hhifId, String hhifName, String hhifIdcard, String hhifDeed, String hhifPhone, Integer hhifStatus) {
         this.hhifId = hhifId;
         this.hhifName = hhifName;
