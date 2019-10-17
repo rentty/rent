@@ -7,6 +7,8 @@ package com.rent.common;
 public enum ResultCode {
     SUCCESS(true, 20000,"成功"),
     UNKNOWN_REASON(false, 20001, "未知错误"),
+    LOGIN_FAIL(false, 20002, "用户名或密码错误"),
+    NOT_A_ADMIN(false, 20003, "没有管理员权限"),
     BAD_SQL_GRAMMAR(false, 21001, "sql语法错误"),
     JSON_PARSE_ERROR(false, 21002, "json解析异常"),
     PARAM_ERROR(false, 21003, "参数不正确"),
