@@ -113,4 +113,6 @@ public class Rentalinfo implements Serializable {
         this.rtlfRequest = rtlfRequest;
         this.rtlfCalendar = rtlfCalendar;
     }
+
+
 }

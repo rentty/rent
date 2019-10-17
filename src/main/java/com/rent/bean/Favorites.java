@@ -60,4 +60,5 @@ public class Favorites implements Serializable {
         this.uifId = uifId;
         this.hsId = hsId;
     }
+
 }

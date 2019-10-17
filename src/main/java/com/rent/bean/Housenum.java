@@ -60,4 +60,6 @@ public class Housenum implements Serializable {
         this.hsnRegion = hsnRegion;
         this.hsnHousenum = hsnHousenum;
     }
+
+
 }

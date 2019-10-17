@@ -139,4 +139,6 @@ public class Order implements Serializable {
         this.odRent = odRent;
         this.odStatus = odStatus;
     }
+
+
 }

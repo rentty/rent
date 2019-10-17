@@ -30,4 +30,6 @@ public class ShowHouse {
         this.hsType = hsType;
         this.rtlfRent = rtlfRent;
     }
+
+
 }

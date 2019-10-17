@@ -48,4 +48,6 @@ public class Dialog implements Serializable {
         this.dlId = dlId;
         this.dlEntry = dlEntry;
     }
+
+
 }

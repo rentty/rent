@@ -86,4 +86,6 @@ public class Housedl implements Serializable {
         this.hsdConditionmaddr = hsdConditionmaddr;
         this.hsdFacilityDesc = hsdFacilityDesc;
     }
+
+
 }

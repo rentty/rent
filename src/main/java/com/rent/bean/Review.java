@@ -113,4 +113,6 @@ public class Review implements Serializable {
         this.rvReview = rvReview;
         this.rvPicurl = rvPicurl;
     }
+
+
 }

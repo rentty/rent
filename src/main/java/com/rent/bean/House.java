@@ -152,4 +152,5 @@ public class House implements Serializable {
         this.hsLatitude = hsLatitude;
         this.hsStatus = hsStatus;
     }
+
 }

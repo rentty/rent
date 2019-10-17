@@ -100,4 +100,5 @@ public class Householdinfo implements Serializable {
         this.hhifPhone = hhifPhone;
         this.hhifStatus = hhifStatus;
     }
+
 }

@@ -74,4 +74,6 @@ public class Registy implements Serializable {
         this.rgtPassword = rgtPassword;
         this.rgtToken = rgtToken;
     }
+
+
 }

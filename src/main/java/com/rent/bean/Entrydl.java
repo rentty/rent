@@ -53,12 +53,14 @@ public class Entrydl implements Serializable {
         return sb.toString();
     }
 
-    public Entrydl() {
-    }
+
 
     public Entrydl(Integer edlId, Integer dlId, String edlDetail) {
         this.edlId = edlId;
         this.dlId = dlId;
         this.edlDetail = edlDetail;
+    }
+
+    public Entrydl() {
     }
 }
