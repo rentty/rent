@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
@@ -63,8 +64,8 @@ public class PayController {
 
     @ApiOperation(value = "交易支付接口",notes = "PC场景下单并支付")
     @RequestMapping("alipay")
-    public void alipay( Order order, HttpServletResponse httpResponse,Model model) throws IOException {
-
+    public void alipay(HttpServletRequest  httpRequest, HttpServletResponse httpResponse, Model model) throws IOException {
+        Order order = (Order)httpRequest.getSession().getAttribute("order");
         //获取从数据库通过订单编号获取订单详情
         //判断订单状态是否未支付,是则进入事务逻辑
         if (order != null && order.getOdStatus() == 0) {

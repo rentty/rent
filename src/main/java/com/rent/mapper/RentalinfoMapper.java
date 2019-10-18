@@ -3,7 +3,11 @@ package com.rent.mapper;
 import com.rent.bean.Rentalinfo;
 import com.rent.bean.RentalinfoExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
 
 public interface RentalinfoMapper {
     int countByExample(RentalinfoExample example);

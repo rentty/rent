@@ -3,7 +3,10 @@ package com.rent.mapper;
 import com.rent.bean.Registy;
 import com.rent.bean.RegistyExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 
 public interface RegistyMapper {
     int countByExample(RegistyExample example);
