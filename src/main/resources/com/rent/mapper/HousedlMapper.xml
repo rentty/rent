@@ -6,7 +6,7 @@
     <result column="hsd_IdoorMAddr" jdbcType="VARCHAR" property="hsdIdoormaddr" />
     <result column="hsd_FloorPAddr" jdbcType="VARCHAR" property="hsdFloorpaddr" />
     <result column="hsd_ConditionMAddr" jdbcType="VARCHAR" property="hsdConditionmaddr" />
-    <result column="hsd_Facility desc" jdbcType="VARCHAR" property="hsdFacilityDesc" />
+    <result column="hsd_FacilityDesc" jdbcType="VARCHAR" property="hsdFacilityDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    hsd_Id, hsd_IdoorMAddr, hsd_FloorPAddr, hsd_ConditionMAddr, `hsd_Facility desc`
+    hsd_Id, hsd_IdoorMAddr, hsd_FloorPAddr, hsd_ConditionMAddr, hsd_FacilityDesc
   </sql>
   <select id="selectByExample" parameterType="com.rent.bean.HousedlExample" resultMap="BaseResultMap">
     select

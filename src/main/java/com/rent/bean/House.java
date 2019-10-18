@@ -13,8 +13,14 @@ public class House implements Serializable {
     @ApiModelProperty(value = "面积")
     private Integer hsArea;
 
-    @ApiModelProperty(value = "地区,详细到某市某区")
-    private String hsRegion;
+    @ApiModelProperty(value = "城市")
+    private String hsCity;
+
+    @ApiModelProperty(value = "县区")
+    private String hsDistrict;
+
+    @ApiModelProperty(value = "小区")
+    private String hsHousingestate;
 
     @ApiModelProperty(value = "详细地址,详细到街道门牌")
     private String hsAddress;
@@ -60,12 +66,28 @@ public class House implements Serializable {
         this.hsArea = hsArea;
     }
 
-    public String getHsRegion() {
-        return hsRegion;
+    public String getHsCity() {
+        return hsCity;
     }
 
-    public void setHsRegion(String hsRegion) {
-        this.hsRegion = hsRegion;
+    public void setHsCity(String hsCity) {
+        this.hsCity = hsCity;
+    }
+
+    public String getHsDistrict() {
+        return hsDistrict;
+    }
+
+    public void setHsDistrict(String hsDistrict) {
+        this.hsDistrict = hsDistrict;
+    }
+
+    public String getHsHousingestate() {
+        return hsHousingestate;
+    }
+
+    public void setHsHousingestate(String hsHousingestate) {
+        this.hsHousingestate = hsHousingestate;
     }
 
     public String getHsAddress() {
@@ -125,7 +147,9 @@ public class House implements Serializable {
         sb.append(", hsId=").append(hsId);
         sb.append(", hsType=").append(hsType);
         sb.append(", hsArea=").append(hsArea);
-        sb.append(", hsRegion=").append(hsRegion);
+        sb.append(", hsCity=").append(hsCity);
+        sb.append(", hsDistrict=").append(hsDistrict);
+        sb.append(", hsHousingestate=").append(hsHousingestate);
         sb.append(", hsAddress=").append(hsAddress);
         sb.append(", hsLayer=").append(hsLayer);
         sb.append(", hsOriented=").append(hsOriented);
@@ -136,21 +160,4 @@ public class House implements Serializable {
         sb.append("]");
         return sb.toString();
     }
-
-    public House() {
-    }
-
-    public House(Integer hsId, String hsType, Integer hsArea, String hsRegion, String hsAddress, Integer hsLayer, String hsOriented, Double hsLongitude, Double hsLatitude, Integer hsStatus) {
-        this.hsId = hsId;
-        this.hsType = hsType;
-        this.hsArea = hsArea;
-        this.hsRegion = hsRegion;
-        this.hsAddress = hsAddress;
-        this.hsLayer = hsLayer;
-        this.hsOriented = hsOriented;
-        this.hsLongitude = hsLongitude;
-        this.hsLatitude = hsLatitude;
-        this.hsStatus = hsStatus;
-    }
-
 }
