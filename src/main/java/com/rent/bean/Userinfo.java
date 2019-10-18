@@ -2,6 +2,7 @@ package com.rent.bean;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.List;
 
 public class Userinfo implements Serializable {
     @ApiModelProperty(value = "用户编号")
@@ -21,6 +22,9 @@ public class Userinfo implements Serializable {
 
     @ApiModelProperty(value = "用户类型")
     private Integer uifUsertype;
+
+    @ApiModelProperty(value = "用户收藏表")
+    private List<Favorites> favorites;
 
     private static final long serialVersionUID = 1L;
 
@@ -70,6 +74,14 @@ public class Userinfo implements Serializable {
 
     public void setUifUsertype(Integer uifUsertype) {
         this.uifUsertype = uifUsertype;
+    }
+
+    public List<Favorites> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Favorites> favorites) {
+        this.favorites = favorites;
     }
 
     @Override

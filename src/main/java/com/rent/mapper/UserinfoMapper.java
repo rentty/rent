@@ -18,6 +18,8 @@ public interface UserinfoMapper {
 
     List<Userinfo> selectByExample(UserinfoExample example);
 
+    List<Userinfo> selectByExampleWithFavor(UserinfoExample example);
+
     Userinfo selectByPrimaryKey(Integer uifId);
 
     int updateByExampleSelective(@Param("record") Userinfo record, @Param("example") UserinfoExample example);

@@ -1,9 +1,7 @@
 package com.rent.service.impl;
 
-import com.rent.bean.Registy;
-import com.rent.bean.RegistyExample;
-import com.rent.bean.Sysuser;
-import com.rent.bean.Userinfo;
+import com.rent.bean.*;
+import com.rent.mapper.DialogMapper;
 import com.rent.mapper.RegistyMapper;
 import com.rent.mapper.UserinfoMapper;
 import com.rent.service.SysUserService;
@@ -24,6 +22,12 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private UserinfoMapper userinfoMapper;
+
+    @Autowired
+    DialogMapper dialogMapper;
+
+    UserinfoExample userinfoExample = new UserinfoExample();
+
     @Override
     public int login(Sysuser sysuser) {
         String username = sysuser.getUsername();
@@ -44,5 +48,18 @@ public class SysUserServiceImpl implements SysUserService {
             }
         }
         return 0;
+    }
+
+    @Override
+    public List<Dialog> getDialogWithEdtrydl() {
+
+        return dialogMapper.selectByExampleWithEntrydl(null);
+    }
+
+    @Override
+    public List<Userinfo> findAllUserWithFavor() {
+        UserinfoExample.Criteria criteria = userinfoExample.createCriteria();
+        criteria.andUifIdEqualTo(1);
+        return userinfoMapper.selectByExampleWithFavor(userinfoExample);
     }
 }

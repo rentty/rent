@@ -2,6 +2,7 @@ package com.rent.bean;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.List;
 
 public class Dialog implements Serializable {
     @ApiModelProperty(value = "条目编号,0：方式  1：类型 2：户型 3：租金 4：更多...")
@@ -9,6 +10,9 @@ public class Dialog implements Serializable {
 
     @ApiModelProperty(value = "条目")
     private String dlEntry;
+
+    @ApiModelProperty(value = "条目详情表")
+    private List<Entrydl> entrydl;
 
     private static final long serialVersionUID = 1L;
 
@@ -27,6 +31,15 @@ public class Dialog implements Serializable {
     public void setDlEntry(String dlEntry) {
         this.dlEntry = dlEntry;
     }
+
+    public List<Entrydl> getEntrydl() {
+        return entrydl;
+    }
+
+    public void setEntrydl(List<Entrydl> entrydl) {
+        this.entrydl = entrydl;
+    }
+
 
     @Override
     public String toString() {

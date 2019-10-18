@@ -5,6 +5,15 @@
     <id column="dl_Id" jdbcType="INTEGER" property="dlId" />
     <result column="dl_Entry" jdbcType="VARCHAR" property="dlEntry" />
   </resultMap>
+  <resultMap id="WithEntrydlResultMap" type="com.rent.bean.Dialog">
+    <id column="dl_Id" jdbcType="INTEGER" property="dlId" />
+    <result column="dl_Entry" jdbcType="VARCHAR" property="dlEntry" />
+    <collection property="entrydl" ofType="com.rent.bean.Entrydl" >
+      <id column="edl_Id" jdbcType="INTEGER" property="edlId" />
+      <result column="dl_Id" jdbcType="INTEGER" property="dlId" />
+      <result column="edl_detail" jdbcType="VARCHAR" property="edlDetail" />
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -66,6 +75,9 @@
   <sql id="Base_Column_List">
     dl_Id, dl_Entry
   </sql>
+  <sql id="Base_Column_ListWithEntrydl">
+    rent_dialog.dl_Id, dl_Entry,edl_Id,rent_entrydl.dl_Id,edl_detail
+  </sql>
   <select id="selectByExample" parameterType="com.rent.bean.DialogExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -73,6 +85,21 @@
     </if>
     <include refid="Base_Column_List" />
     from rent_dialog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!---->
+  <select id="selectByExampleWithEntrydl"  resultMap="WithEntrydlResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_ListWithEntrydl" />
+    from rent_dialog LEFT JOIN rent_entrydl ON rent_entrydl.dl_id =  rent_dialog.dl_id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

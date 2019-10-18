@@ -9,6 +9,19 @@
     <result column="uif_WeChatCode" jdbcType="VARCHAR" property="uifWechatcode" />
     <result column="uif_UserType" jdbcType="INTEGER" property="uifUsertype" />
   </resultMap>
+  <resultMap id="BaseResultMapWithFavor" type="com.rent.bean.Userinfo">
+    <id column="uif_Id" jdbcType="INTEGER" property="uifId" />
+    <result column="uif_NickName" jdbcType="VARCHAR" property="uifNickname" />
+    <result column="uif_Avatar" jdbcType="VARCHAR" property="uifAvatar" />
+    <result column="uif_Phone" jdbcType="VARCHAR" property="uifPhone" />
+    <result column="uif_WeChatCode" jdbcType="VARCHAR" property="uifWechatcode" />
+    <result column="uif_UserType" jdbcType="INTEGER" property="uifUsertype" />
+    <collection property="favorites" ofType="com.rent.bean.Favorites">
+      <id column="fvr_Id" jdbcType="INTEGER" property="fvrId" />
+      <result column="uif_Id" jdbcType="INTEGER" property="uifId" />
+      <result column="hs_Id" jdbcType="INTEGER" property="hsId" />
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -70,6 +83,9 @@
   <sql id="Base_Column_List">
     uif_Id, uif_NickName, uif_Avatar, uif_Phone, uif_WeChatCode, uif_UserType
   </sql>
+  <sql id="Base_Column_ListWithFavor">
+    rent_userinfo.uif_Id, uif_NickName, uif_Avatar, uif_Phone, uif_WeChatCode, uif_UserType,fvr_Id,rent_favorites.uif_Id,hs_Id
+  </sql>
   <select id="selectByExample" parameterType="com.rent.bean.UserinfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -77,6 +93,21 @@
     </if>
     <include refid="Base_Column_List" />
     from rent_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!---->
+  <select id="selectByExampleWithFavor" parameterType="com.rent.bean.UserinfoExample" resultMap="BaseResultMapWithFavor">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_ListWithFavor" />
+    from rent_userinfo LEFT JOIN rent_favorites ON rent_favorites.uif_Id =  rent_userinfo.uif_Id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
