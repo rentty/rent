@@ -225,4 +225,5 @@
       hhif_Status = #{hhifStatus,jdbcType=INTEGER}
     where hhif_Id = #{hhifId,jdbcType=INTEGER}
   </update>
+
 </mapper>

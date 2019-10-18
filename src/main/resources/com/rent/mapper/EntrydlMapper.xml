@@ -178,4 +178,5 @@
       edl_detail = #{edlDetail,jdbcType=VARCHAR}
     where edl_Id = #{edlId,jdbcType=INTEGER}
   </update>
+
 </mapper>

@@ -28,11 +28,6 @@ public class Dialog implements Serializable {
         this.dlEntry = dlEntry;
     }
 
-    public Dialog(Integer dlId, String dlEntry) {
-        this.dlId = dlId;
-        this.dlEntry = dlEntry;
-    }
-    //
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -45,4 +40,14 @@ public class Dialog implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Dialog() {
+    }
+
+    public Dialog(Integer dlId, String dlEntry) {
+        this.dlId = dlId;
+        this.dlEntry = dlEntry;
+    }
+
+
 }

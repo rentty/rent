@@ -178,4 +178,5 @@
       hs_Id = #{hsId,jdbcType=INTEGER}
     where fvr_Id = #{fvrId,jdbcType=INTEGER}
   </update>
+
 </mapper>

@@ -225,4 +225,5 @@
       uif_UserType = #{uifUsertype,jdbcType=INTEGER}
     where uif_Id = #{uifId,jdbcType=INTEGER}
   </update>
+
 </mapper>

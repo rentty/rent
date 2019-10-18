@@ -193,4 +193,5 @@
       rgt_token = #{rgtToken,jdbcType=VARCHAR}
     where rgt_Id = #{rgtId,jdbcType=INTEGER}
   </update>
+
 </mapper>

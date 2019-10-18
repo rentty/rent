@@ -240,4 +240,5 @@
       rtlf_Calendar = #{rtlfCalendar,jdbcType=VARCHAR}
     where rtlf_Id = #{rtlfId,jdbcType=INTEGER}
   </update>
+
 </mapper>

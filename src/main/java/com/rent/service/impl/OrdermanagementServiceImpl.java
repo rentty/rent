@@ -1,10 +1,12 @@
-package com.rent.service;
+package com.rent.service.impl;
 
 import com.rent.bean.*;
 import com.rent.mapper.ExpandMapper;
 import com.rent.mapper.OrderMapper;
 import com.rent.mapper.RegistyMapper;
 import com.rent.mapper.RentalinfoMapper;
+import com.rent.service.JSonPool;
+import com.rent.service.OrdermanagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -12,6 +14,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @CacheConfig(cacheNames = "OrdermanagementService",cacheManager = "cacheManager")
@@ -89,5 +92,11 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
 
         return registy.getRgtUser();
 
+    }
+
+    @Override
+    public List<Order> findAllOrder() {
+
+        return orderMapper.selectByExample(null);
     }
 }

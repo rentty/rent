@@ -60,14 +60,6 @@ public class Housedl implements Serializable {
         this.hsdFacilityDesc = hsdFacilityDesc;
     }
 
-    public Housedl(Integer hsdId, String hsdIdoormaddr, String hsdFloorpaddr, String hsdConditionmaddr, String hsdFacilityDesc) {
-        this.hsdId = hsdId;
-        this.hsdIdoormaddr = hsdIdoormaddr;
-        this.hsdFloorpaddr = hsdFloorpaddr;
-        this.hsdConditionmaddr = hsdConditionmaddr;
-        this.hsdFacilityDesc = hsdFacilityDesc;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -86,4 +78,14 @@ public class Housedl implements Serializable {
 
     public Housedl() {
     }
+
+    public Housedl(Integer hsdId, String hsdIdoormaddr, String hsdFloorpaddr, String hsdConditionmaddr, String hsdFacilityDesc) {
+        this.hsdId = hsdId;
+        this.hsdIdoormaddr = hsdIdoormaddr;
+        this.hsdFloorpaddr = hsdFloorpaddr;
+        this.hsdConditionmaddr = hsdConditionmaddr;
+        this.hsdFacilityDesc = hsdFacilityDesc;
+    }
+
+
 }

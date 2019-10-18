@@ -50,13 +50,6 @@ public class Registy implements Serializable {
         this.rgtToken = rgtToken;
     }
 
-    public Registy(Integer rgtId, String rgtUser, String rgtPassword, String rgtToken) {
-        this.rgtId = rgtId;
-        this.rgtUser = rgtUser;
-        this.rgtPassword = rgtPassword;
-        this.rgtToken = rgtToken;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -71,4 +64,16 @@ public class Registy implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Registy() {
+    }
+
+    public Registy(Integer rgtId, String rgtUser, String rgtPassword, String rgtToken) {
+        this.rgtId = rgtId;
+        this.rgtUser = rgtUser;
+        this.rgtPassword = rgtPassword;
+        this.rgtToken = rgtToken;
+    }
+
+
 }

@@ -1,7 +1,9 @@
-package com.rent.service;
+package com.rent.service.impl;
 
 import com.rent.bean.*;
 import com.rent.mapper.*;
+import com.rent.service.JSonPool;
+import com.rent.service.UsermanagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -153,6 +155,17 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
         return registy.getRgtUser();
 
+    }
+
+    @Override
+    public List<Userinfo> findAllUserinfo() {
+        return userinfoMapper.selectByExample(null);
+    }
+
+    @Override
+    public List<Householdinfo> findAllHouseholdinfo() {
+
+        return householdinfoMapper.selectByExample(null);
     }
 
 }

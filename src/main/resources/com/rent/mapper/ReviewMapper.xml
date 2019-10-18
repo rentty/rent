@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rent.mapper.ReviewMapper">
   <resultMap id="BaseResultMap" type="com.rent.bean.Review">
-    <result column="rv_Id" jdbcType="INTEGER" property="rvId" />
+    <id column="rv_Id" jdbcType="INTEGER" property="rvId" />
     <result column="rgt_Id" jdbcType="INTEGER" property="rgtId" />
     <result column="hs_Id" jdbcType="INTEGER" property="hsId" />
     <result column="rv_Service_rat" jdbcType="INTEGER" property="rvServiceRat" />
@@ -85,6 +85,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rent_review
+    where rv_Id = #{rvId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rent_review
+    where rv_Id = #{rvId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.rent.bean.ReviewExample">
     delete from rent_review
     <if test="_parameter != null">
@@ -196,4 +206,39 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rent.bean.Review">
+    update rent_review
+    <set>
+      <if test="rgtId != null">
+        rgt_Id = #{rgtId,jdbcType=INTEGER},
+      </if>
+      <if test="hsId != null">
+        hs_Id = #{hsId,jdbcType=INTEGER},
+      </if>
+      <if test="rvServiceRat != null">
+        rv_Service_rat = #{rvServiceRat,jdbcType=INTEGER},
+      </if>
+      <if test="rvFacilityRat != null">
+        rv_Facility_rat = #{rvFacilityRat,jdbcType=INTEGER},
+      </if>
+      <if test="rvReview != null">
+        rv_Review = #{rvReview,jdbcType=VARCHAR},
+      </if>
+      <if test="rvPicurl != null">
+        rv_PicUrl = #{rvPicurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rv_Id = #{rvId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rent.bean.Review">
+    update rent_review
+    set rgt_Id = #{rgtId,jdbcType=INTEGER},
+      hs_Id = #{hsId,jdbcType=INTEGER},
+      rv_Service_rat = #{rvServiceRat,jdbcType=INTEGER},
+      rv_Facility_rat = #{rvFacilityRat,jdbcType=INTEGER},
+      rv_Review = #{rvReview,jdbcType=VARCHAR},
+      rv_PicUrl = #{rvPicurl,jdbcType=VARCHAR}
+    where rv_Id = #{rvId,jdbcType=INTEGER}
+  </update>
+
 </mapper>

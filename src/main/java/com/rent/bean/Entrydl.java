@@ -39,13 +39,6 @@ public class Entrydl implements Serializable {
         this.edlDetail = edlDetail;
     }
 
-    public Entrydl(Integer edlId, Integer dlId, String edlDetail) {
-        this.edlId = edlId;
-        this.dlId = dlId;
-        this.edlDetail = edlDetail;
-        //0
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -58,5 +51,16 @@ public class Entrydl implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+
+
+    public Entrydl(Integer edlId, Integer dlId, String edlDetail) {
+        this.edlId = edlId;
+        this.dlId = dlId;
+        this.edlDetail = edlDetail;
+    }
+
+    public Entrydl() {
     }
 }

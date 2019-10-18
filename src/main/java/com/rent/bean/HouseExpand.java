@@ -38,6 +38,10 @@ public class HouseExpand extends House{
     @ApiModelProperty(value = "日历")
     private String rtlfCalendar;
 
+    public HouseExpand(Integer hsId, String hsType, Integer hsArea, String hsRegion, String hsAddress, Integer hsLayer, String hsOriented, Double hsLongitude, Double hsLatitude, Integer hsStatus) {
+        super(hsId, hsType, hsArea, hsRegion, hsAddress, hsLayer, hsOriented, hsLongitude, hsLatitude, hsStatus);
+    }
+
     public Integer getHsdId() {
         return hsdId;
     }

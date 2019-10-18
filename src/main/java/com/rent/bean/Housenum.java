@@ -38,12 +38,6 @@ public class Housenum implements Serializable {
         this.hsnHousenum = hsnHousenum;
     }
 
-    public Housenum(Integer hsnId, String hsnRegion, Integer hsnHousenum) {
-        this.hsnId = hsnId;
-        this.hsnRegion = hsnRegion;
-        this.hsnHousenum = hsnHousenum;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -57,4 +51,15 @@ public class Housenum implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Housenum() {
+    }
+
+    public Housenum(Integer hsnId, String hsnRegion, Integer hsnHousenum) {
+        this.hsnId = hsnId;
+        this.hsnRegion = hsnRegion;
+        this.hsnHousenum = hsnHousenum;
+    }
+
+
 }

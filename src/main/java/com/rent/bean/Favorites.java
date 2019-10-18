@@ -10,7 +10,6 @@ public class Favorites implements Serializable {
     @ApiModelProperty(value = "用户编号")
     private Integer uifId;
 
-    @ApiModelProperty(value = "收藏房屋编号")
     private Integer hsId;
 
     private static final long serialVersionUID = 1L;
@@ -39,12 +38,6 @@ public class Favorites implements Serializable {
         this.hsId = hsId;
     }
 
-    public Favorites(Integer fvrId, Integer uifId, Integer hsId) {
-        this.fvrId = fvrId;
-        this.uifId = uifId;
-        this.hsId = hsId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -58,4 +51,14 @@ public class Favorites implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public Favorites() {
+    }
+
+    public Favorites(Integer fvrId, Integer uifId, Integer hsId) {
+        this.fvrId = fvrId;
+        this.uifId = uifId;
+        this.hsId = hsId;
+    }
+
 }

@@ -178,4 +178,5 @@
       hsn_HouseNum = #{hsnHousenum,jdbcType=INTEGER}
     where hsn_Id = #{hsnId,jdbcType=INTEGER}
   </update>
+
 </mapper>

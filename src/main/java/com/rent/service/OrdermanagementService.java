@@ -32,4 +32,9 @@ public interface OrdermanagementService {
      * @param od_Id
      */
     public String deleteOrderByOd_Id(int od_Id);
+
+    /**
+     * 查找所有订单
+     */
+    public List<Order> findAllOrder();
 }
