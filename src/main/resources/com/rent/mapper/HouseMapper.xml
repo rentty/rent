@@ -5,7 +5,9 @@
     <id column="hs_Id" jdbcType="INTEGER" property="hsId" />
     <result column="hs_Type" jdbcType="VARCHAR" property="hsType" />
     <result column="hs_Area" jdbcType="INTEGER" property="hsArea" />
-    <result column="hs_Region" jdbcType="VARCHAR" property="hsRegion" />
+    <result column="hs_City" jdbcType="VARCHAR" property="hsCity" />
+    <result column="hs_District" jdbcType="VARCHAR" property="hsDistrict" />
+    <result column="hs_HousingEstate" jdbcType="VARCHAR" property="hsHousingestate" />
     <result column="hs_Address" jdbcType="VARCHAR" property="hsAddress" />
     <result column="hs_Layer" jdbcType="INTEGER" property="hsLayer" />
     <result column="hs_Oriented" jdbcType="VARCHAR" property="hsOriented" />
@@ -72,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    hs_Id, hs_Type, hs_Area, hs_Region, hs_Address, hs_Layer, hs_Oriented, hs_Longitude, 
-    hs_Latitude, hs_Status
+    hs_Id, hs_Type, hs_Area, hs_City, hs_District, hs_HousingEstate, hs_Address, hs_Layer, 
+    hs_Oriented, hs_Longitude, hs_Latitude, hs_Status
   </sql>
   <select id="selectByExample" parameterType="com.rent.bean.HouseExample" resultMap="BaseResultMap">
     select
@@ -107,13 +109,15 @@
   </delete>
   <insert id="insert" parameterType="com.rent.bean.House">
     insert into rent_house (hs_Id, hs_Type, hs_Area, 
-      hs_Region, hs_Address, hs_Layer, 
-      hs_Oriented, hs_Longitude, hs_Latitude, 
-      hs_Status)
+      hs_City, hs_District, hs_HousingEstate, 
+      hs_Address, hs_Layer, hs_Oriented, 
+      hs_Longitude, hs_Latitude, hs_Status
+      )
     values (#{hsId,jdbcType=INTEGER}, #{hsType,jdbcType=VARCHAR}, #{hsArea,jdbcType=INTEGER}, 
-      #{hsRegion,jdbcType=VARCHAR}, #{hsAddress,jdbcType=VARCHAR}, #{hsLayer,jdbcType=INTEGER}, 
-      #{hsOriented,jdbcType=VARCHAR}, #{hsLongitude,jdbcType=DOUBLE}, #{hsLatitude,jdbcType=DOUBLE}, 
-      #{hsStatus,jdbcType=INTEGER})
+      #{hsCity,jdbcType=VARCHAR}, #{hsDistrict,jdbcType=VARCHAR}, #{hsHousingestate,jdbcType=VARCHAR}, 
+      #{hsAddress,jdbcType=VARCHAR}, #{hsLayer,jdbcType=INTEGER}, #{hsOriented,jdbcType=VARCHAR}, 
+      #{hsLongitude,jdbcType=DOUBLE}, #{hsLatitude,jdbcType=DOUBLE}, #{hsStatus,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.rent.bean.House">
     insert into rent_house
@@ -127,8 +131,14 @@
       <if test="hsArea != null">
         hs_Area,
       </if>
-      <if test="hsRegion != null">
-        hs_Region,
+      <if test="hsCity != null">
+        hs_City,
+      </if>
+      <if test="hsDistrict != null">
+        hs_District,
+      </if>
+      <if test="hsHousingestate != null">
+        hs_HousingEstate,
       </if>
       <if test="hsAddress != null">
         hs_Address,
@@ -159,8 +169,14 @@
       <if test="hsArea != null">
         #{hsArea,jdbcType=INTEGER},
       </if>
-      <if test="hsRegion != null">
-        #{hsRegion,jdbcType=VARCHAR},
+      <if test="hsCity != null">
+        #{hsCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hsDistrict != null">
+        #{hsDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHousingestate != null">
+        #{hsHousingestate,jdbcType=VARCHAR},
       </if>
       <if test="hsAddress != null">
         #{hsAddress,jdbcType=VARCHAR},
@@ -200,8 +216,14 @@
       <if test="record.hsArea != null">
         hs_Area = #{record.hsArea,jdbcType=INTEGER},
       </if>
-      <if test="record.hsRegion != null">
-        hs_Region = #{record.hsRegion,jdbcType=VARCHAR},
+      <if test="record.hsCity != null">
+        hs_City = #{record.hsCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsDistrict != null">
+        hs_District = #{record.hsDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsHousingestate != null">
+        hs_HousingEstate = #{record.hsHousingestate,jdbcType=VARCHAR},
       </if>
       <if test="record.hsAddress != null">
         hs_Address = #{record.hsAddress,jdbcType=VARCHAR},
@@ -231,7 +253,9 @@
     set hs_Id = #{record.hsId,jdbcType=INTEGER},
       hs_Type = #{record.hsType,jdbcType=VARCHAR},
       hs_Area = #{record.hsArea,jdbcType=INTEGER},
-      hs_Region = #{record.hsRegion,jdbcType=VARCHAR},
+      hs_City = #{record.hsCity,jdbcType=VARCHAR},
+      hs_District = #{record.hsDistrict,jdbcType=VARCHAR},
+      hs_HousingEstate = #{record.hsHousingestate,jdbcType=VARCHAR},
       hs_Address = #{record.hsAddress,jdbcType=VARCHAR},
       hs_Layer = #{record.hsLayer,jdbcType=INTEGER},
       hs_Oriented = #{record.hsOriented,jdbcType=VARCHAR},
@@ -251,8 +275,14 @@
       <if test="hsArea != null">
         hs_Area = #{hsArea,jdbcType=INTEGER},
       </if>
-      <if test="hsRegion != null">
-        hs_Region = #{hsRegion,jdbcType=VARCHAR},
+      <if test="hsCity != null">
+        hs_City = #{hsCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hsDistrict != null">
+        hs_District = #{hsDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHousingestate != null">
+        hs_HousingEstate = #{hsHousingestate,jdbcType=VARCHAR},
       </if>
       <if test="hsAddress != null">
         hs_Address = #{hsAddress,jdbcType=VARCHAR},
@@ -279,7 +309,9 @@
     update rent_house
     set hs_Type = #{hsType,jdbcType=VARCHAR},
       hs_Area = #{hsArea,jdbcType=INTEGER},
-      hs_Region = #{hsRegion,jdbcType=VARCHAR},
+      hs_City = #{hsCity,jdbcType=VARCHAR},
+      hs_District = #{hsDistrict,jdbcType=VARCHAR},
+      hs_HousingEstate = #{hsHousingestate,jdbcType=VARCHAR},
       hs_Address = #{hsAddress,jdbcType=VARCHAR},
       hs_Layer = #{hsLayer,jdbcType=INTEGER},
       hs_Oriented = #{hsOriented,jdbcType=VARCHAR},

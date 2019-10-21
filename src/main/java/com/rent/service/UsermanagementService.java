@@ -116,5 +116,6 @@ public interface UsermanagementService {
 
     public List<Householdinfo>  findAllHouseholdinfo();
 
+
 }
 

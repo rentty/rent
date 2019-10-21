@@ -9,10 +9,13 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 @CacheConfig(cacheNames = "UsermanagementService",cacheManager = "cacheManager")
 @Service
 public class UsermanagementServiceImpl implements UsermanagementService {
@@ -167,5 +170,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
         return householdinfoMapper.selectByExample(null);
     }
+
+
 
 }

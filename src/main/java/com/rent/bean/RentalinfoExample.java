@@ -165,66 +165,6 @@ public class RentalinfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andRtlfRentIsNull() {
-            addCriterion("rtlf_Rent is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentIsNotNull() {
-            addCriterion("rtlf_Rent is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentEqualTo(Integer value) {
-            addCriterion("rtlf_Rent =", value, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentNotEqualTo(Integer value) {
-            addCriterion("rtlf_Rent <>", value, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentGreaterThan(Integer value) {
-            addCriterion("rtlf_Rent >", value, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentGreaterThanOrEqualTo(Integer value) {
-            addCriterion("rtlf_Rent >=", value, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentLessThan(Integer value) {
-            addCriterion("rtlf_Rent <", value, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentLessThanOrEqualTo(Integer value) {
-            addCriterion("rtlf_Rent <=", value, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentIn(List<Integer> values) {
-            addCriterion("rtlf_Rent in", values, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentNotIn(List<Integer> values) {
-            addCriterion("rtlf_Rent not in", values, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentBetween(Integer value1, Integer value2) {
-            addCriterion("rtlf_Rent between", value1, value2, "rtlfRent");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfRentNotBetween(Integer value1, Integer value2) {
-            addCriterion("rtlf_Rent not between", value1, value2, "rtlfRent");
-            return (Criteria) this;
-        }
-
         public Criteria andRtlfReleasetimeIsNull() {
             addCriterion("rtlf_ReleaseTime is null");
             return (Criteria) this;
@@ -475,73 +415,63 @@ public class RentalinfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarIsNull() {
-            addCriterion("rtlf_Calendar is null");
+        public Criteria andRtlfRentIsNull() {
+            addCriterion("rtlf_Rent is null");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarIsNotNull() {
-            addCriterion("rtlf_Calendar is not null");
+        public Criteria andRtlfRentIsNotNull() {
+            addCriterion("rtlf_Rent is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarEqualTo(String value) {
-            addCriterion("rtlf_Calendar =", value, "rtlfCalendar");
+        public Criteria andRtlfRentEqualTo(Integer value) {
+            addCriterion("rtlf_Rent =", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarNotEqualTo(String value) {
-            addCriterion("rtlf_Calendar <>", value, "rtlfCalendar");
+        public Criteria andRtlfRentNotEqualTo(Integer value) {
+            addCriterion("rtlf_Rent <>", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarGreaterThan(String value) {
-            addCriterion("rtlf_Calendar >", value, "rtlfCalendar");
+        public Criteria andRtlfRentGreaterThan(Integer value) {
+            addCriterion("rtlf_Rent >", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarGreaterThanOrEqualTo(String value) {
-            addCriterion("rtlf_Calendar >=", value, "rtlfCalendar");
+        public Criteria andRtlfRentGreaterThanOrEqualTo(Integer value) {
+            addCriterion("rtlf_Rent >=", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarLessThan(String value) {
-            addCriterion("rtlf_Calendar <", value, "rtlfCalendar");
+        public Criteria andRtlfRentLessThan(Integer value) {
+            addCriterion("rtlf_Rent <", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarLessThanOrEqualTo(String value) {
-            addCriterion("rtlf_Calendar <=", value, "rtlfCalendar");
+        public Criteria andRtlfRentLessThanOrEqualTo(Integer value) {
+            addCriterion("rtlf_Rent <=", value, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarLike(String value) {
-            addCriterion("rtlf_Calendar like", value, "rtlfCalendar");
+        public Criteria andRtlfRentIn(List<Integer> values) {
+            addCriterion("rtlf_Rent in", values, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarNotLike(String value) {
-            addCriterion("rtlf_Calendar not like", value, "rtlfCalendar");
+        public Criteria andRtlfRentNotIn(List<Integer> values) {
+            addCriterion("rtlf_Rent not in", values, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarIn(List<String> values) {
-            addCriterion("rtlf_Calendar in", values, "rtlfCalendar");
+        public Criteria andRtlfRentBetween(Integer value1, Integer value2) {
+            addCriterion("rtlf_Rent between", value1, value2, "rtlfRent");
             return (Criteria) this;
         }
 
-        public Criteria andRtlfCalendarNotIn(List<String> values) {
-            addCriterion("rtlf_Calendar not in", values, "rtlfCalendar");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfCalendarBetween(String value1, String value2) {
-            addCriterion("rtlf_Calendar between", value1, value2, "rtlfCalendar");
-            return (Criteria) this;
-        }
-
-        public Criteria andRtlfCalendarNotBetween(String value1, String value2) {
-            addCriterion("rtlf_Calendar not between", value1, value2, "rtlfCalendar");
+        public Criteria andRtlfRentNotBetween(Integer value1, Integer value2) {
+            addCriterion("rtlf_Rent not between", value1, value2, "rtlfRent");
             return (Criteria) this;
         }
     }

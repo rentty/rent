@@ -38,8 +38,19 @@ public class HouseExpand extends House{
     @ApiModelProperty(value = "日历")
     private String rtlfCalendar;
 
-    public HouseExpand(Integer hsId, String hsType, Integer hsArea, String hsRegion, String hsAddress, Integer hsLayer, String hsOriented, Double hsLongitude, Double hsLatitude, Integer hsStatus) {
-        super(hsId, hsType, hsArea, hsRegion, hsAddress, hsLayer, hsOriented, hsLongitude, hsLatitude, hsStatus);
+    public HouseExpand(Integer hsdId, String hsdIdoormaddr, String hsdFloorpaddr, String hsdConditionmaddr, String hsdFacilityDesc, Integer rtlfId, Integer rtlfRent, Date rtlfReleasetime, Integer rtlfRentaltype, Integer rtlfHhid, String rtlfRequest, String rtlfCalendar) {
+        this.hsdId = hsdId;
+        this.hsdIdoormaddr = hsdIdoormaddr;
+        this.hsdFloorpaddr = hsdFloorpaddr;
+        this.hsdConditionmaddr = hsdConditionmaddr;
+        this.hsdFacilityDesc = hsdFacilityDesc;
+        this.rtlfId = rtlfId;
+        this.rtlfRent = rtlfRent;
+        this.rtlfReleasetime = rtlfReleasetime;
+        this.rtlfRentaltype = rtlfRentaltype;
+        this.rtlfHhid = rtlfHhid;
+        this.rtlfRequest = rtlfRequest;
+        this.rtlfCalendar = rtlfCalendar;
     }
 
     public Integer getHsdId() {

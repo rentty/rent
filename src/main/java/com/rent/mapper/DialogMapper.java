@@ -18,6 +18,8 @@ public interface DialogMapper {
 
     List<Dialog> selectByExample(DialogExample example);
 
+    List<Dialog> selectByExampleWithEntrydl(DialogExample example);
+
     Dialog selectByPrimaryKey(Integer dlId);
 
     int updateByExampleSelective(@Param("record") Dialog record, @Param("example") DialogExample example);

@@ -7,9 +7,6 @@ import java.util.Date;
 public class Rentalinfo implements Serializable {
     private Integer rtlfId;
 
-    @ApiModelProperty(value = "租金")
-    private Integer rtlfRent;
-
     @ApiModelProperty(value = "出租信息发布时间")
     private Date rtlfReleasetime;
 
@@ -22,8 +19,7 @@ public class Rentalinfo implements Serializable {
     @ApiModelProperty(value = "要求描述")
     private String rtlfRequest;
 
-    @ApiModelProperty(value = "日历")
-    private String rtlfCalendar;
+    private Integer rtlfRent;
 
     private static final long serialVersionUID = 1L;
 
@@ -33,14 +29,6 @@ public class Rentalinfo implements Serializable {
 
     public void setRtlfId(Integer rtlfId) {
         this.rtlfId = rtlfId;
-    }
-
-    public Integer getRtlfRent() {
-        return rtlfRent;
-    }
-
-    public void setRtlfRent(Integer rtlfRent) {
-        this.rtlfRent = rtlfRent;
     }
 
     public Date getRtlfReleasetime() {
@@ -75,12 +63,12 @@ public class Rentalinfo implements Serializable {
         this.rtlfRequest = rtlfRequest;
     }
 
-    public String getRtlfCalendar() {
-        return rtlfCalendar;
+    public Integer getRtlfRent() {
+        return rtlfRent;
     }
 
-    public void setRtlfCalendar(String rtlfCalendar) {
-        this.rtlfCalendar = rtlfCalendar;
+    public void setRtlfRent(Integer rtlfRent) {
+        this.rtlfRent = rtlfRent;
     }
 
     @Override
@@ -90,29 +78,13 @@ public class Rentalinfo implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", rtlfId=").append(rtlfId);
-        sb.append(", rtlfRent=").append(rtlfRent);
         sb.append(", rtlfReleasetime=").append(rtlfReleasetime);
         sb.append(", rtlfRentaltype=").append(rtlfRentaltype);
         sb.append(", rtlfHhid=").append(rtlfHhid);
         sb.append(", rtlfRequest=").append(rtlfRequest);
-        sb.append(", rtlfCalendar=").append(rtlfCalendar);
+        sb.append(", rtlfRent=").append(rtlfRent);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
-
-    public Rentalinfo() {
-    }
-
-    public Rentalinfo(Integer rtlfId, Integer rtlfRent, Date rtlfReleasetime, Integer rtlfRentaltype, Integer rtlfHhid, String rtlfRequest, String rtlfCalendar) {
-        this.rtlfId = rtlfId;
-        this.rtlfRent = rtlfRent;
-        this.rtlfReleasetime = rtlfReleasetime;
-        this.rtlfRentaltype = rtlfRentaltype;
-        this.rtlfHhid = rtlfHhid;
-        this.rtlfRequest = rtlfRequest;
-        this.rtlfCalendar = rtlfCalendar;
-    }
-
-
 }

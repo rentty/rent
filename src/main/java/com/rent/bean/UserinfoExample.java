@@ -105,62 +105,62 @@ public class UserinfoExample {
         }
 
         public Criteria andUifIdIsNull() {
-            addCriterion("uif_Id is null");
+            addCriterion("rent_userinfo.uif_Id is null");
             return (Criteria) this;
         }
 
         public Criteria andUifIdIsNotNull() {
-            addCriterion("uif_Id is not null");
+            addCriterion("rent_userinfo.uif_Id is not null");
             return (Criteria) this;
         }
 
         public Criteria andUifIdEqualTo(Integer value) {
-            addCriterion("uif_Id =", value, "uifId");
+            addCriterion("rent_userinfo.uif_Id =", value, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdNotEqualTo(Integer value) {
-            addCriterion("uif_Id <>", value, "uifId");
+            addCriterion("rent_userinfo.uif_Id <>", value, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdGreaterThan(Integer value) {
-            addCriterion("uif_Id >", value, "uifId");
+            addCriterion("rent_userinfo.uif_Id >", value, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("uif_Id >=", value, "uifId");
+            addCriterion("rent_userinfo.uif_Id >=", value, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdLessThan(Integer value) {
-            addCriterion("uif_Id <", value, "uifId");
+            addCriterion("rent_userinfo.uif_Id <", value, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdLessThanOrEqualTo(Integer value) {
-            addCriterion("uif_Id <=", value, "uifId");
+            addCriterion("rent_userinfo.uif_Id <=", value, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdIn(List<Integer> values) {
-            addCriterion("uif_Id in", values, "uifId");
+            addCriterion("rent_userinfo.uif_Id in", values, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdNotIn(List<Integer> values) {
-            addCriterion("uif_Id not in", values, "uifId");
+            addCriterion("rent_userinfo.uif_Id not in", values, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdBetween(Integer value1, Integer value2) {
-            addCriterion("uif_Id between", value1, value2, "uifId");
+            addCriterion("rent_userinfo.uif_Id between", value1, value2, "uifId");
             return (Criteria) this;
         }
 
         public Criteria andUifIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("uif_Id not between", value1, value2, "uifId");
+            addCriterion("rent_userinfo.uif_Id not between", value1, value2, "uifId");
             return (Criteria) this;
         }
 

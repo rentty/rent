@@ -3,12 +3,11 @@
 <mapper namespace="com.rent.mapper.RentalinfoMapper">
   <resultMap id="BaseResultMap" type="com.rent.bean.Rentalinfo">
     <id column="rtlf_Id" jdbcType="INTEGER" property="rtlfId" />
-    <result column="rtlf_Rent" jdbcType="INTEGER" property="rtlfRent" />
     <result column="rtlf_ReleaseTime" jdbcType="TIMESTAMP" property="rtlfReleasetime" />
     <result column="rtlf_RentalType" jdbcType="INTEGER" property="rtlfRentaltype" />
     <result column="rtlf_HHId" jdbcType="INTEGER" property="rtlfHhid" />
     <result column="rtlf_Request" jdbcType="VARCHAR" property="rtlfRequest" />
-    <result column="rtlf_Calendar" jdbcType="VARCHAR" property="rtlfCalendar" />
+    <result column="rtlf_Rent" jdbcType="INTEGER" property="rtlfRent" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    rtlf_Id, rtlf_Rent, rtlf_ReleaseTime, rtlf_RentalType, rtlf_HHId, rtlf_Request, rtlf_Calendar
+    rtlf_Id, rtlf_ReleaseTime, rtlf_RentalType, rtlf_HHId, rtlf_Request, rtlf_Rent
   </sql>
   <select id="selectByExample" parameterType="com.rent.bean.RentalinfoExample" resultMap="BaseResultMap">
     select
@@ -102,21 +101,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.rent.bean.Rentalinfo">
-    insert into rent_rentalinfo (rtlf_Id, rtlf_Rent, rtlf_ReleaseTime, 
-      rtlf_RentalType, rtlf_HHId, rtlf_Request, 
-      rtlf_Calendar)
-    values (#{rtlfId,jdbcType=INTEGER}, #{rtlfRent,jdbcType=INTEGER}, #{rtlfReleasetime,jdbcType=TIMESTAMP}, 
-      #{rtlfRentaltype,jdbcType=INTEGER}, #{rtlfHhid,jdbcType=INTEGER}, #{rtlfRequest,jdbcType=VARCHAR}, 
-      #{rtlfCalendar,jdbcType=VARCHAR})
+    insert into rent_rentalinfo (rtlf_Id, rtlf_ReleaseTime, rtlf_RentalType, 
+      rtlf_HHId, rtlf_Request, rtlf_Rent
+      )
+    values (#{rtlfId,jdbcType=INTEGER}, #{rtlfReleasetime,jdbcType=TIMESTAMP}, #{rtlfRentaltype,jdbcType=INTEGER}, 
+      #{rtlfHhid,jdbcType=INTEGER}, #{rtlfRequest,jdbcType=VARCHAR}, #{rtlfRent,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.rent.bean.Rentalinfo">
     insert into rent_rentalinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="rtlfId != null">
         rtlf_Id,
-      </if>
-      <if test="rtlfRent != null">
-        rtlf_Rent,
       </if>
       <if test="rtlfReleasetime != null">
         rtlf_ReleaseTime,
@@ -130,16 +126,13 @@
       <if test="rtlfRequest != null">
         rtlf_Request,
       </if>
-      <if test="rtlfCalendar != null">
-        rtlf_Calendar,
+      <if test="rtlfRent != null">
+        rtlf_Rent,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rtlfId != null">
         #{rtlfId,jdbcType=INTEGER},
-      </if>
-      <if test="rtlfRent != null">
-        #{rtlfRent,jdbcType=INTEGER},
       </if>
       <if test="rtlfReleasetime != null">
         #{rtlfReleasetime,jdbcType=TIMESTAMP},
@@ -153,8 +146,8 @@
       <if test="rtlfRequest != null">
         #{rtlfRequest,jdbcType=VARCHAR},
       </if>
-      <if test="rtlfCalendar != null">
-        #{rtlfCalendar,jdbcType=VARCHAR},
+      <if test="rtlfRent != null">
+        #{rtlfRent,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -170,9 +163,6 @@
       <if test="record.rtlfId != null">
         rtlf_Id = #{record.rtlfId,jdbcType=INTEGER},
       </if>
-      <if test="record.rtlfRent != null">
-        rtlf_Rent = #{record.rtlfRent,jdbcType=INTEGER},
-      </if>
       <if test="record.rtlfReleasetime != null">
         rtlf_ReleaseTime = #{record.rtlfReleasetime,jdbcType=TIMESTAMP},
       </if>
@@ -185,8 +175,8 @@
       <if test="record.rtlfRequest != null">
         rtlf_Request = #{record.rtlfRequest,jdbcType=VARCHAR},
       </if>
-      <if test="record.rtlfCalendar != null">
-        rtlf_Calendar = #{record.rtlfCalendar,jdbcType=VARCHAR},
+      <if test="record.rtlfRent != null">
+        rtlf_Rent = #{record.rtlfRent,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -196,12 +186,11 @@
   <update id="updateByExample" parameterType="map">
     update rent_rentalinfo
     set rtlf_Id = #{record.rtlfId,jdbcType=INTEGER},
-      rtlf_Rent = #{record.rtlfRent,jdbcType=INTEGER},
       rtlf_ReleaseTime = #{record.rtlfReleasetime,jdbcType=TIMESTAMP},
       rtlf_RentalType = #{record.rtlfRentaltype,jdbcType=INTEGER},
       rtlf_HHId = #{record.rtlfHhid,jdbcType=INTEGER},
       rtlf_Request = #{record.rtlfRequest,jdbcType=VARCHAR},
-      rtlf_Calendar = #{record.rtlfCalendar,jdbcType=VARCHAR}
+      rtlf_Rent = #{record.rtlfRent,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -209,9 +198,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rent.bean.Rentalinfo">
     update rent_rentalinfo
     <set>
-      <if test="rtlfRent != null">
-        rtlf_Rent = #{rtlfRent,jdbcType=INTEGER},
-      </if>
       <if test="rtlfReleasetime != null">
         rtlf_ReleaseTime = #{rtlfReleasetime,jdbcType=TIMESTAMP},
       </if>
@@ -224,21 +210,19 @@
       <if test="rtlfRequest != null">
         rtlf_Request = #{rtlfRequest,jdbcType=VARCHAR},
       </if>
-      <if test="rtlfCalendar != null">
-        rtlf_Calendar = #{rtlfCalendar,jdbcType=VARCHAR},
+      <if test="rtlfRent != null">
+        rtlf_Rent = #{rtlfRent,jdbcType=INTEGER},
       </if>
     </set>
     where rtlf_Id = #{rtlfId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rent.bean.Rentalinfo">
     update rent_rentalinfo
-    set rtlf_Rent = #{rtlfRent,jdbcType=INTEGER},
-      rtlf_ReleaseTime = #{rtlfReleasetime,jdbcType=TIMESTAMP},
+    set rtlf_ReleaseTime = #{rtlfReleasetime,jdbcType=TIMESTAMP},
       rtlf_RentalType = #{rtlfRentaltype,jdbcType=INTEGER},
       rtlf_HHId = #{rtlfHhid,jdbcType=INTEGER},
       rtlf_Request = #{rtlfRequest,jdbcType=VARCHAR},
-      rtlf_Calendar = #{rtlfCalendar,jdbcType=VARCHAR}
+      rtlf_Rent = #{rtlfRent,jdbcType=INTEGER}
     where rtlf_Id = #{rtlfId,jdbcType=INTEGER}
   </update>
-
 </mapper>
