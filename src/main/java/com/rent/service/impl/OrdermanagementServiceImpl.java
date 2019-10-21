@@ -1,9 +1,7 @@
 package com.rent.service.impl;
 
-import com.rent.bean.Order;
-import com.rent.bean.OrderExample;
-import com.rent.bean.Registy;
-import com.rent.bean.Rentalinfo;
+import com.rent.bean.*;
+import com.rent.common.StringToDate;
 import com.rent.mapper.ExpandMapper;
 import com.rent.mapper.OrderMapper;
 import com.rent.mapper.RegistyMapper;
@@ -16,6 +14,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +29,41 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     RegistyMapper registyMapper;
     @Autowired
     RentalinfoMapper rentalinfoMapper;
+
+
+    public Order transfer(Integer uif_Id,Integer rtlf_Id,String time,Integer during) throws Exception {
+
+        Date now = new Date();
+
+        Rentalinfo rentalinfo = rentalinfoMapper.selectByPrimaryKey(rtlf_Id);
+        Integer hhid = rentalinfo.getRtlfHhid();
+        //预定时间
+        Date bookdate = StringToDate.toDate(time);
+        Integer rent = rentalinfo.getRtlfRent()*during;
+
+        Order order = new Order();
+        order.setOdOrdertime(now);
+        order.setUifId(uif_Id);
+        order.setHhifId(hhid);
+        order.setOdBooktime(bookdate);
+        order.setHsId(rtlf_Id);
+        order.setOdRent(rent);
+        order.setOdStatus(0);
+        //uif_Id
+        //通过retalinfo 查询房屋编号,获取户主编号,
+        int i = orderMapper.insertSelective(order);
+        //生成订单需要 下单时间 od_ordertime  用户编号  户主编号 预定时间 租期时长  房屋编号  支付金额
+        return order;
+    }
+
+    @Override
+    public Integer showStatus(Integer od_Id) {
+
+        Order order = orderMapper.selectByPrimaryKey(od_Id);
+
+        return  order.getOdStatus();
+    }
+
     @Override
     public void EntryOrder(Order order, String username) {
         int id = 0;
@@ -41,7 +75,9 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
         order.setHhifId(rentalinfo.getRtlfHhid());
         order.setUifId(id);
         order.setHsId(order.getHsId());
-
+        order.setOdBooktime(date);
+        order.setOdDuration(1);//错误
+        order.getOdRent();
         orderMapper.insertSelective(order);
     }
 

@@ -36,4 +36,23 @@ public interface OrdermanagementService {
      * 查找所有订单
      */
     public List<Order> findAllOrder();
+
+    /**
+     * 创建订单
+     * @param uifId    用户id
+     * @param rtlf_id  房屋id
+     * @param time     预定时间
+     * @param during   预定时长
+     * @return  order  订单
+     */
+    public Order transfer(Integer uifId, Integer rtlf_id, String time, Integer during) throws Exception;
+
+    /**
+     *查询订单状态
+     * @param od_Id
+     * @return
+     */
+    public Integer showStatus(Integer od_Id);
+
+
 }

@@ -29,8 +29,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void review(Review review,String username) {
-        int id = expandMapper.selectRgt_IdByUsername(username);
+    public void review(Review review,Integer id) {
+
         review.setRgtId(id);
         reviewMapper.insertSelective(review);
 
