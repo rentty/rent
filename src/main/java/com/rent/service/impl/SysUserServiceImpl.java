@@ -58,8 +58,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public List<Userinfo> findAllUserWithFavor() {
-        UserinfoExample.Criteria criteria = userinfoExample.createCriteria();
-        criteria.andUifIdEqualTo(1);
-        return userinfoMapper.selectByExampleWithFavor(userinfoExample);
+
+        return userinfoMapper.selectByExampleWithFavor(null);
     }
 }
