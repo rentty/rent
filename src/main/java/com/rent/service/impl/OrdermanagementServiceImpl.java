@@ -1,5 +1,6 @@
 package com.rent.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.rent.bean.*;
 import com.rent.common.StringToDate;
 import com.rent.mapper.ExpandMapper;
@@ -15,6 +16,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,6 +64,20 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
         Order order = orderMapper.selectByPrimaryKey(od_Id);
 
         return  order.getOdStatus();
+    }
+
+    @Override
+    public String getAllOrderByUsername(String username) {
+        RegistyExample registyExample = new RegistyExample();
+        registyExample.createCriteria().andRgtUserEqualTo(username);
+        Registy registy = (Registy) registyMapper.selectByExample(registyExample);
+        Integer id = registy.getRgtId();
+
+        OrderExample orderExample = new OrderExample();
+        orderExample.createCriteria().andUifIdEqualTo(id);
+        ArrayList<Order> order = (ArrayList<Order>) orderMapper.selectByExample(orderExample);
+
+        return order.toString();
     }
 
     @Override
