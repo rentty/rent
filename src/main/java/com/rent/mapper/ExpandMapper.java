@@ -5,11 +5,12 @@ import com.rent.bean.HouseExpand;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-@Mapper
+@Component
 public interface ExpandMapper {
     @Select("select rgt_Id from rent_registy where rgt_User=#{username}")
     public int selectRgt_IdByUsername(@Param("username") String username);

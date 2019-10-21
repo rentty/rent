@@ -146,9 +146,9 @@ OrdermanagementService ordermanagementService;
     ReviewService reviewService;
     @GetMapping("/review")
     @ResponseBody
-    public String review(Review review,String username)
+    public String review(Review review,Integer id)
     {
-        reviewService.review(review,username);
+        reviewService.review(review,id);
         return "ok";
 
     }
