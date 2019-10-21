@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @CacheConfig(cacheNames = "UsermanagementService",cacheManager = "cacheManager")
@@ -29,65 +31,85 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     HouseholdinfoMapper householdinfoMapper;
     @Autowired
     FavoritesMapper favoritesMapper;
+    @Autowired
+    HousedlMapper housedlMapper;
+    @Autowired
+    HouseMapper houseMapper;
+    @Autowired
+    RentalinfoMapper rentalinfoMapper;
     @Override
     public int Register(Registy registy) {
-        RegistyExample example = new RegistyExample();
-        example.createCriteria().andRgtUserEqualTo(registy.getRgtUser());
-        List<Registy> registies = registyMapper.selectByExample(example);
-        System.out.println("长度："+registies.size());
-        if(registies.size()>0)
-            return -1;//用户已存在
+        if(registy.getRgtId() != null){
+            RegistyExample registyExample = new RegistyExample();
+            registyExample.createCriteria().andRgtIdEqualTo(registy.getRgtId());
+            if(registyMapper.selectByExample(registyExample).size() > 0){
+                return 0;
+            }
+        }
 
-        registyMapper.insertSelective(registy);//以下在用户信息表添加一条记录
-        int id = expandMapper.selectRgt_IdByUsername(registy.getRgtUser());
-        Userinfo userinfo = new Userinfo(id,null,null,null,null,null);
-        userinfoMapper.insertSelective(userinfo);
-
-        return 0;//注册成功
+        if( registyMapper.insert(registy) != 1){
+            return -1;
+        }
+        Userinfo userinfo = new Userinfo(registy.getRgtId(),null,null,null,null,null);
+        if(userinfoMapper.insertSelective(userinfo) != 1){
+            rentalinfoMapper.deleteByPrimaryKey(registy.getRgtId());
+            return -2;
+        }
+        return 1;//注册成功
 
     }
 
     @Override
-    @Cacheable
-    public int Login(String username, String password) {
-        System.out.println("s");
+    //@Cacheable
+    public HashMap Login(String username, String password) {
+        //System.out.println("s");
+        HashMap map = new HashMap();
         RegistyExample example = new RegistyExample();
         List<Registy> registies = null;
         example.createCriteria().andRgtUserEqualTo(username);
         registies = registyMapper.selectByExample(example);
-        if(registies.size()<1)
-            return -1;//用户不存在
-        else {
-            if(registies.get(0).getRgtPassword().equals(password))
-                return 1;//登录成功
-            else
-                return 0;//密码错误
+        if(registies.size()<1) {
+            map.put("status", -1);
+            return map;//用户不存在
+        }
+        else{
+            if(registies.get(0).getRgtPassword().equals(password)){
+                Householdinfo householdinfo = householdinfoMapper.selectByPrimaryKey(registies.get(0).getRgtId());
+                if(householdinfo != null){
+                    map.put("status",11);
+                    map.put("user",userinfoMapper.selectByPrimaryKey(registies.get(0).getRgtId()));
+                    return map;//登录成功 户主
+                }else {
+                    map.put("status",12);
+                    map.put("user",userinfoMapper.selectByPrimaryKey(registies.get(0).getRgtId()));
+                    return map;//登录成功 普通用户
+                }
+
+            }
+            else{
+                map.put("status",0);
+                return map;//密码错误
+            }
+
         }
 
     }
     @Override
-    @Cacheable(key = "#username",value = "userinfo")
-    public String getUserinfo(String username) {
-        String result = null;
-        int id=0;
-        id = expandMapper.selectRgt_IdByUsername(username);
-        UserinfoExample example1 = new UserinfoExample();
-        example1.createCriteria().andUifIdEqualTo(id);
-        List<Userinfo> userinfos = userinfoMapper.selectByExample(example1);
-        for(Userinfo userinfo:userinfos) {
-            result = JSonPool.toJSon(userinfo);
-        }
-        return result;
+    //@Cacheable(key = "#username",value = "userinfo")
+    public Userinfo getUserinfo(int id) {
+        return userinfoMapper.selectByPrimaryKey(id);
     }
-    @Override
-    @CachePut(key = "#username",value = "userinfo")//key值与查询一样，返回值要么使用传入的对象（完整性），要么从数据库获取-------这里使用参数对象，必须要完整
-    public String Motify_userinfo(Userinfo userinfo,String username) {
-        int id=0;
-      id = expandMapper.selectRgt_IdByUsername(username);
-      userinfo.setUifId(id);
-    userinfoMapper.updateByPrimaryKeySelective(userinfo);
-    return JSonPool.toJSon(userinfo);
 
+    @Override
+    public Householdinfo getHouseholdinfo(int id) {
+        return householdinfoMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    //@CachePut(key = "#username",value = "userinfo")//key值与查询一样，返回值要么使用传入的对象（完整性），要么从数据库获取-------这里使用参数对象，必须要完整
+    public int Motify_userinfo(Userinfo userinfo) {
+
+        return userinfoMapper.updateByPrimaryKey(userinfo);
     }
 
 
@@ -137,26 +159,49 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-    @Cacheable(key = "#username",value = "Favorites")
-    public String getAllFavorites(String username) {
-        int id=0;
-        id = expandMapper.selectRgt_IdByUsername(username);
-        List<House> favorites = expandMapper.selectAllFavoritesByUif_Id(id);
+   // @Cacheable(key = "#username",value = "Favorites")
+    public List<ShowHouse> getAllFavorites(int id) {
+        List<ShowHouse> list = new ArrayList<ShowHouse>();
+        UserinfoExample userinfoExample = new UserinfoExample();
+        userinfoExample.createCriteria().andUifIdEqualTo(id);
+        List<Userinfo> list1 = userinfoMapper.selectByExampleWithFavor(userinfoExample);
+        //System.out.println(list1.size());
+        Userinfo userinfo = list1.get(0);
+        for(int i=0;i<userinfo.getFavorites().size();i++){
+            ShowHouse showHouse = new ShowHouse();
+            showHouse.setFvrId(userinfo.getFavorites().get(i).getFvrId());
+            Housedl housedl = housedlMapper.selectByPrimaryKey(userinfo.getFavorites().get(i).getHsId());
+            System.out.println(housedl);
+            showHouse.setHsdldoormaddr(housedl.getHsdIdoormaddr());
+            showHouse.setHsdFacilityDesc(housedl.getHsdFacilityDesc());
+            House house = houseMapper.selectByPrimaryKey(userinfo.getFavorites().get(i).getHsId());
+            System.out.println(house);
+            showHouse.setHsCity(house.getHsCity());
+            showHouse.setHsDistrict(house.getHsDistrict());
+            showHouse.setHsHousingestate(house.getHsHousingestate());
+            showHouse.setHsType(house.getHsType());
+            Rentalinfo rentalinfo = rentalinfoMapper.selectByPrimaryKey(userinfo.getFavorites().get(i).getHsId());
+            System.out.println(rentalinfo);
+            showHouse.setRtlfRent(rentalinfo.getRtlfRent());
+            System.out.println(showHouse);
+            list.add(showHouse);
+        }
+        /*FavoritesExample favoritesExample = new FavoritesExample();
+        favoritesExample.createCriteria().andUifIdEqualTo(id);
+        List<Favorites> favorites = favoritesMapper.selectByExample(favoritesExample);
+        for(int i=0;i<favorites.size();i++){
 
+        }*/
 
-        return JSonPool.toJSon(favorites);
+        return list;
     }
 
     @Override
 
-    @CacheEvict(key="#result",value = "Favorites")
-    public String deleteFavoritesByFvr_Id(int fvr_Id) {
-        int id=0;
-        id=favoritesMapper.selectByPrimaryKey(fvr_Id).getUifId();
-        favoritesMapper.deleteByPrimaryKey(fvr_Id);
-        Registy registy = registyMapper.selectByPrimaryKey(id);
+    //@CacheEvict(key="#result",value = "Favorites")
+    public int deleteFavoritesByFvr_Id(int fvr_Id) {
 
-        return registy.getRgtUser();
+        return favoritesMapper.deleteByPrimaryKey(fvr_Id);
 
     }
 
