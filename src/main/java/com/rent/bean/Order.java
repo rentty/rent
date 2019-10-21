@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Order implements Serializable {
+public class Order implements Serializable,Comparable<Order>{
     @ApiModelProperty(value = "订单编号")
     private Integer odId;
 
@@ -141,4 +141,9 @@ public class Order implements Serializable {
     }
 
 
+    @Override
+    public int compareTo(Order o) {
+        int compare = this.getOdOrdertime().compareTo(o.getOdOrdertime());
+        return compare;
+    }
 }
