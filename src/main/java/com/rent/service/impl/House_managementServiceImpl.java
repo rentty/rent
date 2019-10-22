@@ -97,4 +97,10 @@ public class House_managementServiceImpl implements House_managementService {
     public List<Rentalinfo> findAllRentalinfo() {
         return rentalinfoMapper.selectByExample(null);
     }
+
+    @Override
+    public List<House> findAllHouseWithReview() {
+
+        return houseMapper.selectByExampleWithReview(null);
+    }
 }

@@ -5,6 +5,7 @@ import com.rent.bean.ShowHouse;
 import com.rent.bean.Userinfo;
 import com.rent.common.Result;
 import com.rent.service.UsermanagementService;
+import com.rent.service.impl.House_managementServiceImpl;
 import com.rent.service.impl.OrdermanagementServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,9 @@ public class UserController {
 
     @Autowired
     OrdermanagementServiceImpl ordermanagementService;
+
+    @Autowired
+    House_managementServiceImpl house_managementService;
 
     @ApiOperation(value = "用户注册")
     @GetMapping("/registy")
@@ -110,5 +114,12 @@ public class UserController {
         }else {
             return Result.error();
         }
+    }
+
+    @ApiOperation(value = "查询所有带评论的房屋信息")
+    @GetMapping("/getAllHouseWithReview")
+    @ResponseBody
+    public Result getAllHouseWithReview(){
+        return Result.ok().data("houseWithReview",house_managementService.findAllHouseWithReview());
     }
 }
