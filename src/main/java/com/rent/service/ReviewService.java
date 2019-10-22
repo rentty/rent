@@ -17,7 +17,7 @@ public interface ReviewService {
      * 评论信息录入
      * @param review
      */
-    public void review(Review review,Integer id);
+    public int review(Review review,Integer id);
 
     /**
      * 获取所有评论信息

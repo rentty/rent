@@ -2,6 +2,7 @@ package com.rent.bean;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.List;
 
 public class House implements Serializable {
     @ApiModelProperty(value = "主键")
@@ -39,6 +40,33 @@ public class House implements Serializable {
 
     @ApiModelProperty(value = "审核状态,未审核：0 通过：1 未通过：2")
     private Integer hsStatus;
+
+    @ApiModelProperty(value = "评论")
+    private List<Review> reviewList;
+
+    public House(Integer hsId, String hsType, Integer hsArea, String hsCity, String hsDistrict, String hsHousingestate, String hsAddress, Integer hsLayer, String hsOriented, Double hsLongitude, Double hsLatitude, Integer hsStatus, List<Review> reviewList) {
+        this.hsId = hsId;
+        this.hsType = hsType;
+        this.hsArea = hsArea;
+        this.hsCity = hsCity;
+        this.hsDistrict = hsDistrict;
+        this.hsHousingestate = hsHousingestate;
+        this.hsAddress = hsAddress;
+        this.hsLayer = hsLayer;
+        this.hsOriented = hsOriented;
+        this.hsLongitude = hsLongitude;
+        this.hsLatitude = hsLatitude;
+        this.hsStatus = hsStatus;
+        this.reviewList = reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
+
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -159,5 +187,8 @@ public class House implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public House() {
     }
 }

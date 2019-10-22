@@ -15,6 +15,34 @@
     <result column="hs_Latitude" jdbcType="DOUBLE" property="hsLatitude" />
     <result column="hs_Status" jdbcType="INTEGER" property="hsStatus" />
   </resultMap>
+  <resultMap id="BaseResultMapWithReview" type="com.rent.bean.House">
+    <id column="hs_Id" jdbcType="INTEGER" property="hsId" />
+    <result column="hs_Type" jdbcType="VARCHAR" property="hsType" />
+    <result column="hs_Area" jdbcType="INTEGER" property="hsArea" />
+    <result column="hs_City" jdbcType="VARCHAR" property="hsCity" />
+    <result column="hs_District" jdbcType="VARCHAR" property="hsDistrict" />
+    <result column="hs_HousingEstate" jdbcType="VARCHAR" property="hsHousingestate" />
+    <result column="hs_Address" jdbcType="VARCHAR" property="hsAddress" />
+    <result column="hs_Layer" jdbcType="INTEGER" property="hsLayer" />
+    <result column="hs_Oriented" jdbcType="VARCHAR" property="hsOriented" />
+    <result column="hs_Longitude" jdbcType="DOUBLE" property="hsLongitude" />
+    <result column="hs_Latitude" jdbcType="DOUBLE" property="hsLatitude" />
+    <result column="hs_Status" jdbcType="INTEGER" property="hsStatus" />
+    <collection property="reviewList" ofType="com.rent.bean.Review">
+      <id column="rv_Id" jdbcType="INTEGER" property="rvId" />
+      <result column="rgt_Id" jdbcType="INTEGER" property="rgtId" />
+      <result column="hs_Id" jdbcType="INTEGER" property="hsId" />
+      <result column="rv_Service_rat" jdbcType="INTEGER" property="rvServiceRat" />
+      <result column="rv_Facility_rat" jdbcType="INTEGER" property="rvFacilityRat" />
+      <result column="rv_Review" jdbcType="VARCHAR" property="rvReview" />
+      <result column="rv_PicUrl" jdbcType="VARCHAR" property="rvPicurl" />
+      <association property="userinfo" javaType="com.rent.bean.Userinfo">
+        <id column="uif_Id" jdbcType="INTEGER" property="uifId" />
+        <result column="uif_NickName" jdbcType="VARCHAR" property="uifNickname" />
+        <result column="uif_Avatar" jdbcType="VARCHAR" property="uifAvatar" />
+      </association>
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -77,6 +105,11 @@
     hs_Id, hs_Type, hs_Area, hs_City, hs_District, hs_HousingEstate, hs_Address, hs_Layer, 
     hs_Oriented, hs_Longitude, hs_Latitude, hs_Status
   </sql>
+  <sql id="Base_Column_ListWithReview">
+    b.hs_Id, hs_Type, hs_Area, hs_City, hs_District, hs_HousingEstate, hs_Address, hs_Layer,
+    hs_Oriented, hs_Longitude, hs_Latitude, hs_Status,rv_Id,rgt_Id,a.hs_Id,rv_Service_rat,rv_Facility_rat
+    ,rv_Review,rv_PicUrl,uif_NickName,uif_Avatar,uif_Id
+  </sql>
   <select id="selectByExample" parameterType="com.rent.bean.HouseExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -84,6 +117,22 @@
     </if>
     <include refid="Base_Column_List" />
     from rent_house
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!--  ///   -->
+  <select id="selectByExampleWithReview" parameterType="com.rent.bean.HouseExample" resultMap="BaseResultMapWithReview">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_ListWithReview" />
+    from rent_review a ,rent_house b,rent_userinfo c
+    where a.hs_Id = b.hs_Id and a.rgt_Id = c.uif_Id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

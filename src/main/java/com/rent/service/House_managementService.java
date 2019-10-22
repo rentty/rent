@@ -63,5 +63,9 @@ public interface House_managementService {
      */
     public List<Rentalinfo> findAllRentalinfo();
 
+    /**
+     *  查询所有带用户评论信息的房屋信息
+     */
+    public List<House> findAllHouseWithReview();
 
 }
