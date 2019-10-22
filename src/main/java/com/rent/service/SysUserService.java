@@ -17,6 +17,12 @@ public interface SysUserService {
      */
     int login(Sysuser sysuser);
 
+    /**
+     * 根据用户名获取用户信息
+     * @return
+     */
+    Userinfo info(String username);
+
     //返回带条目详情的目录
      List<Dialog> getDialogWithEdtrydl();
 
