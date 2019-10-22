@@ -98,7 +98,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rent.bean.Registy">
+  <insert id="insert" parameterType="com.rent.bean.Registy" useGeneratedKeys="true" keyProperty="rgtId" >
     insert into rent_registy (rgt_Id, rgt_User, rgt_password, 
       rgt_token)
     values (#{rgtId,jdbcType=INTEGER}, #{rgtUser,jdbcType=VARCHAR}, #{rgtPassword,jdbcType=VARCHAR}, 

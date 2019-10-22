@@ -1,5 +1,6 @@
 package com.rent.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.rent.bean.*;
 import com.rent.common.StringToDate;
 import com.rent.mapper.ExpandMapper;
@@ -15,11 +16,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
-@CacheConfig(cacheNames = "OrdermanagementService",cacheManager = "cacheManager")
+//@CacheConfig(cacheNames = "OrdermanagementService",cacheManager = "cacheManager")
 public class OrdermanagementServiceImpl implements OrdermanagementService {
     @Autowired
     ExpandMapper expandMapper;
@@ -65,6 +67,20 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     }
 
     @Override
+    public String getAllOrderByUsername(String username) {
+        RegistyExample registyExample = new RegistyExample();
+        registyExample.createCriteria().andRgtUserEqualTo(username);
+        Registy registy = (Registy) registyMapper.selectByExample(registyExample);
+        Integer id = registy.getRgtId();
+
+        OrderExample orderExample = new OrderExample();
+        orderExample.createCriteria().andUifIdEqualTo(id);
+        ArrayList<Order> order = (ArrayList<Order>) orderMapper.selectByExample(orderExample);
+
+        return order.toString();
+    }
+
+    @Override
     public void EntryOrder(Order order, String username) {
         int id = 0;
         id = expandMapper.selectRgt_IdByUsername(username);
@@ -82,7 +98,7 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     }
 
     @Override
-    @CacheEvict(key = "#result",value = "AllUserOrder")
+    //@CacheEvict(key = "#result",value = "AllUserOrder")
     public String MotifyOrderStatus(int od_Status, int od_Id) {
         Order order = new Order();
         order.setOdId(od_Id);
@@ -97,18 +113,24 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     }
 
     @Override
-    @Cacheable(key = "#username",value = "AllUserOrder")
-    public String getAllOrderByUsername(String username) {
-        int id=0;
-        id = expandMapper.selectRgt_IdByUsername(username);
+   // @Cacheable(key = "#username",value = "AllUserOrder")
+    public List<Order> getAllOrderByUserId(int id,int who,int status) {
         OrderExample orderExample = new OrderExample();
-        orderExample.createCriteria().andUifIdEqualTo(id);
+        if(who == 1){
+            orderExample.createCriteria().andUifIdEqualTo(id);
+        }else {
+            orderExample.createCriteria().andHhifIdEqualTo(id);
+        }
+        if(status != -1){
+            orderExample.createCriteria().andOdStatusEqualTo(status);
+        }
+        List<Order> orders = orderMapper.selectByExample(orderExample);
 
-        return JSonPool.toJSon(orderMapper.selectByExample(orderExample));
+        return orders;
     }
 
     @Override
-    @CacheEvict(key = "#result",value = "AllUserOrder")
+    //@CacheEvict(key = "#result",value = "AllUserOrder")
     public String deleteOrderByOd_Id(int od_Id) {
         //获取用户账号
         Order order = orderMapper.selectByPrimaryKey(od_Id);

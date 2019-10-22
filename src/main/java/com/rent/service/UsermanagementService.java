@@ -1,12 +1,11 @@
 
 package com.rent.service;
 
-import com.rent.bean.Favorites;
-import com.rent.bean.Householdinfo;
-import com.rent.bean.Registy;
-import com.rent.bean.Userinfo;
+import com.rent.bean.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Handler;
 
 public interface UsermanagementService {
 
@@ -26,18 +25,24 @@ public interface UsermanagementService {
  * @return 1登录成功
  */
 
-    public int Login(String username,String password);
+    public HashMap Login(String username, String password);
 
    // public int LoginOthter(String rgt_token);
 
 
 /**
  * 获取用户信息
- * @param username
  * @return json字符串
  */
 
-    public String getUserinfo(String username);
+    public Userinfo getUserinfo(int id);
+
+    /**
+     * 获取用户信息
+     * @return json字符串
+     */
+
+    public Householdinfo getHouseholdinfo(int id);
 
 /**
  * 完善用户信息或更改用户信息
@@ -45,7 +50,7 @@ public interface UsermanagementService {
  * @param  username 根据用户名获取userinfo的id
  */
 
-    public String  Motify_userinfo(Userinfo userinfo,String username);
+    public int Motify_userinfo(Userinfo userinfo);
 
 
 /**
@@ -91,7 +96,7 @@ public interface UsermanagementService {
  * @return  JSon-----List
  */
 
-    public String getAllFavorites(String username);
+    public  List<ShowHouse> getAllFavorites(int id);
 
 
 /**
@@ -100,7 +105,7 @@ public interface UsermanagementService {
  * @return  返回用户名，清除huanc
  */
 
-    public String  deleteFavoritesByFvr_Id(int fvr_Id);
+    public int  deleteFavoritesByFvr_Id(int fvr_Id);
 
     /**
      * 获取所有用户信息

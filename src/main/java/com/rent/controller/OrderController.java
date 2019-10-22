@@ -117,14 +117,25 @@ public class OrderController {
 
     @ApiOperation("房东拒接订单")
     @RequestMapping("rejectOrder")
-    public Result rejectOrder(){
+    public Result rejectOrder(Integer odId){
         //房东订单拒接
-
+        changeStatus(odId,3);//退订中
         return Result.ok();
     }
-    public Result changeStatus(Integer Status){
-        //修改订单状态
 
+    @ApiOperation("房东接受订单")
+    @RequestMapping("acceptOrder")
+    public Result acceptOrder(Integer odId){
+        //房东订单接受
+        changeStatus(odId,2);//已确定
+        return Result.ok();
+    }
+
+    public Result changeStatus(Integer odId,Integer status){
+        //修改订单状态
+        Order order = orderMapper.selectByPrimaryKey(odId);
+        order.setOdStatus(status);
+        orderMapper.updateByPrimaryKeySelective(order);
 
         return Result.ok();
     }

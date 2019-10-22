@@ -14,9 +14,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -43,11 +46,12 @@ public class SysUserController {
     @Autowired
     OrdermanagementServiceImpl ordermanagementService;
     @PostMapping("login")
-    @ApiOperation(value = "用户登录")
+    @ApiOperation(value = "系统管理员登录")
     public Result login(@ApiParam(name = "sysuser", value = "系统用户对象", required = true)
-                            @RequestBody Sysuser sysuser){
+                            @RequestBody Sysuser sysuser, HttpServletRequest httpServletRequest){
 
         System.out.println(sysuser);
+
         int num = sysUserService.login(sysuser);
         if(num == 1)
             return Result.ok().data("token",sysuser.getUsername());

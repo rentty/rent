@@ -22,10 +22,9 @@ public interface OrdermanagementService {
 
     /**
      * 查找用户所有订单--------------将list也装换json?????????????-------------------------------------------
-     * @param username 获取用户编号
-     * @return json-----List
+     * @return
      */
-    public String getAllOrderByUsername(String username);
+    public List<Order> getAllOrderByUserId(int id,int who,int status);
 
     /**
      * 删除订单
@@ -56,4 +55,5 @@ public interface OrdermanagementService {
     public Integer showStatus(Integer od_Id);
 
 
+    String getAllOrderByUsername(String username);
 }

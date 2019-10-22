@@ -1,3 +1,4 @@
+/*
 package com.rent.controller;
 
 import com.rent.bean.*;
@@ -42,12 +43,14 @@ public class    TestController {
   }
     @GetMapping("/getUserinfo")
     @ResponseBody
-    public String getUserinfo(String username)
+    public String getUserinfo(int id)
     {
 
-        String userinfo1 = usermanagementService.getUserinfo(username);
+       */
+/* String userinfo1 = usermanagementService.getUserinfo(id);*//*
 
-        return userinfo1;
+
+        return "";
     }
     @GetMapping("/Entry_householdinfo")
     @ResponseBody
@@ -116,14 +119,16 @@ OrdermanagementService ordermanagementService;
         return "ok";
     }
 
-    @GetMapping("/getAllOrderByUsername")
+   */
+/* @GetMapping("/getAllOrderByUsername")
     @ResponseBody
     public String getAllOrderByUsername(String username)
     {
 
         String allOrderByUsername = ordermanagementService.getAllOrderByUsername(username);
         return allOrderByUsername;
-    }
+    }*//*
+
 
     @GetMapping("/MotifyOrderStatus")
     @ResponseBody
@@ -162,3 +167,4 @@ OrdermanagementService ordermanagementService;
     }
 
 }
+*/

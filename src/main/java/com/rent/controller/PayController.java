@@ -11,6 +11,7 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.response.AlipayTradeCancelResponse;
 import com.alipay.api.response.AlipayTradeCloseResponse;
+import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.rent.bean.Order;
 import io.swagger.annotations.ApiOperation;
@@ -110,6 +111,7 @@ public class PayController {
                 System.out.println(alipayClient.pageExecute(request).getSellerId());
                 System.out.println(alipayClient.pageExecute(request).getTotalAmount());
                 System.out.println(alipayClient.pageExecute(request).getMerchantOrderNo());
+                AlipayTradePagePayResponse alipayTradePagePayResponse = alipayClient.pageExecute(request);
 
 
             } catch (AlipayApiException e) {
@@ -264,6 +266,30 @@ public class PayController {
         }
     }
 
+
+
+
+    @ApiOperation(value = "交易查询接口",notes ="该接口提供所有支付宝支付订单的查询，商户可以通过该接口主动查询订单状态，完成下一步的业务逻辑" )
+    @RequestMapping("queryPay")
+    public void rPay(HttpServletResponse httpResponse, Model model) throws Exception {
+
+
+        String out_trade_no = null;
+        String trade_no = null;
+
+        AlipayTradeCancelRequest request = new AlipayTradeCancelRequest();
+        request.setBizContent("{" +
+                "\"out_trade_no\":\""+out_trade_no+"\"," +
+                "\"trade_no\":\""+trade_no+"\"" +
+                "  }");
+        AlipayTradeCancelResponse response = alipayClient.execute(request);
+        if(response.isSuccess()){
+            System.out.println("调用成功");
+        } else {
+            System.out.println("调用失败");
+        }
+
+    }
 }
 
 
