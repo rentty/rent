@@ -67,17 +67,18 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     }
 
     @Override
-    public String getAllOrderByUsername(String username) {
+    public List<Order> getAllOrderByUsername(String username) {
         RegistyExample registyExample = new RegistyExample();
         registyExample.createCriteria().andRgtUserEqualTo(username);
-        Registy registy = (Registy) registyMapper.selectByExample(registyExample);
-        Integer id = registy.getRgtId();
+        List<Registy> registies = registyMapper.selectByExample(registyExample);
+        Integer id = registies.get(0).getRgtId();
 
         OrderExample orderExample = new OrderExample();
         orderExample.createCriteria().andUifIdEqualTo(id);
         ArrayList<Order> order = (ArrayList<Order>) orderMapper.selectByExample(orderExample);
 
-        return order.toString();
+
+        return order;
     }
 
     @Override

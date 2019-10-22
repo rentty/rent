@@ -1,6 +1,7 @@
 package com.rent.service;
 
 import com.rent.bean.Order;
+import org.mockito.internal.matchers.Or;
 
 import java.util.List;
 
@@ -55,5 +56,5 @@ public interface OrdermanagementService {
     public Integer showStatus(Integer od_Id);
 
 
-    String getAllOrderByUsername(String username);
+    List<Order> getAllOrderByUsername(String username);
 }
