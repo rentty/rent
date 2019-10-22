@@ -37,7 +37,7 @@ public class SysUserServiceImpl implements SysUserService {
         criteria.andRgtUserEqualTo(username);
         criteria.andRgtPasswordEqualTo(password);
         List<Registy> registies = registyMapper.selectByExample(registyExample);
-        if(registies.size() > 0){
+        if(registies.size() == 1){
             Registy registy = registies.get(0);
             Integer id = registy.getRgtId();//获取主键
             Userinfo userinfo = userinfoMapper.selectByPrimaryKey(id);
@@ -48,6 +48,21 @@ public class SysUserServiceImpl implements SysUserService {
             }
         }
         return 0;
+    }
+
+    @Override
+    public Userinfo info(String username) {
+        RegistyExample registyExample = new RegistyExample();
+        RegistyExample.Criteria criteria = registyExample.createCriteria();
+        criteria.andRgtUserEqualTo(username);
+        List<Registy> registies = registyMapper.selectByExample(registyExample);
+        if(registies.size() == 1){
+            Registy registy = registies.get(0);
+            Integer id = registy.getRgtId();
+            Userinfo userinfo = userinfoMapper.selectByPrimaryKey(id);
+            return userinfo;
+        }
+        return null;
     }
 
     @Override
