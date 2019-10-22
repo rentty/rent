@@ -1,12 +1,9 @@
-/*
+
 package com.rent.controller;
 
 import com.rent.bean.*;
 import com.rent.mapper.ExpandMapper;
-import com.rent.service.House_managementService;
-import com.rent.service.OrdermanagementService;
-import com.rent.service.ReviewService;
-import com.rent.service.UsermanagementService;
+import com.rent.service.*;
 import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,7 @@ import java.util.List;
 @Controller
 @Api(tags = "TestController", description = "hehe1管理")
 public class    TestController {
-    @Autowired
+    /*@Autowired
     ExpandMapper expandMapper;
     @GetMapping("/tests")
     @ResponseBody
@@ -47,7 +44,7 @@ public class    TestController {
     {
 
        */
-/* String userinfo1 = usermanagementService.getUserinfo(id);*//*
+    /* String userinfo1 = usermanagementService.getUserinfo(id);*//*
 
 
         return "";
@@ -168,3 +165,24 @@ OrdermanagementService ordermanagementService;
 
 }
 */
+    @Autowired
+    HelloService helloService;
+    @GetMapping("/test")
+    @ResponseBody
+    public void test(int key,String username)
+    {
+        helloService.test(key,username);
+    }
+    @GetMapping("/alltest")
+    @ResponseBody
+    public void alltest()
+    {
+        helloService.alltest();
+    }
+    @GetMapping("/delete")
+    @ResponseBody
+    public void delete(int key,String value)
+    {
+        helloService.update(key,value);
+    }
+}

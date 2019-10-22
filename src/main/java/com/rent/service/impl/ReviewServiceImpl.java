@@ -9,6 +9,7 @@ import com.rent.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class ReviewServiceImpl implements ReviewService {
     ExpandMapper expandMapper;
     @Autowired
     ReviewMapper reviewMapper;
+    @Autowired
+    RedisTemplate<String,String> redisTemplate;
     @Override
     @Cacheable(key = "#hs_Id",value = "AllReview")
     public String getAllReviewByHs_Id(int hs_Id) {
@@ -37,6 +40,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    @Cacheable(value = "findAllReview")
     public List<Review> findAllReview() {
 
         return reviewMapper.selectByExample(null);
@@ -44,7 +48,12 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public int deleteReview(int id) {
-
+        //更新缓存--------twj
+        Review review = reviewMapper.selectByPrimaryKey(id);
+        //@Cacheable(value = "findAllReview")
+        redisTemplate.delete("findAllReview::SimpleKey []");
+        // @Cacheable(key = "#hs_Id",value = "AllReview")
+        redisTemplate.delete("AllReview::"+review.getHsId());
         return reviewMapper.deleteByPrimaryKey(id);
     }
 }

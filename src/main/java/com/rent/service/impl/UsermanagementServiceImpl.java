@@ -3,12 +3,14 @@ package com.rent.service.impl;
 import com.rent.bean.*;
 import com.rent.mapper.*;
 import com.rent.service.JSonPool;
+import com.rent.service.RedisPool;
 import com.rent.service.UsermanagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,8 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     HouseMapper houseMapper;
     @Autowired
     RentalinfoMapper rentalinfoMapper;
+    @Autowired
+    RedisPool redisPool;
     @Override
     public int Register(Registy registy) {
         if(registy.getRgtId() != null){
@@ -60,7 +64,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-    //@Cacheable
+    @Cacheable(key = "#username+'~'+#password",value = "userLogin")
     public HashMap Login(String username, String password) {
         //System.out.println("s");
         HashMap map = new HashMap();
@@ -95,12 +99,13 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     }
     @Override
-    //@Cacheable(key = "#username",value = "userinfo")
+    @Cacheable(key = "#id",value = "getUserinfo")
     public Userinfo getUserinfo(int id) {
         return userinfoMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Cacheable(key = "#id",value = "getHouseholdinfo")
     public Householdinfo getHouseholdinfo(int id) {
         return householdinfoMapper.selectByPrimaryKey(id);
     }
@@ -108,7 +113,10 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     @Override
     //@CachePut(key = "#username",value = "userinfo")//key值与查询一样，返回值要么使用传入的对象（完整性），要么从数据库获取-------这里使用参数对象，必须要完整
     public int Motify_userinfo(Userinfo userinfo) {
-
+        //更新缓存-----------twj
+      redisPool.updateCache(String.valueOf(userinfo.getUifId()),"getUserinfo",userinfo);//更新getUserinfo的缓存
+        redisPool.deletesCache(null,"findAllUserinfo");//删除findAllUserinfo缓存
+        //更新缓存-------twj
         return userinfoMapper.updateByPrimaryKey(userinfo);
     }
 
@@ -124,7 +132,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     }
     @Override
-    @Cacheable(key = "#username",value = "householdinfo")
+    @Cacheable(key = "#username",value = "getHouseholdinfoByUsername")
     public String getHouseholdinfoByUsername(String username) {
         String result = null;
         int id=0;
@@ -139,12 +147,19 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-    @CachePut(key = "#username",value = "householdinfo")
+   // @CachePut(key = "#username",value = "householdinfo")
     public String Motify_householdinfo(Householdinfo householdinfo,String username) {
         int id=0;
         id = expandMapper.selectRgt_IdByUsername(username);
         householdinfo.setHhifId(id);
         householdinfoMapper.updateByPrimaryKeySelective(householdinfo);
+        //更新缓存---------twj
+        Householdinfo householdinfo1 = householdinfoMapper.selectByPrimaryKey(id);
+        redisPool.updateCache(String.valueOf(id),"getHouseholdinfo",householdinfo1);
+        redisPool.updateCache(username,"getHouseholdinfoByUsername",householdinfo1);//---------------------------------------------------
+        redisPool.deletesCache(null,"findAllHouseholdinfo");//删除findAllUserinfo缓存
+        //更新缓存-------twj
+
         return JSonPool.toJSon(householdinfo);
 
     }
@@ -159,7 +174,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-   // @Cacheable(key = "#username",value = "Favorites")
+    @Cacheable(key = "#id",value = "getAllFavorites")
     public List<ShowHouse> getAllFavorites(int id) {
         List<ShowHouse> list = new ArrayList<ShowHouse>();
         UserinfoExample userinfoExample = new UserinfoExample();
@@ -200,21 +215,39 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     //@CacheEvict(key="#result",value = "Favorites")
     public int deleteFavoritesByFvr_Id(int fvr_Id) {
-
+        //更新缓存-------twj
+        Favorites favorites = favoritesMapper.selectByPrimaryKey(fvr_Id);
+        Integer uifId = favorites.getUifId();
+        redisPool.deletesCache(String.valueOf(uifId),"getAllFavorites");
+        //更新缓存-------twj
         return favoritesMapper.deleteByPrimaryKey(fvr_Id);
 
     }
 
     @Override
+    @Cacheable(value = "findAllUserinfo")
     public List<Userinfo> findAllUserinfo() {
         return userinfoMapper.selectByExample(null);
     }
 
     @Override
+    @Cacheable(value = "findAllHouseholdinfo")
     public List<Householdinfo> findAllHouseholdinfo() {
 
         return householdinfoMapper.selectByExample(null);
     }
+
+    /*
+ @Cacheable(key = "#username+#password",value = "userLogin")
+ @Cacheable(key = "#id",value = "getUserinfo")
+@Cacheable(key = "#id",value = "getHouseholdinfo")
+@Cacheable(key = "#username",value = "getHouseholdinfoByUsername")
+ @Cacheable(key = "#id",value = "getAllFavorites")
+ @Cacheable(value = "findAllUserinfo")
+ @Cacheable(value = "findAllHouseholdinfo")
+     */
+
+
 
 
 
