@@ -3,6 +3,7 @@ package com.rent.controller;
 import com.rent.bean.House;
 import com.rent.bean.Housedl;
 import com.rent.bean.Sysuser;
+import com.rent.bean.Userinfo;
 import com.rent.common.Result;
 import com.rent.service.SysUserService;
 import com.rent.service.impl.House_managementServiceImpl;
@@ -49,7 +50,7 @@ public class SysUserController {
         System.out.println(sysuser);
         int num = sysUserService.login(sysuser);
         if(num == 1)
-            return Result.ok().data("token","admin");
+            return Result.ok().data("token",sysuser.getUsername());
         else if(num == 0)
             return Result.loginfail();
         else
@@ -60,9 +61,11 @@ public class SysUserController {
     @ApiOperation(value = "获取用户信息")
     public Result info( @ApiParam(name = "token", value = "令牌", required = true)
                             @RequestParam String token){
+        String username = token;
+        Userinfo userinfo = sysUserService.info(username);
         return Result.ok()
                 .data("roles", "admin")
-                .data("name", "admin")
+                .data("name", userinfo.getUifNickname())
                 .data("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
     }
     @ApiOperation(value = "用户登出")
