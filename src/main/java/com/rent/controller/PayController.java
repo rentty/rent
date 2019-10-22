@@ -5,20 +5,15 @@ import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.request.AlipayTradeCancelRequest;
-import com.alipay.api.request.AlipayTradeCloseRequest;
-import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.alipay.api.request.AlipayTradeRefundRequest;
-import com.alipay.api.response.AlipayTradeCancelResponse;
-import com.alipay.api.response.AlipayTradeCloseResponse;
-import com.alipay.api.response.AlipayTradePagePayResponse;
-import com.alipay.api.response.AlipayTradeRefundResponse;
+import com.alipay.api.request.*;
+import com.alipay.api.response.*;
 import com.rent.bean.Order;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -59,13 +54,13 @@ public class PayController {
     //支付宝异步通知路径,付款完毕后会异步调用本项目的方法,必须为公网地址
     private final String NOTIFY_URL = "http://localhost:8080/notifyUrl";
     //支付宝同步通知路径,也就是当付款完毕后跳转本项目的页面,可以不是公网地址
-    private final String RETURN_URL = "http://localhost:8080/returnUrl";
+    private final String RETURN_URL = "http://localhost:8080/showOrder";
 
 
     AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",APP_ID,APP_PRIVATE_KEY,"json","GBK",ALIPAY_PUBLIC_KEY,"RSA2");
 
     @ApiOperation(value = "交易支付接口",notes = "PC场景下单并支付")
-    @GetMapping("alipay")
+    @PostMapping("alipay")
     public void alipay(HttpServletRequest  httpRequest, HttpServletResponse httpResponse, Model model) throws IOException {
         Order order = (Order)httpRequest.getSession().getAttribute("order");
         //获取从数据库通过订单编号获取订单详情
@@ -271,19 +266,26 @@ public class PayController {
 
 
     @ApiOperation(value = "交易查询接口",notes ="该接口提供所有支付宝支付订单的查询，商户可以通过该接口主动查询订单状态，完成下一步的业务逻辑" )
-    @GetMapping("queryPay")
-    public void rPay(HttpServletResponse httpResponse, Model model) throws Exception {
+    @GetMapping("querypay")
+    public void queryPay(Model model) throws Exception {
 
 
-        String out_trade_no = null;
-        String trade_no = null;
+        String out_trade_no = "";
 
-        AlipayTradeCancelRequest request = new AlipayTradeCancelRequest();
+        String trade_no = "";
+
+        String org_pid = "";
+        AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
         request.setBizContent("{" +
                 "\"out_trade_no\":\""+out_trade_no+"\"," +
-                "\"trade_no\":\""+trade_no+"\"" +
+                "\"trade_no\":\""+trade_no+"\"," +
+                "\"org_pid\":\""+org_pid+"\"," +
+                "      \"query_options\":[" +
+                "        \"TRADE_SETTLE_INFO\"" +
+                "      ]" +
                 "  }");
-        AlipayTradeCancelResponse response = alipayClient.execute(request);
+        AlipayTradeQueryResponse response = alipayClient.execute(request);
+
         if(response.isSuccess()){
             System.out.println("调用成功");
         } else {

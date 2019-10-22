@@ -58,6 +58,17 @@ public class OrderController {
         return "redirect:alipay";        //输入数据库
 }
 
+    @ApiOperation("支付宝支付成功后订单状态更改")
+    @GetMapping("notifyUrl")
+    public Result modifyOrderStatus(HttpServletRequest httpServletRequest){
+        //获取
+
+        return Result.ok();
+    }
+
+
+
+
     @ApiOperation("用户订单查询展示")
     @GetMapping("showOrder")
     public Result showOrder(HttpServletRequest httpServletRequest){
