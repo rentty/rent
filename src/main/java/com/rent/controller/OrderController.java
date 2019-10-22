@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @Api("订单控制")
@@ -39,32 +41,54 @@ public class OrderController {
 
     @GetMapping("createOrder")
     @ApiOperation("用户请求创建订单")
-    public String createOrder(Integer rtlf_Id,String time,Integer during,Model model, HttpServletRequest httpServletRequest) throws Exception {
-        //通过用户创建订单
-           Userinfo userinfo = (Userinfo) httpServletRequest.getAttribute("user");
+    public String createOrder(Integer rtlf_Id, String time, Integer during, Model model,
+                              HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
+        //通过用户创建订单
+           //Userinfo userinfo = (Userinfo) httpServletRequest.getSession().getAttribute("user");
+            HashMap map = (HashMap) httpServletRequest.getSession().getAttribute("userMap");
+            if(map == null){
+                httpServletResponse.sendRedirect("/admin/user/login");
+                return "redirect:/admin/user/login";
+            }
+            Userinfo userinfo = (Userinfo) map.get("user");
+            System.out.println(map.get("status"));
         //检测session 里是否存在 user ,若是有则可创建订单,若是没有则跳转登录界面
-            if(userinfo!=null ){
-                return "redirect:Login";//跳转登录
+            if(userinfo == null ){
+                httpServletResponse.sendRedirect("/admin/user/login");
+                return "redirect:/admin/user/login";//跳转登录
             }
         //创建订单需要获取 当前 页面显示的  房屋出租信息  出租房屋主键 户主主键
             if (rtlf_Id!=null){
                 Order order = (Order) ordermanagementServiceimpl.transfer(userinfo.getUifId(),rtlf_Id,time,during);
-                model.addAttribute("order",order);
+                httpServletRequest.getSession().setAttribute("order",order);
+                //model.addAttribute("order",order);
             }
         //对条件进行判断
         //转调 alipay
-
+        httpServletResponse.sendRedirect("/alipay");
         return "redirect:alipay";        //输入数据库
 }
+
+    @ApiOperation("支付宝支付成功后订单状态更改")
+    @GetMapping("notifyUrl")
+    public Result modifyOrderStatus(HttpServletRequest httpServletRequest){
+        //获取
+
+        return Result.ok();
+    }
+
+
+
 
     @ApiOperation("用户订单查询展示")
     @GetMapping("showOrder")
     public Result showOrder(HttpServletRequest httpServletRequest){
         //用户展示订单
 
-        httpServletRequest.getSession().setAttribute("user",new Userinfo(1,"1","1","1","1",1));
-        Userinfo userinfo = (Userinfo) httpServletRequest.getSession().getAttribute("user");
+        //httpServletRequest.getSession().setAttribute("user",new Userinfo(1,"1","1","1","1",1));
+        HashMap map = (HashMap) httpServletRequest.getSession().getAttribute("userMap");
+        Userinfo userinfo = (Userinfo) map.get("user");
         String username = userinfo.getUifNickname();
         List<Order> json = ordermanagementServiceimpl.getAllOrderByUsername(username);
         return Result.ok().data("orderList",json);
@@ -82,7 +106,8 @@ public class OrderController {
     @ApiOperation("评论订单")
     @GetMapping("OrderReview")
     public Result orderReview(Integer od_Id,HttpServletRequest httpServletRequest, Review review){
-        Userinfo userinfo = (Userinfo) httpServletRequest.getSession().getAttribute("user");
+        HashMap map = (HashMap) httpServletRequest.getSession().getAttribute("userMap");
+        Userinfo userinfo = (Userinfo) map.get("user");
         Integer id = userinfo.getUifId();
         //评论订单,并添加到数据库
         Integer status = ordermanagementServiceimpl.showStatus(od_Id);

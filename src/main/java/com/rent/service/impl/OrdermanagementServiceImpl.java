@@ -47,7 +47,9 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
         Date bookdate = StringToDate.toDate(time);
         Integer rent = rentalinfo.getRtlfRent()*during;
 
+
         Order order = new Order();
+        order.setOdId(Math.abs ((int) now.getTime()));
         order.setOdOrdertime(now);
         order.setUifId(uif_Id);
         order.setHhifId(hhid);

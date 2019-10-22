@@ -18,6 +18,9 @@ public interface HouseMapper {
 
     List<House> selectByExample(HouseExample example);
 
+    /**/
+    List<House> selectByExampleWithReview(HouseExample example);
+
     House selectByPrimaryKey(Integer hsId);
 
     int updateByExampleSelective(@Param("record") House record, @Param("example") HouseExample example);

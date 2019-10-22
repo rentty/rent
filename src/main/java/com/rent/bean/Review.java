@@ -25,6 +25,28 @@ public class Review implements Serializable {
     @ApiModelProperty(value = "评论附图地址")
     private String rvPicurl;
 
+    @ApiModelProperty(value = "评论的用户")
+    private Userinfo userinfo;
+
+    public Review(Integer rvId, Integer rgtId, Integer hsId, Integer rvServiceRat, Integer rvFacilityRat, String rvReview, String rvPicurl, Userinfo userinfo) {
+        this.rvId = rvId;
+        this.rgtId = rgtId;
+        this.hsId = hsId;
+        this.rvServiceRat = rvServiceRat;
+        this.rvFacilityRat = rvFacilityRat;
+        this.rvReview = rvReview;
+        this.rvPicurl = rvPicurl;
+        this.userinfo = userinfo;
+    }
+
+    public void setUserinfo(Userinfo userinfo) {
+        this.userinfo = userinfo;
+    }
+
+    public Userinfo getUserinfo() {
+        return userinfo;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getRvId() {

@@ -32,10 +32,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void review(Review review,Integer id) {
+    public int review(Review review,Integer id) {
 
         review.setRgtId(id);
-        reviewMapper.insertSelective(review);
+        return reviewMapper.insertSelective(review);
 
     }
 
