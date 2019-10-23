@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -59,7 +60,7 @@ public class PayController {
     AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",APP_ID,APP_PRIVATE_KEY,"json","GBK",ALIPAY_PUBLIC_KEY,"RSA2");
 
     @ApiOperation(value = "交易支付接口",notes = "PC场景下单并支付")
-    @PostMapping("alipay")
+    @GetMapping("alipay")
     public void alipay(HttpServletRequest  httpRequest, HttpServletResponse httpResponse, Model model) throws IOException {
         Order order = (Order)httpRequest.getSession().getAttribute("order");
         //获取从数据库通过订单编号获取订单详情
@@ -98,15 +99,6 @@ public class PayController {
                  *         "merchant_order_no": "20161008001"
                  */
                 form = alipayClient.pageExecute(request).getBody(); // 调用SDK生成表单
-
-                System.out.println(alipayClient.pageExecute(request).getCode());
-                System.out.println(alipayClient.pageExecute(request).getMsg());
-                System.out.println(alipayClient.pageExecute(request).getTradeNo());
-                System.out.println(alipayClient.pageExecute(request).getOutTradeNo());
-                System.out.println(alipayClient.pageExecute(request).getSellerId());
-                System.out.println(alipayClient.pageExecute(request).getTotalAmount());
-                System.out.println(alipayClient.pageExecute(request).getMerchantOrderNo());
-                AlipayTradePagePayResponse alipayTradePagePayResponse = alipayClient.pageExecute(request);
 
 
             } catch (AlipayApiException e) {
