@@ -60,7 +60,7 @@ public class PayController {
     AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",APP_ID,APP_PRIVATE_KEY,"json","GBK",ALIPAY_PUBLIC_KEY,"RSA2");
 
     @ApiOperation(value = "交易支付接口",notes = "PC场景下单并支付")
-    @PostMapping("alipay")
+    @GetMapping("alipay")
     public void alipay(HttpServletRequest  httpRequest, HttpServletResponse httpResponse, Model model) throws IOException {
         Order order = (Order)httpRequest.getSession().getAttribute("order");
         //获取从数据库通过订单编号获取订单详情

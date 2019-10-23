@@ -151,11 +151,16 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
 
     @Override
-    public void EntryFavorites(int hs_Id,String username) {
-        int id=0;
-        id = expandMapper.selectRgt_IdByUsername(username);
-        Favorites favorites = new Favorites(null,id,hs_Id);
-        favoritesMapper.insertSelective(favorites);
+    public int EntryFavorites(int hs_Id,int uif_Id) {
+
+        Favorites favorites = new Favorites(null,uif_Id,hs_Id);
+        FavoritesExample favoritesExample = new FavoritesExample();
+        favoritesExample.createCriteria().andUifIdEqualTo(uif_Id);
+        favoritesExample.createCriteria().andHsIdEqualTo(hs_Id);
+        if( favoritesMapper.selectByExample(favoritesExample).size()>0){
+            return -1;
+        }
+        return favoritesMapper.insert(favorites);
     }
 
     @Override

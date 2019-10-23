@@ -122,4 +122,18 @@ public class UserController {
     public Result getAllHouseWithReview(){
         return Result.ok().data("houseWithReview",house_managementService.findAllHouseWithReview());
     }
+
+    @ApiOperation(value = "收藏房屋")
+    @GetMapping("/EntryFavorites")
+    @ResponseBody
+    public Result EntryFavorites(int hs_Id,int uif_Id){
+        int num = usermanagementService.EntryFavorites(hs_Id,uif_Id);
+        if(num == 1){
+            return Result.ok();
+        }else if(num < 0){
+            return Result.error().message("此房屋已被收藏");
+        }else {
+            return Result.error();
+        }
+    }
 }

@@ -119,7 +119,7 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
    // @Cacheable(key = "#username",value = "AllUserOrder")
     public List<Order> getAllOrderByUserId(int id,int who,int status) {
         OrderExample orderExample = new OrderExample();
-        if(who == 1){
+        if(who != 1){
             orderExample.createCriteria().andUifIdEqualTo(id);
         }else {
             orderExample.createCriteria().andHhifIdEqualTo(id);
