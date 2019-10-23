@@ -5,19 +5,15 @@ import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.request.AlipayTradeCancelRequest;
-import com.alipay.api.request.AlipayTradeCloseRequest;
-import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.alipay.api.request.AlipayTradeRefundRequest;
-import com.alipay.api.response.AlipayTradeCancelResponse;
-import com.alipay.api.response.AlipayTradeCloseResponse;
-import com.alipay.api.response.AlipayTradePagePayResponse;
-import com.alipay.api.response.AlipayTradeRefundResponse;
+import com.alipay.api.request.*;
+import com.alipay.api.response.*;
 import com.rent.bean.Order;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,7 +60,7 @@ public class PayController {
     AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",APP_ID,APP_PRIVATE_KEY,"json","GBK",ALIPAY_PUBLIC_KEY,"RSA2");
 
     @ApiOperation(value = "交易支付接口",notes = "PC场景下单并支付")
-    @RequestMapping("alipay")
+    @GetMapping("alipay")
     public void alipay(HttpServletRequest  httpRequest, HttpServletResponse httpResponse, Model model) throws IOException {
         Order order = (Order)httpRequest.getSession().getAttribute("order");
         //获取从数据库通过订单编号获取订单详情
@@ -104,15 +100,6 @@ public class PayController {
                  */
                 form = alipayClient.pageExecute(request).getBody(); // 调用SDK生成表单
 
-                System.out.println(alipayClient.pageExecute(request).getCode());
-                System.out.println(alipayClient.pageExecute(request).getMsg());
-                System.out.println(alipayClient.pageExecute(request).getTradeNo());
-                System.out.println(alipayClient.pageExecute(request).getOutTradeNo());
-                System.out.println(alipayClient.pageExecute(request).getSellerId());
-                System.out.println(alipayClient.pageExecute(request).getTotalAmount());
-                System.out.println(alipayClient.pageExecute(request).getMerchantOrderNo());
-                AlipayTradePagePayResponse alipayTradePagePayResponse = alipayClient.pageExecute(request);
-
 
             } catch (AlipayApiException e) {
                 e.printStackTrace();
@@ -133,7 +120,7 @@ public class PayController {
 
     @ApiOperation(value = "交易关闭接口",notes = "用于交易创建后，用户在一定时间内未进行支付，可调用该接口直" +
             "接将未付款的交易进行关闭")
-    @RequestMapping("closePay")
+    @GetMapping("closePay")
     public void closePay(HttpServletResponse httpResponse) throws Exception {
         AlipayTradeCloseRequest request = new AlipayTradeCloseRequest();
 
@@ -159,7 +146,7 @@ public class PayController {
     }
 
     @ApiOperation(value = "交易撤销接口",notes ="支付交易返回失败或支付系统超时，调用该接口撤销交易" )
-    @RequestMapping("cancelPay")
+    @GetMapping("cancelPay")
     public void cancelPay(HttpServletResponse httpResponse, Model model) throws Exception {
 
 
@@ -184,7 +171,7 @@ public class PayController {
     @ApiOperation(value = "交易退款接口",notes ="交易发生之后一段时间内，由于买家或者卖家的原因需要退款时卖家" +
             "可以通过退款接口将支付款退还给买家，支付宝将在收到退款请求并且验证成功之后，按照退款规则将支付款按原路退到买家帐号上" )
 
-    @RequestMapping("refoundPay")
+    @GetMapping("refoundPay")
     public void refoundPay(HttpServletResponse httpResponse, Model model) throws Exception {
 
 
@@ -270,19 +257,26 @@ public class PayController {
 
 
     @ApiOperation(value = "交易查询接口",notes ="该接口提供所有支付宝支付订单的查询，商户可以通过该接口主动查询订单状态，完成下一步的业务逻辑" )
-    @RequestMapping("queryPay")
-    public void rPay(HttpServletResponse httpResponse, Model model) throws Exception {
+    @GetMapping("querypay")
+    public void queryPay(Model model) throws Exception {
 
 
-        String out_trade_no = null;
-        String trade_no = null;
+        String out_trade_no = "";
 
-        AlipayTradeCancelRequest request = new AlipayTradeCancelRequest();
+        String trade_no = "";
+
+        String org_pid = "";
+        AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
         request.setBizContent("{" +
                 "\"out_trade_no\":\""+out_trade_no+"\"," +
-                "\"trade_no\":\""+trade_no+"\"" +
+                "\"trade_no\":\""+trade_no+"\"," +
+                "\"org_pid\":\""+org_pid+"\"," +
+                "      \"query_options\":[" +
+                "        \"TRADE_SETTLE_INFO\"" +
+                "      ]" +
                 "  }");
-        AlipayTradeCancelResponse response = alipayClient.execute(request);
+        AlipayTradeQueryResponse response = alipayClient.execute(request);
+
         if(response.isSuccess()){
             System.out.println("调用成功");
         } else {
