@@ -54,7 +54,7 @@ public class PayController {
     //支付宝异步通知路径,付款完毕后会异步调用本项目的方法,必须为公网地址
     private final String NOTIFY_URL = "http://localhost:8080/notifyUrl";
     //支付宝同步通知路径,也就是当付款完毕后跳转本项目的页面,可以不是公网地址
-    private final String RETURN_URL = "http://localhost:8080/showOrder";
+    private final String RETURN_URL = "http://localhost:8080/returnUrl";
 
 
     AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",APP_ID,APP_PRIVATE_KEY,"json","GBK",ALIPAY_PUBLIC_KEY,"RSA2");
@@ -99,15 +99,6 @@ public class PayController {
                  *         "merchant_order_no": "20161008001"
                  */
                 form = alipayClient.pageExecute(request).getBody(); // 调用SDK生成表单
-
-                System.out.println(alipayClient.pageExecute(request).getCode());
-                System.out.println(alipayClient.pageExecute(request).getMsg());
-                System.out.println(alipayClient.pageExecute(request).getTradeNo());
-                System.out.println(alipayClient.pageExecute(request).getOutTradeNo());
-                System.out.println(alipayClient.pageExecute(request).getSellerId());
-                System.out.println(alipayClient.pageExecute(request).getTotalAmount());
-                System.out.println(alipayClient.pageExecute(request).getMerchantOrderNo());
-                AlipayTradePagePayResponse alipayTradePagePayResponse = alipayClient.pageExecute(request);
 
 
             } catch (AlipayApiException e) {
