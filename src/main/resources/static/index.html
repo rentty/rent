@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lan</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <style>
+        #container {
+            width:800px;
+            height:400px;
+        }
+        input {
+            width: 400px;
+        }
+        .a {
+            width: 200px;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <input id="btn1" >
+    <input id="address" >
+    <input id="inputAdress">
+    <button id="adre2lan" onclick="adre2lan()" >地址->经纬度</button>
+    <input id="lan" >
+    <input class="a" id="city" >
+    <input class="a" id="district" >
+    <input class="a" id="township" >
+    <input class="a" id="streetAndNumber" >
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c11ae578c1dcee5ca73646f3c6c7fb7">
+    /*window.onLoad = function(){ var map = new AMap.Map('container'); }
+    var url = 'https://webapi.amap.com/maps?v=1.4.15&key=5c11ae578c1dcee5ca73646f3c6c7fb7&callback=onLoad';
+    var jsapi = doc.createElement('script'); jsapi.charset = 'utf-8'; jsapi.src = url;
+    document.head.appendChild(jsapi);*/
+</script>
+<script>
+
+    var map = new AMap.Map('container',{ zoom: 10, center: [116.39,39.9] });
+    // 同时引入工具条插件，比例尺插件和鹰眼插件
+    AMap.plugin([ 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView', 'AMap.MapType', 'AMap.Geolocation', ],
+        function(){
+        // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+        map.addControl(new AMap.ToolBar());
+        // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+        map.addControl(new AMap.Scale());
+        // 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+        map.addControl(new AMap.OverView({isOpen:true}));
+        // 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+        map.addControl(new AMap.MapType());
+        // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+            geolocation = new AMap.Geolocation({
+                enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                timeout: 5000,          //超过10秒后停止定位，默认：无穷大
+                maximumAge: 0,           //定位结果缓存0毫秒，默认：0
+                convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+                showButton: true,        //显示定位按钮，默认：true
+                buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
+                buttonDom: "定位",
+                buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+                showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
+                panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
+                zoomToAccuracy:true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            });
+        map.addControl(new AMap.Geolocation());
+    });
+    /*AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息*/
+    var btn1 = document.getElementById("btn1");
+
+    //获取当前位置
+    geolocation.getCurrentPosition(function(status,result){
+        if(status=='complete'){
+            btn1.value = result.position.toString();//获得经纬度
+            var markerPosition = [result.position.getLng(), result.position.getLat()];//定位到当前的位置
+            map.panTo(markerPosition);
+        }else{
+            alert("地址获取错误");
+        }
+    });
+
+    //地图点击事件
+    function showInfoClick(e){
+        map.clearMap();
+        var text = e.lnglat.getLng()+','+e.lnglat.getLat();
+        document.querySelector("#btn1").value = text;
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(e.lnglat.getLng(), e.lnglat.getLat()),
+            icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+            offset: new AMap.Pixel(-25, -55)
+        });
+        map.add(marker);
+        var lan = document.getElementById("btn1");//获取点击地点的经纬度
+        var address = document.getElementById("address");
+        //获取结构化地址信息
+       // var lnglat = document.getElementById('btn1').value;
+            $.ajax({
+                url:'http://restapi.amap.com/v3/geocode/regeo?key=0aa468073085cb6ea24b602b2ce879cb&location='
+                    +lan.value+'&poitype=2&radius=1000&extensions=all&batch=false&roadlevel=0',
+                type:'GET',//类型
+                //restapi.amap.com/v3/geocode/regeo?key=5c11ae578c1dcee5ca73646f3c6c7fb7&location=116.481488,
+                //39.990464&poitype=商务写字楼&radius=1000&extensions=all&batch=false&roadlevel=0
+                success:function(data){
+                    address.value = data.regeocode.formatted_address;
+                    document.getElementById("city").value = data.regeocode.addressComponent.city;
+                    document.getElementById("district").value = data.regeocode.addressComponent.district;
+                    document.getElementById("township").value = data.regeocode.addressComponent.township;
+                    document.getElementById("streetAndNumber").value =
+                        data.regeocode.addressComponent.streetNumber.street +
+                        data.regeocode.addressComponent.streetNumber.number;
+
+                    console.log(data);
+                }
+            })
+
+
+        /*geolocation.getAddress(e.lnglat.toString(), function(status, result) {
+            if (status === 'complete') {
+                alert(address+"0");
+                var address = result.regeocode.formattedAddress;
+                alert(address+"1");
+                document.getElementById('address').value = address;
+                alert(address);
+            }else{
+                log.error('根据经纬度查询地址失败')
+            }
+        });*/
+    }
+    map.on('click', showInfoClick);
+
+    /*var auto = new AMap.Autocomplete({
+        input: "inputAdress"
+    });*/
+    //map.add(auto);
+    //地址转经纬度
+    function adre2lan(){
+        var adr = document.getElementById("address");
+        var lan = document.getElementById("lan");
+        $.ajax({
+            url:'http://restapi.amap.com/v3/geocode/geo?key=0aa468073085cb6ea24b602b2ce879cb&address='
+                +adr.value+'&city=',
+            type:'GET',//类型
+            //restapi.amap.com/v3/geocode/regeo?key=5c11ae578c1dcee5ca73646f3c6c7fb7&location=116.481488,
+            //39.990464&poitype=商务写字楼&radius=1000&extensions=all&batch=false&roadlevel=0
+            success:function(data){
+                lan.value = data.geocodes[0].location;
+                console.log(data);
+            }
+        })
+    }
+    alert("1");
+</script>
+</body>
+
+</html>
