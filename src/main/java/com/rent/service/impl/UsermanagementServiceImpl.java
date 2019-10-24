@@ -99,7 +99,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     }
     @Override
-    @Cacheable(key = "#id",value = "getUserinfo")
+   @Cacheable(key = "#id",value = "getUserinfo")
     public Userinfo getUserinfo(int id) {
         return userinfoMapper.selectByPrimaryKey(id);
     }
@@ -111,7 +111,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-    //@CachePut(key = "#username",value = "userinfo")//key值与查询一样，返回值要么使用传入的对象（完整性），要么从数据库获取-------这里使用参数对象，必须要完整
+
     public int Motify_userinfo(Userinfo userinfo) {
         //更新缓存-----------twj
       redisPool.updateCache(String.valueOf(userinfo.getUifId()),"getUserinfo",userinfo);//更新getUserinfo的缓存
@@ -147,7 +147,6 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-   // @CachePut(key = "#username",value = "householdinfo")
     public String Motify_householdinfo(Householdinfo householdinfo,String username) {
         int id=0;
         id = expandMapper.selectRgt_IdByUsername(username);
@@ -156,7 +155,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         //更新缓存---------twj
         Householdinfo householdinfo1 = householdinfoMapper.selectByPrimaryKey(id);
         redisPool.updateCache(String.valueOf(id),"getHouseholdinfo",householdinfo1);
-        redisPool.updateCache(username,"getHouseholdinfoByUsername",householdinfo1);//---------------------------------------------------
+        redisPool.updateCache(username,"getHouseholdinfoByUsername",JSonPool.toJSon(householdinfo1));//---------------------------------------------------
         redisPool.deletesCache(null,"findAllHouseholdinfo");//删除findAllUserinfo缓存
         //更新缓存-------twj
 
@@ -238,13 +237,20 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     /*
- @Cacheable(key = "#username+#password",value = "userLogin")
+   @Cacheable(key = "#username+'~'+#password",value = "userLogin")
+    public HashMap Login(String username, String password)
  @Cacheable(key = "#id",value = "getUserinfo")
-@Cacheable(key = "#id",value = "getHouseholdinfo")
-@Cacheable(key = "#username",value = "getHouseholdinfoByUsername")
+    public Userinfo getUserinfo(int id)
+  @Cacheable(key = "#id",value = "getHouseholdinfo")
+    public Householdinfo getHouseholdinfo(int id)
+ @Cacheable(key = "#username",value = "getHouseholdinfoByUsername")
+    public String getHouseholdinfoByUsername(String username)
  @Cacheable(key = "#id",value = "getAllFavorites")
- @Cacheable(value = "findAllUserinfo")
+    public List<ShowHouse> getAllFavorites(int id)
+  @Cacheable(value = "findAllUserinfo")
+    public List<Userinfo> findAllUserinfo()
  @Cacheable(value = "findAllHouseholdinfo")
+    public List<Householdinfo> findAllHouseholdinfo()
      */
 
 

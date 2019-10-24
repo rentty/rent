@@ -5,6 +5,7 @@ import com.rent.bean.ReviewExample;
 import com.rent.mapper.ExpandMapper;
 import com.rent.mapper.ReviewMapper;
 import com.rent.service.JSonPool;
+import com.rent.service.RedisPool;
 import com.rent.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -21,7 +22,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     ReviewMapper reviewMapper;
     @Autowired
-    RedisTemplate<String,String> redisTemplate;
+    RedisPool redisPool;
     @Override
     @Cacheable(key = "#hs_Id",value = "AllReview")
     public String getAllReviewByHs_Id(int hs_Id) {
@@ -50,10 +51,16 @@ public class ReviewServiceImpl implements ReviewService {
     public int deleteReview(int id) {
         //更新缓存--------twj
         Review review = reviewMapper.selectByPrimaryKey(id);
-        //@Cacheable(value = "findAllReview")
-        redisTemplate.delete("findAllReview::SimpleKey []");
-        // @Cacheable(key = "#hs_Id",value = "AllReview")
-        redisTemplate.delete("AllReview::"+review.getHsId());
+        redisPool.deletesCache(null,"findAllReview");
+        redisPool.deletesCache(String.valueOf(review.getHsId()),"AllReview");
+        //更新缓存--------twj
+
         return reviewMapper.deleteByPrimaryKey(id);
     }
 }
+/*
+ @Cacheable(key = "#hs_Id",value = "AllReview")
+    public String getAllReviewByHs_Id(int hs_Id)
+@Cacheable(value = "findAllReview")
+    public List<Review> findAllReview()
+ */

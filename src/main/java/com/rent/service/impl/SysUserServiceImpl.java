@@ -32,7 +32,7 @@ public class SysUserServiceImpl implements SysUserService {
     UserinfoExample userinfoExample = new UserinfoExample();
 
     @Override
-    @Cacheable(key = "#sysuser.username+#sysuser.password",value = "sysuserLogin")
+    @Cacheable(key = "#sysuser.username+'~'+#sysuser.password",value = "sysuserLogin")
     public int login(Sysuser sysuser) {
         String username = sysuser.getUsername();
         String password = sysuser.getPassword();
@@ -84,3 +84,13 @@ public class SysUserServiceImpl implements SysUserService {
         return userinfoMapper.selectByExampleWithFavor(null);
     }
 }
+/*
+ @Cacheable(key = "#sysuser.username+#sysuser.password",value = "sysuserLogin")
+    public int login(Sysuser sysuser)
+ @Cacheable(key = "#username",value = "info")
+    public Userinfo info(String username)
+ @Cacheable(value = "getDialogWithEdtrydl")
+    public List<Dialog> getDialogWithEdtrydl()
+ @Cacheable(value = "findAllUserWithFavor")
+    public List<Userinfo> findAllUserWithFavor()
+ */

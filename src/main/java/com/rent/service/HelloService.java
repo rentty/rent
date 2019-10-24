@@ -40,8 +40,11 @@ public class HelloService {
     }
     public String update(int key,String value)
     {
+        Userinfo userinfo = new Userinfo();
+        userinfo.setUifId(2);
+        userinfo.setUifAvatar("hjghgffg");
 
-        redisPool.deletesCache(String.valueOf(key),value);
+        redisPool.updateCache(String.valueOf(key),value,userinfo);
         System.out.println("***********************");
         return "ok";
     }
