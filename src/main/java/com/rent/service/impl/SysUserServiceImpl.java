@@ -6,6 +6,8 @@ import com.rent.mapper.RegistyMapper;
 import com.rent.mapper.UserinfoMapper;
 import com.rent.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +18,7 @@ import java.util.List;
  * @date 2019/10/16 10:12
  */
 @Service
+@CacheConfig(cacheNames = "SysUserService",cacheManager = "cacheManager")
 public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private RegistyMapper registyMapper;
@@ -29,6 +32,7 @@ public class SysUserServiceImpl implements SysUserService {
     UserinfoExample userinfoExample = new UserinfoExample();
 
     @Override
+    @Cacheable(key = "#sysuser.username+'~'+#sysuser.password",value = "sysuserLogin")
     public int login(Sysuser sysuser) {
         String username = sysuser.getUsername();
         String password = sysuser.getPassword();
@@ -51,6 +55,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    @Cacheable(key = "#username",value = "info")
     public Userinfo info(String username) {
         RegistyExample registyExample = new RegistyExample();
         RegistyExample.Criteria criteria = registyExample.createCriteria();
@@ -66,14 +71,26 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    @Cacheable(value = "getDialogWithEdtrydl")
     public List<Dialog> getDialogWithEdtrydl() {
 
         return dialogMapper.selectByExampleWithEntrydl(null);
     }
 
     @Override
+    @Cacheable(value = "findAllUserWithFavor")
     public List<Userinfo> findAllUserWithFavor() {
 
         return userinfoMapper.selectByExampleWithFavor(null);
     }
 }
+/*
+ @Cacheable(key = "#sysuser.username+#sysuser.password",value = "sysuserLogin")
+    public int login(Sysuser sysuser)
+ @Cacheable(key = "#username",value = "info")
+    public Userinfo info(String username)
+ @Cacheable(value = "getDialogWithEdtrydl")
+    public List<Dialog> getDialogWithEdtrydl()
+ @Cacheable(value = "findAllUserWithFavor")
+    public List<Userinfo> findAllUserWithFavor()
+ */

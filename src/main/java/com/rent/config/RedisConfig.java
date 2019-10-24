@@ -48,5 +48,15 @@ public class RedisConfig {
                 .build();
         return redisCacheManager;
     }
+    @Bean//自定义RedisTemplate
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<Object, Object> template = new RedisTemplate();
+        template.setConnectionFactory(redisConnectionFactory);
+        FastJsonRedisSerializer serializer = new FastJsonRedisSerializer(Object.class);//v值序列化
+        template.setDefaultSerializer(serializer);//key序列化
+        template.setKeySerializer(new StringRedisSerializer());
+        return template;
+    }
+
 
 }

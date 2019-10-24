@@ -2,6 +2,7 @@ package com.rent.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.rent.bean.*;
+import com.rent.common.Result;
 import com.rent.common.StringToDate;
 import com.rent.mapper.ExpandMapper;
 import com.rent.mapper.OrderMapper;
@@ -9,10 +10,12 @@ import com.rent.mapper.RegistyMapper;
 import com.rent.mapper.RentalinfoMapper;
 import com.rent.service.JSonPool;
 import com.rent.service.OrdermanagementService;
+import com.rent.service.RedisPool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -21,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-//@CacheConfig(cacheNames = "OrdermanagementService",cacheManager = "cacheManager")
+@CacheConfig(cacheNames = "OrdermanagementService",cacheManager = "cacheManager")
 public class OrdermanagementServiceImpl implements OrdermanagementService {
     @Autowired
     ExpandMapper expandMapper;
@@ -31,6 +34,8 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     RegistyMapper registyMapper;
     @Autowired
     RentalinfoMapper rentalinfoMapper;
+    @Autowired
+    RedisPool redisPool;
 
 
     public Order transfer(Integer uif_Id,Integer rtlf_Id,String time,Integer during) throws Exception {
@@ -61,6 +66,7 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     }
 
     @Override
+    @Cacheable(key = "#od_Id",value = "showStatus")
     public Integer showStatus(Integer od_Id) {
 
         Order order = orderMapper.selectByPrimaryKey(od_Id);
@@ -69,7 +75,9 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     }
 
     @Override
+    @Cacheable(key = "#username",value = "getAllOrderByUsername")//username--------------------
     public List<Order> getAllOrderByUsername(String username) {
+        System.out.println(username+"****************************");
         RegistyExample registyExample = new RegistyExample();
         registyExample.createCriteria().andRgtUserEqualTo(username);
         List<Registy> registies = registyMapper.selectByExample(registyExample);
@@ -101,7 +109,7 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     }
 
     @Override
-    //@CacheEvict(key = "#result",value = "AllUserOrder")
+
     public String MotifyOrderStatus(int od_Status, int od_Id) {
         Order order = new Order();
         order.setOdId(od_Id);
@@ -110,13 +118,21 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
         //获取用户账号
          order = orderMapper.selectByPrimaryKey(od_Id);
         Registy registy = registyMapper.selectByPrimaryKey(order.getUifId());
+
+        //更新缓存-------------------TWJ
+       redisPool.updateCache(String.valueOf(od_Id),"showStatus",od_Status);
+       redisPool.deletesCache(registy.getRgtUser(),"getAllOrderByUsername");
+        redisPool.deletesCache(String.valueOf(order.getHhifId())+"~1","getAllOrderByUserId");
+        redisPool.deletesCache(String.valueOf(order.getUifId())+"~2","getAllOrderByUserId");
+        redisPool.deletesCache(null,"findAllOrder");
+        //更新缓存-------------------TWJ
         return registy.getRgtUser();
 
 
     }
 
     @Override
-   // @Cacheable(key = "#username",value = "AllUserOrder")
+    @Cacheable(key = "#id+'~'+#who",value = "getAllOrderByUserId")
     public List<Order> getAllOrderByUserId(int id,int who,int status) {
         OrderExample orderExample = new OrderExample();
         if(who != 1){
@@ -133,20 +149,58 @@ public class OrdermanagementServiceImpl implements OrdermanagementService {
     }
 
     @Override
-    //@CacheEvict(key = "#result",value = "AllUserOrder")
+
     public String deleteOrderByOd_Id(int od_Id) {
         //获取用户账号
         Order order = orderMapper.selectByPrimaryKey(od_Id);
         Registy registy = registyMapper.selectByPrimaryKey(order.getUifId());
         orderMapper.deleteByPrimaryKey(od_Id);
-
+        //更新缓存-------------------TWJ
+       redisPool.deletesCache(String.valueOf(od_Id),"showStatus");
+        redisPool.deletesCache(registy.getRgtUser(),"getAllOrderByUsername");
+        redisPool.deletesCache(String.valueOf(order.getHhifId())+"~1","getAllOrderByUserId");
+        redisPool.deletesCache(String.valueOf(order.getUifId())+"~2","getAllOrderByUserId");
+        redisPool.deletesCache(null,"findAllOrder");
+        //更新缓存-------------------TWJ
         return registy.getRgtUser();
 
     }
 
     @Override
+    @Cacheable(value = "findAllOrder")
     public List<Order> findAllOrder() {
 
         return orderMapper.selectByExample(null);
     }
+
+    @Override
+    public Result changeStatus(Integer odId, Integer status){
+        //修改订单状态
+        Order order = orderMapper.selectByPrimaryKey(odId);
+        order.setOdStatus(status);
+        orderMapper.updateByPrimaryKeySelective(order);
+        //更新缓存-------------------TWJ
+        Registy registy = registyMapper.selectByPrimaryKey(order.getUifId());
+        redisPool.updateCache(String.valueOf(odId),"showStatus",status);
+        redisPool.deletesCache(registy.getRgtUser(),"getAllOrderByUsername");
+        redisPool.deletesCache(String.valueOf(order.getHhifId())+"~1","getAllOrderByUserId");
+        redisPool.deletesCache(String.valueOf(order.getUifId())+"~2","getAllOrderByUserId");
+        redisPool.deletesCache(null,"findAllOrder");
+        //更新缓存-------------------TWJ
+        System.out.println(String.valueOf(odId));
+        System.out.println(registy.getRgtUser());
+        System.out.println(String.valueOf(order.getUifId()));
+        return Result.ok();
+    }
+
 }
+/*
+ @Cacheable(key = "#od_Id",value = "showStatus")
+    public Integer showStatus(Integer od_Id)
+@Cacheable(key = "#username",value = "getAllOrderByUsername")//username--------------------
+    public List<Order> getAllOrderByUsername(String username)
+ @Cacheable(key = "#id+'~'+#who",value = "getAllOrderByUserId")
+    public List<Order> getAllOrderByUserId(int id,int who,int status)
+ @Cacheable(value = "findAllOrder")
+    public List<Order> findAllOrder()
+ */
