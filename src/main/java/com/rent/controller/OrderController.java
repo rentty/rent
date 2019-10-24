@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.*;
 
 @Api("订单控制")
 @RestController
@@ -70,11 +70,28 @@ public class OrderController {
         return "redirect:alipay";        //输入数据库
 }
 
-    @ApiOperation("支付宝支付成功后订单状态更改")
+    @ApiOperation("支付宝支付成功后订单状态更为 已支付未确定")
     @GetMapping("notifyUrl")
-    public Result modifyOrderStatus(HttpServletRequest httpServletRequest){
+    public Result modifyOrderStatus(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse) throws IOException {
         //获取
+        Map<String,String[]> query = new HashMap<String, String[]>();
+        Map<String, String[]> map = httpServletRequest.getParameterMap();
+        for (String s:map.keySet()) {
+            String[] ss = map.get(s);
+            String[] each = new String[ss.length];
+            for (int i = 0;i <= ss.length;i++){
+               String decode = URLDecoder.decode(ss[i],"UTF-8");
+               each[i] = decode;
+            }
+            query.put(s,each);
+        }
+        String[] oid = query.get("out_trade_no");
+        Order order = orderMapper.selectByPrimaryKey(Integer.parseInt(oid[0]));
+        order.setOdStatus(1);
+        int m = orderMapper.updateByPrimaryKey(order);
 
+        httpServletResponse.getWriter().write("success");
         return Result.ok();
     }
 
@@ -148,6 +165,7 @@ public class OrderController {
     public Result rejectOrder(Integer odId){
         //房东订单拒接
         changeStatus(odId,3);//退订中
+        //退款
         return Result.ok();
     }
 

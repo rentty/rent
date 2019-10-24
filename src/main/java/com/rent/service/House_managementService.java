@@ -22,21 +22,18 @@ public interface House_managementService {
      */
     public  String getAllHouseByUsername(String username);
 
+    /**
+     *  删除房屋信息表、详情、出租
+     * @param id 房屋信息表
+     */
+   public int deleteHouse(Integer id);
 
     /**
-     *
      * @param house
      * @param housedl
      * @param rentalinfo
-     * @param username ExpandMapper获取用户id
      */
-    public void  modifyHouse(House house,Housedl housedl,Rentalinfo rentalinfo,String username);
-
-    /**
-     *  删除房屋信息表、详情、出租
-     * @param hs_Id 房屋信息表
-     */
-   public void deleteHouse(String hs_Id);
+    public int updateHouse(House house, Housedl housedl, Rentalinfo rentalinfo);
 
     /**
      *  查询所有的房屋基本信息
@@ -68,4 +65,8 @@ public interface House_managementService {
      */
     public List<House> findAllHouseWithReview();
 
+    /**
+     *  添加房屋信息到索引库
+     */
+    public int addHouseToEs(int id);
 }

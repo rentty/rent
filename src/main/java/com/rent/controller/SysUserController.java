@@ -84,14 +84,14 @@ public class SysUserController {
     public Result getAllHouseMsg(){
         List<House> houseList = house_managementService.findAllHouse();
         List<Housedl> housedlList = house_managementService.findAllHousedl();
-        return Result.ok().data("house",houseList).data("house",housedlList);
+        return Result.ok().data("house",houseList).data("housedl",housedlList);
     }
 
     @ApiOperation(value = "修改房屋审核状态")
     @GetMapping("/changeStatus")
     @ResponseBody
     public Result changeStatus(int id,int status){
-        if(house_managementService.changeStatus(id,status) != 1){
+        if(house_managementService.changeStatus(id,status) != 1 || house_managementService.addHouseToEs(id) != 1){
             return Result.error();
         }else {
             return Result.ok();
@@ -152,4 +152,5 @@ public class SysUserController {
     public Result getAllUserWithFavor(){
         return Result.ok().data("UserWithFavor",sysUserService.findAllUserWithFavor());
     }
+    
 }

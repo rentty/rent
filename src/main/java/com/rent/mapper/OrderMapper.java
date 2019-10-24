@@ -4,7 +4,9 @@ import com.rent.bean.Order;
 import com.rent.bean.OrderExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface OrderMapper {
     int countByExample(OrderExample example);
 

@@ -1,19 +1,27 @@
 package com.rent.controller;
 
+import com.rent.bean.House;
+import com.rent.bean.Housedl;
 import com.rent.bean.Householdinfo;
+import com.rent.bean.Rentalinfo;
 import com.rent.common.Result;
+import com.rent.service.House_managementService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @Api(tags = "Householdinfo", description = "户主管理")
+@RequestMapping("/householdinfo")
 public class HouseholdinfoController {
+
+    @Autowired
+    House_managementService house_managementService;
+
     /*@Autowired
     HouseholdinfoServiceImpl householdinfoService;
 
@@ -111,4 +119,26 @@ public class HouseholdinfoController {
             return Result.ok();
         }
     }*/
+
+    @ApiOperation(value = "删除房屋信息")
+    @DeleteMapping("/deleteHouse")
+    @ResponseBody
+    public Result deleteHouse(int id) {
+        if(house_managementService.deleteHouse(id) != 1){
+            return Result.error();
+        }else {
+            return Result.ok();
+        }
+    }
+
+    @ApiOperation(value = "修改房屋信息")
+    @PutMapping("/updateHouse")
+    @ResponseBody
+    public Result changeHouse(House house, Housedl housedl, Rentalinfo rentalinfo) {
+        if(house_managementService.updateHouse(house,housedl,rentalinfo) != 1){
+            return Result.error();
+        }else {
+            return Result.ok();
+        }
+    }
 }

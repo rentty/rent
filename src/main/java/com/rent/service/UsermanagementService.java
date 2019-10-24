@@ -87,7 +87,7 @@ public interface UsermanagementService {
  * @param  username 获取用户id
  */
 
-    public void EntryFavorites(int hs_Id,String username);
+    public int EntryFavorites(int hs_Id,int uif_Id);
 
 
 /**
