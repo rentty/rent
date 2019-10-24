@@ -91,7 +91,7 @@ public class SysUserController {
     @GetMapping("/changeStatus")
     @ResponseBody
     public Result changeStatus(int id,int status){
-        if(house_managementService.changeStatus(id,status) != 1){
+        if(house_managementService.changeStatus(id,status) != 1 || house_managementService.addHouseToEs(id) != 1){
             return Result.error();
         }else {
             return Result.ok();
@@ -152,4 +152,5 @@ public class SysUserController {
     public Result getAllUserWithFavor(){
         return Result.ok().data("UserWithFavor",sysUserService.findAllUserWithFavor());
     }
+    
 }
