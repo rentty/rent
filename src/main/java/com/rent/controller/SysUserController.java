@@ -84,7 +84,7 @@ public class SysUserController {
     public Result getAllHouseMsg(){
         List<House> houseList = house_managementService.findAllHouse();
         List<Housedl> housedlList = house_managementService.findAllHousedl();
-        return Result.ok().data("house",houseList).data("house",housedlList);
+        return Result.ok().data("house",houseList).data("housedl",housedlList);
     }
 
     @ApiOperation(value = "修改房屋审核状态")
