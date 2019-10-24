@@ -14,7 +14,7 @@ public interface House_managementService {
      * @param  rentalinfo hs_Id
      * @param username ExpandMapper获取用户id
      */
-    public void entryHouse(House house,Housedl housedl,Rentalinfo rentalinfo,String username);
+    public int entryHouse(House house,Housedl housedl,Rentalinfo rentalinfo,String username);
     /**
      *  获取该用户的所有房屋信息
      * @param username

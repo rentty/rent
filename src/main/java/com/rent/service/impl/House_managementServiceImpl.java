@@ -58,19 +58,25 @@ public class House_managementServiceImpl implements House_managementService {
     }*/
 
     @Override
-    public void entryHouse(House house, Housedl housedl, Rentalinfo rentalinfo, String username) {
+    public int entryHouse(House house, Housedl housedl, Rentalinfo rentalinfo, String username) {
         house.setHsStatus(0);
-        houseMapper.insertSelective(house);
+        int i = houseMapper.insertSelective(house);
 
         housedl.setHsdId(house.getHsId());
         rentalinfo.setRtlfHhid(house.getHsId());
-        housedlMapper.insert(housedl);
+        int j = housedlMapper.insert(housedl);
         UserinfoExample userinfoExample = new UserinfoExample();
         UserinfoExample.Criteria criteria = userinfoExample.createCriteria();
         criteria.andUifNicknameEqualTo(username);
         List<Userinfo> users = userinfoMapper.selectByExample(userinfoExample);
         rentalinfo.setRtlfHhid(users.get(0).getUifId());
-        rentalinfoMapper.insert(rentalinfo);
+        int k = rentalinfoMapper.insert(rentalinfo);
+        if(i == 0 || j == 0 || k == 0) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
     }
 
     @Override
