@@ -141,4 +141,15 @@ public class HouseholdinfoController {
             return Result.ok();
         }
     }
+
+    @ApiOperation(value = "添加房屋信息")
+    @PostMapping("/addHouse")
+    @ResponseBody
+    public Result addHouse(House house, Housedl housedl, Rentalinfo rentalinfo, String username) {
+        if(house_managementService.entryHouse(house,housedl,rentalinfo,username) != 1){
+            return Result.error();
+        }else {
+            return Result.ok();
+        }
+    }
 }
