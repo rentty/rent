@@ -121,6 +121,12 @@ public interface UsermanagementService {
 
     public List<Householdinfo>  findAllHouseholdinfo();
 
+    /**
+     * 获取指定的房屋和出租信息
+     * @return
+     */
 
+    public  List<MapHouse>  findAllHouseAndRent(String type,String ori,int area1,int area2,int layer,
+                                                int rent1,int rent2,int renttype);
 }
 

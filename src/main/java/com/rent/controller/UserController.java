@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
+@CrossOrigin//地图发请求用
 @Api(description = "用户户主管理")
 @RestController
 @RequestMapping("/admin/user")
@@ -97,7 +98,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "根据用户id返回房屋展示对象")
+    @ApiOperation(value = "根据用户id返回收藏的房屋展示对象")
     @GetMapping("/getAllFavorHouse")
     @ResponseBody
     public Result getAllFavorHouse(int id){
@@ -135,5 +136,14 @@ public class UserController {
         }else {
             return Result.error();
         }
+    }
+
+    @ApiOperation(value = "地图请求返回房屋和出租信息")
+    @PostMapping("/getMapHouseAndRent")
+    @ResponseBody
+    public Result getMapHouseAndRent(String type,String ori,int area1,int area2,int layer,
+                                     int rent1,int rent2,int renttype){
+        usermanagementService.findAllHouseAndRent(type,ori,area1,area2,layer,rent1,rent2,renttype);
+        return Result.ok().data("MapHouse",usermanagementService.findAllHouseAndRent(type,ori,area1,area2,layer,rent1,rent2,renttype));
     }
 }
