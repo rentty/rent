@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@CacheConfig(cacheNames = "UsermanagementService",cacheManager = "cacheManager")
+//@CacheConfig(cacheNames = "UsermanagementService",cacheManager = "cacheManager")
 @Service
 public class UsermanagementServiceImpl implements UsermanagementService {
     @Autowired
@@ -229,7 +229,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-    @Cacheable(value = "findAllUserinfo")
+//    @Cacheable(value = "findAllUserinfo")
     public List<Userinfo> findAllUserinfo() {
         return userinfoMapper.selectByExample(null);
     }
