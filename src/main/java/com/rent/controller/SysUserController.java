@@ -128,7 +128,7 @@ public class SysUserController {
     @ResponseBody
     public Result getAllUser(){
         return Result.ok().data("user",usermanagementService.findAllUserinfo()).data(
-                "household",usermanagementService.findAllHouseholdinfo()
+                "userinfo",usermanagementService.findAllUserinfo()
         );
     }
 
