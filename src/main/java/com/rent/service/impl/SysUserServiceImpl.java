@@ -32,7 +32,7 @@ public class SysUserServiceImpl implements SysUserService {
     UserinfoExample userinfoExample = new UserinfoExample();
 
     @Override
-//    @Cacheable(key = "#sysuser.username+'~'+#sysuser.password",value = "sysuserLogin")
+    //@Cacheable(key = "#sysuser.username+'~'+#sysuser.password",value = "sysuserLogin")
     public int login(Sysuser sysuser) {
         String username = sysuser.getUsername();
         String password = sysuser.getPassword();
@@ -55,7 +55,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-//    @Cacheable(key = "#username",value = "info")
+  //  @Cacheable(key = "#username",value = "info")
     public Userinfo info(String username) {
         RegistyExample registyExample = new RegistyExample();
         RegistyExample.Criteria criteria = registyExample.createCriteria();
@@ -71,14 +71,14 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-//    @Cacheable(value = "getDialogWithEdtrydl")
+   // @Cacheable(value = "getDialogWithEdtrydl")
     public List<Dialog> getDialogWithEdtrydl() {
 
         return dialogMapper.selectByExampleWithEntrydl(null);
     }
 
     @Override
-//    @Cacheable(value = "findAllUserWithFavor")
+   // @Cacheable(value = "findAllUserWithFavor")
     public List<Userinfo> findAllUserWithFavor() {
 
         return userinfoMapper.selectByExampleWithFavor(null);
