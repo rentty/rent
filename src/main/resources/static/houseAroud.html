@@ -222,7 +222,7 @@
             // 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
             map.addControl(new AMap.MapType());
             // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
-            geolocation = new AMap.Geolocation({
+            /*geolocation = new AMap.Geolocation({
                 enableHighAccuracy: true,//是否使用高精度定位，默认:true
                 timeout: 5000,          //超过10秒后停止定位，默认：无穷大
                 maximumAge: 0,           //定位结果缓存0毫秒，默认：0
@@ -236,7 +236,7 @@
                 panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
                 zoomToAccuracy:true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
             });
-            map.addControl(new AMap.Geolocation());
+            map.addControl(new AMap.Geolocation());*/
         });
 
     function search(word,page){
@@ -268,7 +268,6 @@
                 bubble:true//是否将覆盖物的鼠标或touch等事件冒泡到地图上
             });
             circle.setMap(map);//显示圆圈
-
 
             //alert(cyc)
             placeSearch.searchNearBy('', cpoint,500, function(status, result) {
@@ -311,12 +310,8 @@
             map.setZoomAndCenter(16, cpoint);
         });
     }
-
     search("公交",1);
     //vue.create();
-
-
-
 
     var infoWindow = new AMap.InfoWindow({
         //isCustom: true,  //使用自定义窗体
