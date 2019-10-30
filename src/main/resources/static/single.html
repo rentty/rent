@@ -16,7 +16,7 @@
 <!-- js -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <!--vue-->
-	<script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
 <!--axios-->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -35,7 +35,18 @@
 	});
 </script>
 <!-- start-smoth-scrolling -->
+<script>
+	$(function () {
+		var hsId = Getparam("hsId");
+		console.log(hsId);
+		function Getparam(str) {
 
+			var ref = window.location.search.split("=")[1];
+			return ref;
+		}
+
+	});
+</script>
 </head>
 	
 <body>
@@ -53,23 +64,11 @@
 					<!--右侧上图标-->
 					<ul class="social-icons">
 						<li><a href="short-codes.html" class="icon icon-border facebook"></a></li>
-						<li><a href="#" class="icon icon-border twitter"></a></li>
-						<li><a href="#" class="icon icon-border instagram"></a></li>
-						<li><a href="#" class="icon icon-border pinterest"></a></li>
+
 					</ul>
 				</div>
 				<div class="header-top-right">
-					<div class="search">
-						<input class="search_box" type="checkbox" id="search_box">
-						<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
-						<div class="search_form">
-							<!--action 请求为-->
-							<form action="#" method="post">
-								<input type="text" name="Search" placeholder="搜索啥呢...">
-								<input type="submit" value="">
-							</form>
-						</div>
-					</div>
+
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -95,8 +94,8 @@
 						<nav>
 							<ul class="nav navbar-nav">
 								<li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
-								<li><a href="services.html" class="hvr-bounce-to-bottom">搜索展示页</a></li>
-								<li><a href="gallery.html" class="hvr-bounce-to-bottom"></a></li>
+								<li><a href="services.html" class="hvr-bounce-to-bottom">找房</a></li>
+
 
 							</ul>
 						</nav>
@@ -118,7 +117,19 @@
 				</ul>
 			</div>
 			<div class="services-top-breadcrumbs-left">
-				<h3>Detail Page</h3>
+
+					<div class="search">
+						<input class="search_box" type="checkbox" id="search_box" >
+						<label class="icon-search" for="search_box" style="color: black;"><span class="glyphicon glyphicon-search" aria-hidden="true"> 搜索租房</span></label>
+						<div class="search_form">
+							<!--action 请求为-->
+							<form action="#" method="post">
+								<input type="text" name="Search" placeholder="搜索啥呢...">
+								<input type="submit" value="">
+							</form>
+						</div>
+					</div>
+
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -131,7 +142,7 @@
 				<div class="sample1">
 					<div class="carousel">
 						<ul>
-							<li> <img src="{{ imgsrc }}" alt="户型图"> </li>
+							<li> <img :src="imgsrc" alt="户型图"> </li>
 							<li> <img src="images/14.jpg" alt="环境图"> </li>
 							<li> <img src="images/15.jpg" alt="室内图"> </li>
 							<li> <img src="images/16.jpg" alt="室内图"> </li>
@@ -312,21 +323,21 @@
 		</div>
 	</div>
 <script>
-	let vue = new vue({
+	let vue = new Vue({
 		el: ".single",
 		data(){
 			return {
-				imgsrc: "images/15.jpg"
-				title:
+				imgsrc: "images/15.jpg",
+				title: "ddd"
 			}
 		},
 		mounted(){
 			axios.
-			get('https://localhost:8080/House/ajax/json_demo.json')
-					.then(response => (this.info = response))
-					.catch(function (error) { // 请求失败处理
-						console.log(error);
-					});
+				get("http://localhost:8080")
+						.then(response => (this.info = response))
+						.catch(function (error) { // 请求失败处理
+							console.log(error);
+						});
 		}
 	});
 </script>
