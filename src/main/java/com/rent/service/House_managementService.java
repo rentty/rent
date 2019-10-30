@@ -1,8 +1,6 @@
 package com.rent.service;
 
-import com.rent.bean.House;
-import com.rent.bean.Housedl;
-import com.rent.bean.Rentalinfo;
+import com.rent.bean.*;
 
 import java.util.List;
 
@@ -69,4 +67,14 @@ public interface House_managementService {
      *  添加房屋信息到索引库
      */
     public int addHouseToEs(int id);
+
+    /**
+     *  根据租金展示最高租金的三个房屋信息
+     */
+    public List<HouseSituation> showHousesByRent();
+
+    /**
+     *  显示房屋详情信息
+     */
+//    public
 }
