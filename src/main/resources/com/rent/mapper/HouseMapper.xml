@@ -156,7 +156,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rent.bean.House">
+  <insert id="insert" parameterType="com.rent.bean.House" useGeneratedKeys="true" keyProperty="hsId"  >
     insert into rent_house (hs_Id, hs_Type, hs_Area, 
       hs_City, hs_District, hs_HousingEstate, 
       hs_Address, hs_Layer, hs_Oriented, 

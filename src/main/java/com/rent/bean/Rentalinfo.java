@@ -59,6 +59,9 @@ public class Rentalinfo implements Serializable {
         return rtlfRequest;
     }
 
+    public Rentalinfo() {
+    }
+
     public void setRtlfRequest(String rtlfRequest) {
         this.rtlfRequest = rtlfRequest;
     }
@@ -86,5 +89,14 @@ public class Rentalinfo implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Rentalinfo(Integer rtlfId, Date rtlfReleasetime, Integer rtlfRentaltype, Integer rtlfHhid, String rtlfRequest, Integer rtlfRent) {
+        this.rtlfId = rtlfId;
+        this.rtlfReleasetime = rtlfReleasetime;
+        this.rtlfRentaltype = rtlfRentaltype;
+        this.rtlfHhid = rtlfHhid;
+        this.rtlfRequest = rtlfRequest;
+        this.rtlfRent = rtlfRent;
     }
 }

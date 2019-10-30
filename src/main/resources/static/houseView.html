@@ -60,8 +60,22 @@
         success:function(data){
             console.log(data);
             houseData = data;
+            updateBtn(houseData.data.number);
         }
     })
+
+    function updateBtn(val) {
+        var textGr = map.getAllOverlays('Text');
+        for(var i = 0;i<textGr.length;i++){
+            //console.log(val[textGr[i].Je.text]);
+            if(val[textGr[i].Je.text] == null){
+                textGr[i].setText(textGr[i].Je.text + "<br>" + 0);
+            }else {
+                textGr[i].setText(textGr[i].Je.text + "<br>" +val[textGr[i].Je.text]);
+            }
+        }
+        //console.log(textGr);
+    }
 </script>
 <script type="text/javascript">
 
@@ -100,7 +114,7 @@
             var bounds = result.districtList[0].boundaries;
             cityLng = [result.districtList[0].center.lng,result.districtList[0].center.lat];
             //console.log(cityLng);
-            //城市级边界
+            //画出城市级边界
             if (bounds) {
                 for (var i = 0, l = bounds.length; i < l; i++) {
                     var polygonAll = new AMap.Polygon({
@@ -114,10 +128,12 @@
                     polygonAll.setExtData("123");
                 }
             }
-            //文本按钮
+            //区域文本按钮
             var list = result.districtList[0].districtList;
             for(var i = 0;i < list.length ;i++){
                 // 创建纯文本标记
+
+
                 var text = new AMap.Text({
                     text:list[i].name,
                     anchor:'center', // 设置文本标记锚点
@@ -261,11 +277,11 @@
         map.clearInfoWindow();
     }
 
-    //
+    //监听地图缩放级别
     map.on('zoomchange', function() {
         console.log("当前缩放级别："+map.getZoom());
         var nowzoom = map.getZoom();
-        if(nowzoom <= 13){
+        if(nowzoom <= 11){
             map.remove(overlayGroups);
             markers = [];
         }
@@ -273,6 +289,54 @@
 
         }
     });
+
+    //
+    map.on('click', getDataClick);
+
+    function getDataClick() {
+        if(confirm("输入数据？"))
+        {
+            for(var i =0;i<1;i++){
+                AMap.service(["AMap.PlaceSearch"], function() {
+                    //构造地点查询类
+                    var placeSearch = new AMap.PlaceSearch({
+                     type: "宾馆", // 兴趣点类别
+                        pageSize: 50, // 单页显示结果条数
+                        pageIndex: i, // 页码
+                        city: "越秀区", // 兴趣点城市
+                        citylimit: true,  //是否强制限制在设置的城市内搜索
+                    });
+
+                    //alert(cyc)
+                    placeSearch.search("宾馆", function(status, result) {
+                        console.log(result);//result.poiList.pois.length
+                        for(var j = 0;j<1;j++){
+                            var marker = new AMap.Marker({
+                                position: [result.poiList.pois[j].location.lng,
+                                    result.poiList.pois[j].location.lat],
+                                map: map
+                            });
+                            $.ajax({
+                                url:'http://localhost:8080/admin/user/mapDataTest',//地址
+                                data:{
+                                    address:result.poiList.pois[j].address,
+                                    lng:result.poiList.pois[j].location.lng,
+                                    lat:result.poiList.pois[j].location.lat,
+                                },
+                                dataType: "json",
+                                type:'POST',//类型
+                                //请求成功
+                                success:function(data){
+                                    console.log("chenggong");
+                                }
+                            })
+                        }
+
+                    });
+                });
+            }
+        }
+    }
 </script>
 </body>
 </html>

@@ -35,6 +35,21 @@ public class House implements Serializable {
     @ApiModelProperty(value = "经度")
     private Double hsLongitude;
 
+    public House(Integer hsId, String hsType, Integer hsArea, String hsCity, String hsDistrict, String hsHousingestate, String hsAddress, Integer hsLayer, String hsOriented, Double hsLongitude, Double hsLatitude, Integer hsStatus) {
+        this.hsId = hsId;
+        this.hsType = hsType;
+        this.hsArea = hsArea;
+        this.hsCity = hsCity;
+        this.hsDistrict = hsDistrict;
+        this.hsHousingestate = hsHousingestate;
+        this.hsAddress = hsAddress;
+        this.hsLayer = hsLayer;
+        this.hsOriented = hsOriented;
+        this.hsLongitude = hsLongitude;
+        this.hsLatitude = hsLatitude;
+        this.hsStatus = hsStatus;
+    }
+
     @ApiModelProperty(value = "纬度")
     private Double hsLatitude;
 

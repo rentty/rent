@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -331,6 +332,71 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         }
 
         return mapHouseList;
+    }
+
+    @Override
+    public HashMap<String, Integer> countHouse(List<MapHouse> list) {
+        int num = list.size();
+        HashMap<String, Integer> map = new HashMap<>();
+        for(int i=0;i<num;i++){
+            //System.out.println(map.get("dd"));
+            String str = list.get(i).getHsDistrict();
+            if(map.get(str) == null){
+                map.put(str,1);
+            }else {
+                int x = map.get(str)+1;
+                 map.remove(str);
+                 map.put(str,x);
+            }
+        }
+
+        return map;
+    }
+
+    @Override
+    public int dataToMap(String address, String lng, String lat) {
+        Random random = new Random();
+        String room = String.valueOf(random.nextInt(4)+1);
+        String wroom = String.valueOf(random.nextInt(3)+1);
+        String type = room + "室" + wroom + "卫";
+        int area = random.nextInt(150) + 50;
+        String city = "广州市";
+        String dis = "越秀区";
+        int x = random.nextInt(4);
+        String hou = new String();
+        String ori = new String();
+        if(x == 0) {
+            hou = "阳光" + String.valueOf(random.nextInt(50) + 1) + "区";
+            ori = "东";
+        }
+        else if(x == 1){
+            hou = "龙苑" + String.valueOf(random.nextInt(50) + 1) + "区";
+            ori = "南";
+        }
+        else if(x == 2){
+            hou = "青雀" + String.valueOf(random.nextInt(50) + 1) + "区";
+            ori = "西";
+        }
+        else {
+            hou = "希望" + String.valueOf(random.nextInt(50) + 1) + "区";
+            ori = "北";
+        }
+        int layer = (random.nextInt(30) + 1) ;
+
+        House house = new House(null,type,area,city,dis,hou,address,layer,ori,Double.valueOf(lng),Double.valueOf(lat),1);
+
+        houseMapper.insert(house);
+        //System.out.println(house.getHsId());
+        int rent = area * 20 + random.nextInt(1000);
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+
+        Rentalinfo rentalinfo = new Rentalinfo(house.getHsId(),date ,random.nextInt(2)
+            ,3,"欢迎光临",rent);
+        rentalinfoMapper.insert(rentalinfo);
+        System.out.println(rentalinfo);
+
+        return 0;
     }
 
     /*
