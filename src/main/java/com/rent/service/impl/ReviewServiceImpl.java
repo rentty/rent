@@ -14,17 +14,17 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@CacheConfig(cacheNames = "ReviewService",cacheManager ="cacheManager" )
+//@CacheConfig(cacheNames = "ReviewService",cacheManager ="cacheManager" )
 @Service
 public class ReviewServiceImpl implements ReviewService {
     @Autowired
     ExpandMapper expandMapper;
     @Autowired
     ReviewMapper reviewMapper;
-    @Autowired
-    RedisPool redisPool;
+   /* @Autowired
+    RedisPool redisPool;*/
     @Override
-    @Cacheable(key = "#hs_Id",value = "AllReview")
+   // @Cacheable(key = "#hs_Id",value = "AllReview")
     public String getAllReviewByHs_Id(int hs_Id) {
         ReviewExample example = new ReviewExample();
         example.createCriteria().andHsIdEqualTo(hs_Id);
@@ -41,7 +41,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    @Cacheable(value = "findAllReview")
+   // @Cacheable(value = "findAllReview")
     public List<Review> findAllReview() {
 
         return reviewMapper.selectByExample(null);
@@ -49,11 +49,11 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public int deleteReview(int id) {
-        //更新缓存--------twj
+        /*//更新缓存--------twj
         Review review = reviewMapper.selectByPrimaryKey(id);
         redisPool.deletesCache(null,"findAllReview");
         redisPool.deletesCache(String.valueOf(review.getHsId()),"AllReview");
-        //更新缓存--------twj
+        //更新缓存--------twj*/
 
         return reviewMapper.deleteByPrimaryKey(id);
     }

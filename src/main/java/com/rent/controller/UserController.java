@@ -1,5 +1,6 @@
 package com.rent.controller;
 
+import com.rent.bean.MapHouse;
 import com.rent.bean.Registy;
 import com.rent.bean.ShowHouse;
 import com.rent.bean.Userinfo;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
+@CrossOrigin//地图发请求用
 @Api(description = "用户户主管理")
 @RestController
 @RequestMapping("/admin/user")
@@ -97,7 +99,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "根据用户id返回房屋展示对象")
+    @ApiOperation(value = "根据用户id返回收藏的房屋展示对象")
     @GetMapping("/getAllFavorHouse")
     @ResponseBody
     public Result getAllFavorHouse(int id){
@@ -135,5 +137,27 @@ public class UserController {
         }else {
             return Result.error();
         }
+    }
+
+    @ApiOperation(value = "地图请求返回房屋和出租信息")
+    @PostMapping("/getMapHouseAndRent")
+    @ResponseBody
+    public Result getMapHouseAndRent(String type,String ori,int area1,int area2,int layer,
+                                     int rent1,int rent2,int renttype){
+        List<MapHouse> list = usermanagementService.findAllHouseAndRent(type,ori,area1,area2,layer,rent1,rent2,renttype);
+
+        return Result.ok().data("MapHouse",list).data("number",usermanagementService.countHouse(list));
+    }
+
+    @ApiOperation(value = "从地图添加房屋数据")
+    @PostMapping("/mapDataTest")
+    @ResponseBody
+    public Result mapDataTest(String address,String lng,String lat){
+        //System.out.println(address + lng+ ","+lat);
+
+        if( usermanagementService.dataToMap(address,lng,lat) >0){
+            System.out.println("1");
+        }
+        return Result.ok();
     }
 }

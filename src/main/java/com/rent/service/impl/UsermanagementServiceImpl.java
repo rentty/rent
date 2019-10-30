@@ -14,13 +14,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
-@CacheConfig(cacheNames = "UsermanagementService",cacheManager = "cacheManager")
+//@CacheConfig(cacheNames = "UsermanagementService",cacheManager = "cacheManager")
 @Service
 public class UsermanagementServiceImpl implements UsermanagementService {
     @Autowired
@@ -39,8 +37,8 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     HouseMapper houseMapper;
     @Autowired
     RentalinfoMapper rentalinfoMapper;
-    @Autowired
-    RedisPool redisPool;
+  /*  @Autowired
+    RedisPool redisPool;*/
     @Override
     public int Register(Registy registy) {
         if(registy.getRgtId() != null){
@@ -64,7 +62,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-    @Cacheable(key = "#username+'~'+#password",value = "userLogin")
+    //@Cacheable(key = "#username+'~'+#password",value = "userLogin")
     public HashMap Login(String username, String password) {
         //System.out.println("s");
         HashMap map = new HashMap();
@@ -99,13 +97,13 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     }
     @Override
-   @Cacheable(key = "#id",value = "getUserinfo")
+   //@Cacheable(key = "#id",value = "getUserinfo")
     public Userinfo getUserinfo(int id) {
         return userinfoMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    @Cacheable(key = "#id",value = "getHouseholdinfo")
+    //@Cacheable(key = "#id",value = "getHouseholdinfo")
     public Householdinfo getHouseholdinfo(int id) {
         return householdinfoMapper.selectByPrimaryKey(id);
     }
@@ -113,10 +111,10 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     @Override
 
     public int Motify_userinfo(Userinfo userinfo) {
-        //更新缓存-----------twj
+      /*  //更新缓存-----------twj
       redisPool.updateCache(String.valueOf(userinfo.getUifId()),"getUserinfo",userinfo);//更新getUserinfo的缓存
         redisPool.deletesCache(null,"findAllUserinfo");//删除findAllUserinfo缓存
-        //更新缓存-------twj
+        //更新缓存-------twj*/
         return userinfoMapper.updateByPrimaryKey(userinfo);
     }
 
@@ -132,7 +130,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     }
     @Override
-    @Cacheable(key = "#username",value = "getHouseholdinfoByUsername")
+   // @Cacheable(key = "#username",value = "getHouseholdinfoByUsername")
     public String getHouseholdinfoByUsername(String username) {
         String result = null;
         int id=0;
@@ -152,12 +150,12 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         id = expandMapper.selectRgt_IdByUsername(username);
         householdinfo.setHhifId(id);
         householdinfoMapper.updateByPrimaryKeySelective(householdinfo);
-        //更新缓存---------twj
+     /*   //更新缓存---------twj
         Householdinfo householdinfo1 = householdinfoMapper.selectByPrimaryKey(id);
         redisPool.updateCache(String.valueOf(id),"getHouseholdinfo",householdinfo1);
         redisPool.updateCache(username,"getHouseholdinfoByUsername",JSonPool.toJSon(householdinfo1));//---------------------------------------------------
         redisPool.deletesCache(null,"findAllHouseholdinfo");//删除findAllUserinfo缓存
-        //更新缓存-------twj
+        //更新缓存-------twj*/
 
         return JSonPool.toJSon(householdinfo);
 
@@ -178,7 +176,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-    @Cacheable(key = "#id",value = "getAllFavorites")
+   // @Cacheable(key = "#id",value = "getAllFavorites")
     public List<ShowHouse> getAllFavorites(int id) {
         List<ShowHouse> list = new ArrayList<ShowHouse>();
         UserinfoExample userinfoExample = new UserinfoExample();
@@ -219,26 +217,186 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     //@CacheEvict(key="#result",value = "Favorites")
     public int deleteFavoritesByFvr_Id(int fvr_Id) {
-        //更新缓存-------twj
+      /*  //更新缓存-------twj
         Favorites favorites = favoritesMapper.selectByPrimaryKey(fvr_Id);
         Integer uifId = favorites.getUifId();
         redisPool.deletesCache(String.valueOf(uifId),"getAllFavorites");
-        //更新缓存-------twj
+        //更新缓存-------twj*/
         return favoritesMapper.deleteByPrimaryKey(fvr_Id);
 
     }
 
     @Override
-    @Cacheable(value = "findAllUserinfo")
+   // @Cacheable(value = "findAllUserinfo")
     public List<Userinfo> findAllUserinfo() {
         return userinfoMapper.selectByExample(null);
     }
 
     @Override
-    @Cacheable(value = "findAllHouseholdinfo")
+   // @Cacheable(value = "findAllHouseholdinfo")
     public List<Householdinfo> findAllHouseholdinfo() {
 
         return householdinfoMapper.selectByExample(null);
+    }
+
+    @Override
+    public List<MapHouse> findAllHouseAndRent(String type,String ori,int area1,int area2,int layer,
+                                              int rent1,int rent2,int renttype) {
+
+        HouseExample houseExample = new HouseExample();
+        HouseExample.Criteria criteria = houseExample.createCriteria();
+        if(!type.equals("-1")){
+            criteria.andHsTypeEqualTo(type);
+        }
+        if(!ori.equals("-1")){
+            criteria.andHsOrientedEqualTo(ori);
+        }
+        if(area1 != -1){
+            criteria.andHsAreaBetween(area1,area2);
+        }
+        if(layer != -1){
+            criteria.andHsLayerEqualTo(layer);
+        }
+        List<House> houseList = houseMapper.selectByExample(houseExample);
+        //System.out.println(houseList);
+
+        RentalinfoExample rentalinfoExample = new RentalinfoExample();
+        RentalinfoExample.Criteria criteria1 = rentalinfoExample.createCriteria();
+        if(renttype != -1){
+            criteria1.andRtlfRentaltypeEqualTo(renttype);
+        }
+        if(rent1 != -1){
+            criteria1.andRtlfRentBetween(rent1,rent2);
+        }
+        List<Rentalinfo> rentalinfoList = rentalinfoMapper.selectByExample(rentalinfoExample);
+        //System.out.println(rentalinfoList);
+
+        List<Integer> houseIds=new ArrayList<Integer>();
+        for(int i=0;i< houseList.size();i++){
+            houseIds.add(houseList.get(i).getHsId());
+        }
+        System.out.println(houseIds);
+
+        List<Integer> RentIds=new ArrayList<Integer>();
+        for(int i=0;i< rentalinfoList.size();i++){
+            RentIds.add(rentalinfoList.get(i).getRtlfId());
+        }
+        System.out.println(RentIds);
+
+        Collection exists=new ArrayList<Integer>(houseIds);
+        Collection notexists=new ArrayList<Integer>(houseIds);
+
+        exists.removeAll(RentIds);
+        notexists.removeAll(exists);
+        System.out.println(notexists);//notexists即RentIds和houseIds的交集
+
+        List<Integer> list = (List<Integer>) notexists;
+        //System.out.println(list);
+
+        List<MapHouse> mapHouseList = new ArrayList<>();
+        for(int i =0;i<list.size();i++){
+            MapHouse mapHouse = new MapHouse();
+
+            House house = new House();
+            for(int j = 0;j < houseList.size() ;j++){
+                if(houseList.get(j).getHsId() == list.get(i)){
+                    house = houseList.get(j);
+                    //break;
+                }
+            }
+            mapHouse.setHsId(house.getHsId());
+            mapHouse.setHsType(house.getHsType());
+            mapHouse.setHsArea(house.getHsArea());
+            mapHouse.setHsCity(house.getHsCity());
+            mapHouse.setHsDistrict(house.getHsDistrict());
+            mapHouse.setHsHousingestate(house.getHsHousingestate());
+            mapHouse.setHsAddress(house.getHsAddress());
+            mapHouse.setHsLayer(house.getHsLayer());
+            mapHouse.setHsOriented(house.getHsOriented());
+            mapHouse.setHsLongitude(house.getHsLongitude());
+            mapHouse.setHsLatitude(house.getHsLatitude());
+
+            Rentalinfo rentalinfo = new Rentalinfo();
+            for(int j = 0;j < rentalinfoList.size() ;j++){
+                if(rentalinfoList.get(j).getRtlfId() == list.get(i)){
+                    rentalinfo = rentalinfoList.get(j);
+                    break;
+                }
+            }
+            mapHouse.setRtlfRentaltype(rentalinfo.getRtlfRentaltype());
+            mapHouse.setRtlfRent(rentalinfo.getRtlfRent());
+            mapHouse.setRtlfHhid(rentalinfo.getRtlfHhid());
+            mapHouse.setRtlfRequest(rentalinfo.getRtlfRequest());
+            mapHouseList.add(mapHouse);
+            //System.out.println("dd");
+        }
+
+        return mapHouseList;
+    }
+
+    @Override
+    public HashMap<String, Integer> countHouse(List<MapHouse> list) {
+        int num = list.size();
+        HashMap<String, Integer> map = new HashMap<>();
+        for(int i=0;i<num;i++){
+            //System.out.println(map.get("dd"));
+            String str = list.get(i).getHsDistrict();
+            if(map.get(str) == null){
+                map.put(str,1);
+            }else {
+                int x = map.get(str)+1;
+                 map.remove(str);
+                 map.put(str,x);
+            }
+        }
+
+        return map;
+    }
+
+    @Override
+    public int dataToMap(String address, String lng, String lat) {
+        Random random = new Random();
+        String room = String.valueOf(random.nextInt(4)+1);
+        String wroom = String.valueOf(random.nextInt(3)+1);
+        String type = room + "室" + wroom + "卫";
+        int area = random.nextInt(150) + 50;
+        String city = "广州市";
+        String dis = "越秀区";
+        int x = random.nextInt(4);
+        String hou = new String();
+        String ori = new String();
+        if(x == 0) {
+            hou = "阳光" + String.valueOf(random.nextInt(50) + 1) + "区";
+            ori = "东";
+        }
+        else if(x == 1){
+            hou = "龙苑" + String.valueOf(random.nextInt(50) + 1) + "区";
+            ori = "南";
+        }
+        else if(x == 2){
+            hou = "青雀" + String.valueOf(random.nextInt(50) + 1) + "区";
+            ori = "西";
+        }
+        else {
+            hou = "希望" + String.valueOf(random.nextInt(50) + 1) + "区";
+            ori = "北";
+        }
+        int layer = (random.nextInt(30) + 1) ;
+
+        House house = new House(null,type,area,city,dis,hou,address,layer,ori,Double.valueOf(lng),Double.valueOf(lat),1);
+
+        houseMapper.insert(house);
+        //System.out.println(house.getHsId());
+        int rent = area * 20 + random.nextInt(1000);
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+
+        Rentalinfo rentalinfo = new Rentalinfo(house.getHsId(),date ,random.nextInt(2)
+            ,3,"欢迎光临",rent);
+        rentalinfoMapper.insert(rentalinfo);
+        System.out.println(rentalinfo);
+
+        return 0;
     }
 
     /*

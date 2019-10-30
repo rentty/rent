@@ -121,6 +121,24 @@ public interface UsermanagementService {
 
     public List<Householdinfo>  findAllHouseholdinfo();
 
+    /**
+     * 获取指定的房屋和出租信息(地图用)
+     * @return
+     */
 
+    public  List<MapHouse>  findAllHouseAndRent(String type,String ori,int area1,int area2,int layer,
+                                                int rent1,int rent2,int renttype);
+
+    /**
+     * 计算每个区域有多少个房屋(地图用)
+     * @return
+     */
+    public HashMap<String,Integer> countHouse(List<MapHouse> list);
+
+    /**
+     * 从地图获取数据存进数据库(地图用)
+     * @return
+     */
+    public int dataToMap(String address,String lng,String lat);
 }
 
