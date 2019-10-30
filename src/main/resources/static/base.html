@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!-- //js -->
+<link href='http://fonts.useso.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+	<!--vue-->
+	<script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	<!--axios-->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- start-smoth-scrolling -->
+
+</head>
+	
+<body>
+<!-- header -->
+	<div class="header">	
+		<div class="header-top">
+			<div class="container"> 
+				<div class="header-top-left">
+					<ul>
+						<li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>13556506447</li>
+						<li><a href="mailto:info@example.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@YQ</a></li>
+					</ul>
+				</div>
+				<div class="header-top-left1">
+
+					<ul class="social-icons">
+						<li><a href="short-codes.html" class="icon icon-border facebook"></a><font color="white">Login</font></li>
+
+					</ul>
+				</div>
+				<div class="header-top-right">
+					<div class="search">
+						<input class="search_box" type="checkbox" id="search_box">
+						<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
+						<div class="search_form">
+							<form action="#" method="post">
+								<input type="text" name="Search" placeholder="Search...">
+								<input type="submit" value=" ">
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="header-bottom">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					  </button>
+						<div class="logo">
+							<h1><a class="navbar-brand" href="base.html">Rent <span>Index</span></a></h1>
+						</div>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+						<nav>
+							<ul class="nav navbar-nav">
+								<li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
+								<li><a href="services.html" class="hvr-bounce-to-bottom">找房</a></li>
+
+							</ul>
+						</nav>
+					</div>
+					<!-- /.navbar-collapse -->
+				</nav>
+			</div>
+		</div>
+	</div>
+<!-- //header -->
+<!-- banner -->
+	<div class="banner">
+		<div class="container">
+			<div class="banner-left">
+				<h3>the easiest way to find your dream home</h3>
+				<p>Excepteur sint occaecat cupidatat.</p>
+			</div>
+
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+<!-- //banner -->
+<!-- about -->
+
+<div class="events">
+	<div class="container">
+		<h3><span>News & Rent</span></h3>
+		<p class="autem">较为受欢迎的租房信息</p>
+		<div class="events-grids">
+			<div class="col-md-4 events-grid">
+				<div class="events-grid1 hvr-sweep-to-top">
+					<a :href="'single.html?hsId='+ hsId1"><img :src="srcPic1" alt=" " class="img-responsive" /></a>
+					<h4><a :href="'single.html?hsId='+ hsId1">{{ title1 }}</a></h4>
+					<ul>
+						<li><a :href="'single.html?hsId='+ hsId1 "><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>￥{{ rent1 }}</a></li>
+						<li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{ orderdate1 }}</li>
+					</ul>
+
+				</div>
+			</div>
+			<div class="col-md-4 events-grid">
+				<div class="events-grid1 hvr-sweep-to-top">
+					<a :href="'single.html?hsId='+ hsId2"><img :src="srcPic2" alt=" " class="img-responsive" /></a>
+					<h4><a :href="'single.html?hsId='+ hsId2">{{ title2 }}</a></h4>
+					<ul>
+						<li><a :href="'single.html?hsId='+ hsId2 "><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>￥{{ rent2 }}</a></li>
+						<li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{ orderdate2 }}</li>
+					</ul>
+
+				</div>
+			</div>
+			<div class="col-md-4 events-grid">
+				<div class="events-grid1 hvr-sweep-to-top">
+					<a :href="'single.html?hsId='+ hsId3"><img :src="srcPic3" alt=" " class="img-responsive" /></a>
+					<h4><a :href="'single.html?hsId='+ hsId3">{{ title3 }}</a></h4>
+					<ul>
+						<li><a :href="'single.html?hsId='+ hsId3 "><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>￥{{ rent3 }}</a></li>
+						<li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{ orderdate3 }}</li>
+					</ul>
+
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<script>
+			var vue = new Vue({
+				el: ".events-grids",
+				data() {
+					return {
+						hsId1: 900,
+						srcPic1: "images/6.jpg",
+						title1: "sss",
+						rent1: 455,
+						orderdate1: 3455,
+
+						hsId2: 900,
+						srcPic2: "images/6.jpg",
+						title2: "sss",
+						rent2: 455,
+						orderdate2: 3455,
+
+						hsId3: 900,
+						srcPic3: "images/6.jpg",
+						title3: "sss",
+						rent3: 455,
+						orderdate3: 3455
+					}
+				},
+				computed: {
+					srcPic: {
+						get(){
+							return
+							"http://localhost:8080/"
+							+
+							this.srcPic1
+						}
+					}
+				},
+				mounted() {
+					axios
+							.get('http://localhost:8080/')//请求展示接口
+							.then(response => response.json())
+							.then(json=>{
+								console.log(json);
+								//添加属性
+
+							})
+							.catch(function (error) { // 请求失败处理
+								console.log(error);
+							});
+				}
+			})
+		</script>
+	</div>
+</div>
+
+	<div class="about">
+		<div class="container">
+			<h3><span>About Us</span></h3>
+			<p class="autem">Who we are</p>
+			<div class="about-grids">
+				<p class="delectus">无话可说,无可奉告,无所谓啦,请关注我们的作品</p>
+				<div class="col-md-3 about-grid">
+					<figure>
+						<img src="images/1.jpg" alt=" " class="img-responsive" />
+						<figcaption>
+							<h4>James Willy</h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
+						</figcaption>
+					</figure>
+				</div>
+				<div class="col-md-3 about-grid">
+					<figure>
+						<img src="images/2.jpg" alt=" " class="img-responsive" />
+						<figcaption>
+							<h4>wj</h4>
+							<p>大黑人问号</p>
+
+						</figcaption>
+					</figure>
+				</div>
+				<div class="col-md-3 about-grid">
+					<figure>
+						<img src="images/3.jpg" alt=" " class="img-responsive" />
+						<figcaption>
+							<h4>wy</h4>
+							<p>黑人问号</p>
+
+						</figcaption>
+					</figure>
+				</div>
+				<div class="col-md-3 about-grid">
+					<figure>
+						<img src="images/4.jpg" alt=" " class="img-responsive" />
+						<figcaption>
+							<h4>yq</h4>
+							<p>做自己</p>
+
+						</figcaption>
+					</figure>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="about-grids-bottom">
+				<div class="col-md-4 about-grids-bottom-grid">
+					<h4>关于我们</h4>
+					<p>
+						来自中国
+					</p>
+				</div>
+				<div class="col-md-4 about-grids-bottom-grid">
+					<h4>我们是</h4>
+					<p>
+						年轻人
+					</p>
+				</div>
+				<div class="col-md-4 about-grids-bottom-grid">
+					<h4>做了什么</h4>
+					<p>简简单单的事</p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+<!-- //about -->
+
+<!-- about-bottom -->
+	<div class="about-bottom">
+		<div class="container">
+			<div class="about-bottom-grid">
+				<span> </span>
+			</div>
+			<h3>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
+				fugiat nulla pariatur.</h3>
+			<p><i>Andrew Jackson</i></p>
+		</div>
+	</div>
+<!-- //about-bottom -->
+
+<!-- events -->
+
+<!-- //events -->
+<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<h2>Sign up for our newsletter</h2>
+			<p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae eros eget tellus
+				tristique bibendum. Donec rutrum sed sem quis venenatis.</p>
+
+			<div class="footer-grids">
+				<div class="col-md-4 footer-grid">
+					<p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> General Pvt 66, Dong Da
+						Hanoi, Vietnam.</p>
+					<p><a href="mailto:contact@example.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> contact@example.com</a></p>
+					<p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>+0123 456 686</p>
+				</div>
+				<div class="col-md-2 footer-grid">
+					<ul>
+						<li><a href="mail.html">Contact</a></li>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="short-codes.html">Short Codes</a></li>
+						<li><a href="gallery.html">Gallery</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 footer-grid">
+					<div class="footer-grid1">
+						<div class="footer-grid1-left">
+							<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive"></a>
+						</div>
+						<div class="footer-grid1-right">
+							<a href="single.html">eveniet ut molesti</a>
+							<div class="m1">
+								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="footer-grid1">
+						<div class="footer-grid1-left">
+							<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive"></a>
+						</div>
+						<div class="footer-grid1-right">
+							<a href="single.html">earum rerum tenet</a>
+							<div class="m1">
+								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="footer-grid1">
+						<div class="footer-grid1-left">
+							<a href="single.html"><img src="images/8.jpg" alt=" " class="img-responsive"></a>
+						</div>
+						<div class="footer-grid1-right">
+							<a href="single.html">maiores alias cons</a>
+							<div class="m1">
+								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="col-md-3 footer-grid">
+					<div class="footer-grid-instagram">
+						<a href="single.html"><img src="images/9.jpg" alt=" " class="img-responsive" /></a>
+					</div>
+					<div class="footer-grid-instagram">
+						<a href="single.html"><img src="images/10.jpg" alt=" " class="img-responsive" /></a>
+					</div>
+					<div class="footer-grid-instagram">
+						<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
+					</div>
+					<div class="footer-grid-instagram">
+						<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
+
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="footer-copy">
+				<p>Copyright &copy; 2016<a target="_blank" href="http://sc.chinaz.com/moban/"></a></p>
+			</div>
+		</div>
+	</div>
+<!-- //footer -->
+<!-- for bootstrap working -->
+	<script src="js/bootstrap.js"></script>
+<!-- //for bootstrap working -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+</body>
+</html>

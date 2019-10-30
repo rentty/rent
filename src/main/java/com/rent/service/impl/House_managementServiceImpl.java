@@ -79,6 +79,9 @@ public class House_managementServiceImpl implements House_managementService {
         }
     }
 
+
+
+
     @Override
     public String getAllHouseByUsername(String username) {
         int id = 0;
