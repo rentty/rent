@@ -31,4 +31,5 @@ public interface RentalinfoMapper {
     int updateByPrimaryKeySelective(Rentalinfo record);
 
     int updateByPrimaryKey(Rentalinfo record);
+
 }
