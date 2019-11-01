@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>audio</title>
+</head>
+<body>
+<!--    <input type="file" onchange="playMusic.call(this)" class="select-file" />-->
+<!--    <audio class="audio-node" autoplay></audio><br/>-->
+<!--    <video width="1280px" height="720px"></video>-->
+<!--    <script>-->
+<!--        // function playMusic() {-->
+<!--        //     if(!this.value){-->
+<!--        //         return;-->
+<!--        //     }-->
+<!--        //     let fileReader = new FileReader();-->
+<!--        //     let file = this.files[0];-->
+<!--        //-->
+<!--        //     // fileReader.onload = function () {-->
+<!--        //     //     let arrayBuffer = this.result;-->
+<!--        //     //-->
+<!--        //     //     let blob = new Blob([new Int8Array(this.result)],{-->
+<!--        //     //         type: "audio/mp3"-->
+<!--        //     //     });-->
+<!--        //     //     let blobUrl = URL.createObjectURL(blob);-->
+<!--        //     //-->
+<!--        //     //     console.log(blobUrl);-->
+<!--        //     //-->
+<!--        //     //     document.querySelector(".audio-node").src = blobUrl;-->
+<!--        //     function play(arrayBuffer) {-->
+<!--        //         let AudioContext = window.AudioContext;-->
+<!--        //         audioContext = new AudioContext();-->
+<!--        //-->
+<!--        //         let audioNode = audioContext.createBufferSource();-->
+<!--        //-->
+<!--        //         audioContext.decodeAudioData(arrayBuffer,function (audioBuffer) {-->
+<!--        //             console.log(audioBuffer);-->
+<!--        //             audioNode.buffer = audioBuffer;-->
+<!--        //             audioNode.connect(audioContext.destination);-->
+<!--        //             console.log(audioContext.destination);-->
+<!--        //             audioNode.start(0);-->
+<!--        //         });-->
+<!--        //     }-->
+<!--        //-->
+<!--        //     fileReader.onload = function () {-->
+<!--        //         let arrayBuffer = this.result;-->
+<!--        //         play(arrayBuffer);-->
+<!--        //     }-->
+<!--        //-->
+<!--        //     fileReader.readAsArrayBuffer(this.files[0]);-->
+<!--        // }-->
+
+
+
+
+
+<!--    </script>-->
+
+    <button onclick="record()">开始录音</button>
+    <button onclick="stopRecord()">结束录音</button>
+    <script>
+        function record() {
+            window.navigator.mediaDevices.getUserMedia({
+                audio: {
+                    sampleRate: 44100,
+                    channelCount: 2,
+                    volume: 1.0
+                }
+                    // ,
+                // video: {
+                //   width: {ideal: 1280},
+                //   height: {ideal: 720}
+                // }
+            }).then(mediaStream => {
+                console.log(mediaStream);
+                beginRecord(mediaStream);
+                // let video = document.querySelector("video");
+                // video.srcObject = mediaStream;
+                // video.onloadedmetadata =function (ev) {
+                //     video.play();
+                // }
+            }).catch(err =>{
+                console.log(err);
+            })
+        }
+
+        <!--开始录音-->
+        function beginRecord(mediaStream) {
+            let audioContext = window.AudioContext;
+            audioContext = new audioContext();
+            let mediaNode = audioContext.createMediaStreamSource(mediaStream);
+            // mediaNode.connect(audioContext.destination);
+
+            let jsNode = createJSNode(audioContext);
+            jsNode.connect(audioContext.destination);
+            jsNode.onaudioprocess = onAudioProcess;
+            mediaNode.connect(jsNode);
+
+        }
+
+        <!--jsNode处理语音节点-->
+        function createJSNode(audioContext) {
+            const BUFFER_SIZE = 4096;
+            const INPUT_CHANNEL_COUNT = 2;
+            const OUTPUT_CHANNEL_COUNT = 2;
+            let creator = audioContext.createScriptProcessor;
+            creator = creator.bind(audioContext);
+            return creator(BUFFER_SIZE,INPUT_CHANNEL_COUNT,OUTPUT_CHANNEL_COUNT);
+        }
+
+        <!--语音左右声道数组-->
+        let leftDataList = [];
+        let rightDataList = [];
+
+        <!--处理语音流程-->
+        function onAudioProcess(event) {
+            console.log(event.inputBuffer);
+            let audioBuffer = event.inputBuffer;
+            let leftChannelData = audioBuffer.getChannelData(0), rightChannelData = audioBuffer.getChannelData(1);
+            console.log(leftChannelData,rightChannelData);
+            leftDataList.push(leftChannelData.slice(0));
+            rightDataList.push(rightChannelData.slice(0));
+        }
+
+
+        <!--停止录音-->
+        function stopRecord1() {
+            mediaStream.getAudioTracks()[0].stop();
+            mediaNode.disconnect();
+            jsNode.disconnect();
+            console.log("结束");
+        }
+
+
+        <!--处理合并语音数组-->
+        function mergeArray(list) {
+            let length = list.length * list[0].length;
+            let data = new Float32Array(length),
+                offset = 0;
+            for (let i = 0;i<list.length;i++){
+                data.set(list[i],offset);
+                offset += list[i].length;
+            }
+            return data;
+        }
+
+        <!--交叉合并左右声道数据-->
+        function interleaveLeftAndRight(left,right) {
+            let totalLength = left.length + right.length;
+            let data = new Float32Array(totalLength);
+            for (let i = 0;i < left.length;i++){
+                let k = i * 2;
+                data[k] = left[i];
+                data[k+1] = right[i];
+            }
+            return data;
+        }
+
+
+
+        function createwavFile(audioData) {
+            const WAV_HEAD_SIZE = 44;
+            let buffer = new ArrayBuffer(audioData.length + WAV_HEAD_SIZE),
+                view = new DataView(buffer);
+
+            let offset = 0;
+            let writeString = function(str){
+                for (let i = 0;i < str.length; i++) {
+                    view.setUint8(offset+i,str.charCodeAt(i));
+                }
+            }
+            //资源交换文件标识符
+            writeString("RIFF");offset += 4;
+            //下一个地址开始到文件尾总字节数,即文件大小
+            view.setUint32(4,44 + audioData.length * 2,true);offset += 4;
+            //
+            writeString("WAVE");offset += 4;
+            writeString("fmt");offset += 4;
+            view.setUint32(16,16,true);offset += 4;
+            view.setUint16(20,1,true);offset += 2;
+            view.setUint16(22,2,true);offset += 2;
+            view.setUint32(24,44100,true);offset += 4
+            view.setUint32(28,44100 * 2,true);offset += 4;
+            view.setUint16(32,2 * 2,true);offset += 2;
+            view.setUint16(34,16,true);offset +=2;
+            writeString("data");offset += 4
+            view.setUint32(40,audioData.length * 2,true);offset += 4
+
+
+
+
+            //写入pcm数据
+            let length = audioData.length;
+            let index = 44;
+            let volume = 1;
+            for (let i = 0;i < length;i++){
+                view.setInt16(index,audioData[i] * (0X7FFF * volume),true);
+                index += 2;
+            }
+            return buffer;
+        }
+
+
+        function playRecord(arrayBuffer) {
+            let blob = new Blob([new Uint8Array(ArrayBuffer)]);
+            let blobUrl = URL.createObjectURL(blob);
+            document.querySelector(".audio-node").src = blobUrl;
+        }
+
+        function stopRecord() {
+            let leftData = mergeArray(leftDataList),
+                rightData = mergeArray(rightDataList);
+            let allData = interleaveLeftAndRight(leftData,rightData);
+            let wavBuffer = createwavFile(allData);
+            playRecord(wavBuffer);
+            stopRecord1();
+        }
+
+    </script>
+</body>
+
+</html>
