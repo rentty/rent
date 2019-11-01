@@ -1,33 +1,42 @@
 package com.rent.bean;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class HouseInfo implements Serializable {
+    @ApiModelProperty("房屋编号")
     private Long hsId;
 
+    @ApiModelProperty(value = "县区")
     private String hsDistrict;
 
+    @ApiModelProperty(value = "城市")
     private String hsCity;
 
+    @ApiModelProperty(value = "租金")
     private double hsRent;
 
+    @ApiModelProperty(value = "户型")
     private String hsType;
 
+    @ApiModelProperty(value = "小区")
     private String hsHousingEstate;
 
+    @ApiModelProperty(value = "室内图地址，图片服务器上的地址")
     private String hsdIdoorMAddr;
 
+    @ApiModelProperty(value = "面积")
     private Long hsArea;
 
-    private Long hsRat;
-
+    @ApiModelProperty(value = "筛选的信息对应编号集合")
     private List<String> houseAttrValueList;
 
     public HouseInfo() {
     }
 
-    public HouseInfo(Long hsId, String hsDistrict, String hsCity, double hsRent, String hsType, String hsHousingEstate, String hsdIdoorMAddr, Long hsArea, Long hsRat, List<String> houseAttrValueList) {
+    public HouseInfo(Long hsId, String hsDistrict, String hsCity, double hsRent, String hsType, String hsHousingEstate, String hsdIdoorMAddr, Long hsArea, List<String> houseAttrValueList) {
         this.hsId = hsId;
         this.hsDistrict = hsDistrict;
         this.hsCity = hsCity;
@@ -36,17 +45,10 @@ public class HouseInfo implements Serializable {
         this.hsHousingEstate = hsHousingEstate;
         this.hsdIdoorMAddr = hsdIdoorMAddr;
         this.hsArea = hsArea;
-        this.hsRat = hsRat;
+
         this.houseAttrValueList = houseAttrValueList;
     }
 
-    public Long getHsRat() {
-        return hsRat;
-    }
-
-    public void setHsRat(Long hsRat) {
-        this.hsRat = hsRat;
-    }
 
     @Override
     public String toString() {
@@ -59,7 +61,6 @@ public class HouseInfo implements Serializable {
                 ", hsHousingEstate='" + hsHousingEstate + '\'' +
                 ", hsdIdoorMAddr='" + hsdIdoorMAddr + '\'' +
                 ", hsArea=" + hsArea +
-                ", hsRat=" + hsRat +
                 ", houseAttrValueList=" + houseAttrValueList +
                 '}';
     }

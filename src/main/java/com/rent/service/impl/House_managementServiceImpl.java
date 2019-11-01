@@ -102,7 +102,6 @@ public class House_managementServiceImpl implements House_managementService {
         Delete delete = new Delete.Builder(id.toString()).index("rent").type("HouseInfo").build();
         try{
             jestClient.execute(delete);
-            System.out.println("删除");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,7 +126,7 @@ public class House_managementServiceImpl implements House_managementService {
         houseInfo.setHsHousingEstate(house.getHsHousingestate());
         houseInfo.setHsRent(rentalinfo.getRtlfRent());
         houseInfo.setHsType(house.getHsType().substring(0,2));
-        houseInfo.setHsRat((long) 0);
+
 
         List<String> houseAttrValueList = new ArrayList<>();
 
@@ -246,7 +245,7 @@ public class House_managementServiceImpl implements House_managementService {
         houseInfo.setHsHousingEstate(house.getHsHousingestate());
         houseInfo.setHsRent(rentalinfo.getRtlfRent());
         houseInfo.setHsType(house.getHsType().substring(0,2));
-        houseInfo.setHsRat((long) 0);
+
 
         List<String> houseAttrValueList = new ArrayList<>();
 
@@ -318,4 +317,32 @@ public class House_managementServiceImpl implements House_managementService {
 
         return 1;
     }
+
+    @Override
+    public List<HouseSituation> showHousesByRent() {
+        RentalinfoExample example = new RentalinfoExample();
+        example.setOrderByClause("rtlf_Rent desc");
+        List<Rentalinfo> list = rentalinfoMapper.selectByExample(example);
+        List<HouseSituation> list1 = new ArrayList<HouseSituation>();
+        for(int i = 0; i < 3; i++) {
+            Rentalinfo rentalinfo = list.get(i);
+            House house = houseMapper.selectByPrimaryKey(rentalinfo.getRtlfId());
+            Housedl housedl = housedlMapper.selectByPrimaryKey(house.getHsId());
+            HouseSituation houseSituation = new HouseSituation();
+            houseSituation.setHsId(house.getHsId());
+            houseSituation.setHsCity(house.getHsCity());
+
+            houseSituation.setHsdFacilityDesc(housedl.getHsdFacilityDesc());
+            houseSituation.setHsdldoormaddr(housedl.getHsdIdoormaddr());
+            houseSituation.setHsDistrict(house.getHsDistrict());
+            houseSituation.setHsTitle(house.getHsHousingestate() + "•" + house.getHsType().substring(0,1) + "居室");
+            houseSituation.setRtlfRent(rentalinfo.getRtlfRent());
+            System.out.println(houseSituation);
+            list1.add(houseSituation);
+        }
+
+        return list1;
+    }
+
+
 }
