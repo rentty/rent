@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Single</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/light-carousel.css" rel="stylesheet" type="text/css">
+<link href="css/calendar.css" rel="stylesheet" type="text/css">
+<!-- js -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!--vue-->
+	<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<!--axios-->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<script src="js/calendar.js"></script>
+
+<!-- //js -->
+<link href='http://fonts.useso.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- start-smoth-scrolling -->
+<script>
+	$(function () {
+		var hsId = Getparam("hsId");
+		console.log(hsId);
+		function Getparam(str) {
+
+			var ref = window.location.search.split("=")[1];
+			return ref;
+		}
+
+	});
+</script>
+</head>
+	
+<body>
+<!-- header -->
+	<div class="header">	
+		<div class="header-top">
+			<div class="container"> 
+				<div class="header-top-left">
+					<ul>
+						<li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>13556506447</li>
+						<li><a href="mailto:1426413088@qq.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@YQ</a></li>
+					</ul>
+				</div>
+				<div class="header-top-left1">
+					<!--右侧上图标-->
+					<ul class="social-icons">
+						<li><a href="short-codes.html" class="glyphicon glyphicon-log-in" style="color: rgb(255,255,255)">   Login</a></li>
+
+					</ul>
+				</div>
+				<div class="header-top-right">
+
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="header-bottom">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					  </button>
+						<div class="logo">
+							<h1><a class="navbar-brand" href="index.html">Rent <span>Index</span></a></h1>
+						</div>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+						<nav>
+							<ul class="nav navbar-nav">
+								<li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
+								<li><a href="services.html" class="hvr-bounce-to-bottom">找房</a></li>
+
+
+							</ul>
+						</nav>
+					</div>
+					<!-- /.navbar-collapse -->
+			</div>
+			</nav>
+		</div>
+	</div>
+
+<!-- //header -->
+<!-- breadcrumbs -->
+	<div class="services-top-breadcrumbs">
+		<div class="container">
+			<div class="services-top-breadcrumbs-right">
+				<ul>
+					<li><a href="base.html">Home</a> <i>/</i></li>
+					<li>Detail Page</li>
+				</ul>
+			</div>
+			<div class="services-top-breadcrumbs-left">
+
+					<div class="search">
+						<input class="search_box" type="checkbox" id="search_box" >
+						<label class="icon-search" for="search_box" style="color: black;"><span class="glyphicon glyphicon-search" aria-hidden="true"> 搜索租房</span></label>
+						<div class="search_form">
+							<!--action 请求为-->
+							<form action="#" method="post">
+								<input type="text" name="Search" placeholder="搜索啥呢...">
+								<input type="submit" value="">
+							</form>
+						</div>
+					</div>
+
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+<!-- //breadcrumbs -->
+<!-- single -->
+	<div class="single">
+		<div class="container">
+			<div class="col-md-7 single-left">
+				<div class="sample1">
+					<div class="carousel">
+						<ul>
+							<li> <img :src="imgsrc" alt="户型图"> </li>
+							<li> <img src="images/14.jpg" alt="环境图"> </li>
+							<li> <img src="images/15.jpg" alt="室内图"> </li>
+							<li> <img src="images/16.jpg" alt="室内图"> </li>
+						</ul>
+						<div class="controls">
+							<div class="prev"></div>
+							<div class="next"></div>
+						</div>
+					</div>
+					<div class="thumbnails">
+						<ul>
+							<li> <img src="images/13.jpg" alt=" "> </li>
+							<li> <img src="images/14.jpg" alt=" "> </li>
+							<li> <img src="images/15.jpg" alt=" "> </li>
+							<li> <img src="images/16.jpg" alt=" "> </li>
+						</ul>
+					</div>
+				</div>
+				<script src="js/jquery.light-carousel.js"></script> 
+				<script>
+					$('.sample1').lightCarousel();
+				</script> 
+				<div class="single-left2">
+					<br/>
+					<br/>
+					<h3>具备设施</h3>
+					<ul class="com">
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+								<img src="images/写字台.png" height="64" width="64"/>
+								<p style="text-align: center">写字台</p>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+							<img src="images/冰箱.png" height="64" width="64"/>
+							<p style="text-align: center">冰箱</p>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+								<img src="images/单人床.png" height="64" width="64"/>
+								<p style="text-align: center">单人床</p>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+
+								<img src="images/厨房.png" height="64" width="64"/>
+								<p style="text-align: center">厨房</p>
+						</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+
+								<img src="images/双人床.png" height="64" width="64"/>
+								<p style="text-align: center">双人床</p>
+						</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+
+								<img src="images/宽带.png" height="64" width="64"/>
+								<p style="text-align: center">宽带</p>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+
+								<img src="images/梳妆台.png" height="64" width="64"/>
+								<p style="text-align: center">梳妆台</p>
+						</a>
+						</li>
+
+					</ul>
+
+					<div class="single-left2-sub">
+						<ul>
+							<li>房屋要求: </li>
+						</ul>
+					</div>
+				</div>
+				<div class="single-left3">
+					<p>
+						<span>
+							房东直招！长住有优惠，地址：五角场国权路85弄小区，国权路35号3楼310室 米兰白领社区，
+							你我他的租房第一站 所有图片都是本人实地拍摄所得，描述真实。自己家小区的房子新小区，
+							和图片一模一样，低于市场价格。小区对面大润发超市，绿色米兰奥特莱斯，上海财富国际广场。
+							距离10号线国权路步行800米，直达市中心。8号线延吉中路站1公里，五角场，同济大学，复旦大学都非常近，
+							周边配套成熟，交通便利，
+							吃喝玩乐一条街。房屋配套齐全，全新装修。可押一付一。看房请提前预约。
+						</span>
+					</p>
+				</div>
+
+				<div class="admin">
+					<p>未看房前，请不要支付任何费用。遇到"不方便看房"、"先交定金"、"房东人在外地"、"邮寄合同证件"等情况需谨慎，谨防上当受骗</p>
+					<a href="#"><i>!温馨提示</i></a>
+				</div>
+				<div class="comments">
+					<h4>评论</h4>
+					<div class="comments-grid">
+						<div class="comments-grid-left">
+							<img src="images/5.png" alt=" " class="img-responsive" />
+						</div>
+						<div class="comments-grid-right">
+							<h3><a href="#">Adam Smith</a></h3>
+							<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 28th May, 2016</h5>
+							<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+							<div class="reply">
+								<a href="#">Reply</a>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="comments-grid">
+						<div class="comments-grid-left">
+							<img src="images/4.png" alt=" " class="img-responsive" />
+						</div>
+						<div class="comments-grid-right">
+							<h3><a href="#">James Rick</a></h3>
+							<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 28th May, 2016</h5>
+							<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+							<div class="reply">
+								<a href="#">Reply</a>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-md-5 single-right">
+				<div class="categories">
+					<h1>{{ title }}</h1>
+					<h3>{{ rent }} <font size="3px">元/月 起</font>    |   {{ hsType }}  |  {{ hsArea }}<font size="3px"> m²</font> </h3>
+
+						<span>朝向  {{ hsOriented }}</span><br/><br/>
+					    <span>楼层  {{ hsLayer }}</span><br/><br/>
+						<span>户型  {{ hsType }}</span><br/><br/>
+						<span>地址  {{ hsAddress }}</span><br/><br/>
+						<span>更新  {{ rtlfReleasetime }}</span><br/><br/>
+
+				</div>
+				<script>
+					let vue = new Vue({
+						el: ".categories",
+						data() {
+							return{
+								title: "整租.上海",
+								rent: 3000,
+								hsType: "整套",
+								hsArea: 666,
+
+								hsOriented: "朝南",
+								hsLayer: "2/3层",
+								hsType: "1室1厅",
+								hsAddress: "北京西路1122号",
+								rtlfReleasetime: "2019/10/30"
+							}
+						}
+					});
+				</script>
+				<div class="categories categories-mid">
+					<h3>预订</h3>
+					<div id="calendar">
+
+					</div>
+					<label>金额</label>{{ money }}
+					<button>提交订单</button>
+<script>
+	let c = new Calendar({
+		// 设置显示位置
+		parent: 'calendar',
+		// 初始化显示时间（默认选中时间）
+		time: '2019-6-19',
+		// viewMode：
+		// 0 - 日期模式（默认值）
+		viewMode: 0,
+		// pickMode：
+		// multiple - 多选模式
+		pickMode: 'multiple',
+		// 配置日期选择的事件处理器 onDatePick，参数如下：
+		// time - 选中的多个日期（已排序）时间
+		// $el - 点击的 DOM 节点
+		// calendar - 日历控件的实例
+		onDatePick: function (time, $el, calendar) {
+			console.log('选择时间：' + time)
+			console.log('选择的 DOM 节点：' + $el)
+			console.log('日历实例：' + calendar)
+		},
+		// 配置今天选择的事件处理器 onTodayPick，参数如下：
+		// 1. 先切换到日期试图模式；
+		// 2. 触发日期选择的业务逻辑；
+		onTodayPick: function (time, $el, calendar) {
+			console.log('选择时间：', time)
+			console.log('选择的 DOM 节点：', $el)
+			console.log('日历实例：', calendar)
+		}
+	})
+
+
+
+</script>
+				</div>
+				<div class="related-posts">
+					<h3>相关推荐</h3>
+					<div class="related-post">
+						<div class="related-post-left">
+							<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
+						</div>
+						<div class="related-post-right">
+							<h4><a href="single.html">Donec sollicitudin</a></h4>
+							<p>Aliquam dapibus tincidunt metus. 
+								<span>Praesent justo dolor, lobortis.</span>
+							</p>
+						</div>
+						<div class="clearfix"> </div>
+
+					</div>
+					<div class="related-post">
+						<div class="related-post-left">
+							<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
+						</div>
+						<div class="related-post-right">
+							<h4><a href="single.html">Donec sollicitudin</a></h4>
+							<p>Aliquam dapibus tincidunt metus. 
+								<span>Praesent justo dolor, lobortis.</span>
+							</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="related-post">
+						<div class="related-post-left">
+							<a href="single.html"><img src="images/8.jpg" alt=" " class="img-responsive" /></a>
+						</div>
+						<div class="related-post-right">
+							<h4><a href="single.html">Donec sollicitudin</a></h4>
+							<p>Aliquam dapibus tincidunt metus. 
+								<span>Praesent justo dolor, lobortis.</span>
+							</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+				<div class="write-reply">
+					<br/>
+					<br/>
+					<h3>评论和建议</h3>
+					<form action="#" method="post">
+						<textarea name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Write a comment here...</textarea>
+						<input type="text" name="Name" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name...';}" required="">
+						<input type="email" name="Email" value="Email..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email...';}" required="">
+						<input type="text" name="Website" value="Website..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Website...';}" required="">
+						<input type="submit" value="Send" >
+					</form>
+				</div>
+			</div>
+			<div class="clearfix">
+			</div>
+
+		</div>
+	</div>
+<script>
+	let vue = new Vue({
+		el: ".single",
+		data(){
+			return {
+				imgsrc: "images/15.jpg",
+				title: "ddd"
+			}
+		},
+		mounted(){
+			axios.
+				get("http://localhost:8080")
+						.then(response => (this.info = response))
+						.catch(function (error) { // 请求失败处理
+							console.log(error);
+						});
+		}
+	});
+</script>
+
+	<script src="js/bootstrap.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+</body>
+</html>

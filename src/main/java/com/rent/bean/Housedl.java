@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class Housedl implements Serializable {
+    @ApiModelProperty(value = "主键")
     private Integer hsdId;
 
     @ApiModelProperty(value = "室内图地址，图片服务器上的地址")
