@@ -40,10 +40,10 @@ public class UsermanagementServiceImpl implements UsermanagementService {
   /*  @Autowired
     RedisPool redisPool;*/
     @Override
-    public int Register(Registy registy) {
-        if(registy.getRgtId() != null){
+    public int Register(Registy registy,String Nickname) {
+        if(registy.getRgtUser() != null){
             RegistyExample registyExample = new RegistyExample();
-            registyExample.createCriteria().andRgtIdEqualTo(registy.getRgtId());
+            registyExample.createCriteria().andRgtUserEqualTo(registy.getRgtUser());
             if(registyMapper.selectByExample(registyExample).size() > 0){
                 return 0;
             }
@@ -52,7 +52,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         if( registyMapper.insert(registy) != 1){
             return -1;
         }
-        Userinfo userinfo = new Userinfo(registy.getRgtId(),null,null,null,null,null);
+        Userinfo userinfo = new Userinfo(registy.getRgtId(),Nickname,null,null,null,null);
         if(userinfoMapper.insertSelective(userinfo) != 1){
             rentalinfoMapper.deleteByPrimaryKey(registy.getRgtId());
             return -2;
