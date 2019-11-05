@@ -241,7 +241,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     @Override
     public List<MapHouse> findAllHouseAndRent(String type,String ori,int area1,int area2,int layer1,
-                                              int layer2,int rent1,int rent2,int renttype) {
+                                              int layer2,int rent1,int rent2) {
 
         HouseExample houseExample = new HouseExample();
         HouseExample.Criteria criteria = houseExample.createCriteria();
@@ -268,9 +268,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
         RentalinfoExample rentalinfoExample = new RentalinfoExample();
         RentalinfoExample.Criteria criteria1 = rentalinfoExample.createCriteria();
-        if(renttype != -1){
-            criteria1.andRtlfRentaltypeEqualTo(renttype);
-        }
+
         criteria1.andRtlfRentBetween(rent1,rent2);
 
         List<Rentalinfo> rentalinfoList = rentalinfoMapper.selectByExample(rentalinfoExample);
@@ -331,7 +329,6 @@ public class UsermanagementServiceImpl implements UsermanagementService {
                     break;
                 }
             }
-            mapHouse.setRtlfRentaltype(rentalinfo.getRtlfRentaltype());
             mapHouse.setRtlfRent(rentalinfo.getRtlfRent());
             mapHouse.setRtlfHhid(rentalinfo.getRtlfHhid());
             mapHouse.setRtlfRequest(rentalinfo.getRtlfRequest());
