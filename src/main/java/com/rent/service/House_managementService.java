@@ -76,7 +76,7 @@ public interface House_managementService {
     /**
      *  显示户主的所有信息
      */
-    public List<Rentalinfo> getAllHouseAndRentById(int id);
+    public List<HouseUser> getAllHouseAndRentById(int id);
 
     /**
      *  显示房屋详情信息

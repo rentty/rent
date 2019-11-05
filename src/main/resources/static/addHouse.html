@@ -176,7 +176,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <div class="logo">
-                        <h1><a class="navbar-brand" href="index.html">Rent <span>Index</span></a></h1>
+                        <h1><a class="navbar-brand" href="index.html">Rent </a></h1>
                     </div>
                 </div>
 
@@ -223,9 +223,8 @@
                             <span>房屋管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="1-1">添加房屋</el-menu-item>
-                            <el-menu-item index="1-2">管理房屋</el-menu-item>
-                            <el-menu-item index="1-3">删除房屋</el-menu-item>
+                            <el-menu-item index="1-1" @click="ToAdd">添加房屋</el-menu-item>
+                            <el-menu-item index="1-2" @click="ToMana">管理房屋</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="2">
@@ -342,12 +341,6 @@
                     <el-form-item label="租金"  prop="rent">
                         <el-input v-model="form3.rent" id="rent" class="address" ></el-input>
                     </el-form-item>
-                    <el-form-item label="类型" prop="rentType">
-                        <el-radio-group v-model="form3.rentType">
-                            <el-radio label="短租" value="0"></el-radio>
-                            <el-radio label="长租" value="1"></el-radio>
-                        </el-radio-group>
-                    </el-form-item>
                     <br>
                     <el-form-item label="描述" prop="request">
                         <el-input type="textarea" v-model="form3.request"  class="address" ></el-input>
@@ -406,7 +399,6 @@
                 },
                 form3:{
                     rent:"2000",
-                    rentType:"0",
                     request:"123",
                 },
                 rules: {
@@ -447,9 +439,6 @@
                         {required: true, message: '请输入租金', trigger: 'blur'},
                         {validator: checkNumber, trigger: 'blur'}
                     ],
-                    rentType: [
-                        {required: true, message: '请选择出租类型', trigger: 'blur'},
-                    ],
                     request: [
                         {required: true, message: '请输入描述', trigger: 'blur'},
                     ],
@@ -458,6 +447,12 @@
 
         },
         methods:{
+            ToAdd(){
+                window.location.href = 'addHouse.html';
+            },
+            ToMana(){
+                window.location.href = 'houseManag.html';
+            },
             handleOpen(key, keyPath){
                 //console.log(key, keyPath);
             },
@@ -486,12 +481,6 @@
                                 cancelButtonText: '我还要修改，取消添加',
                                 type: 'warning'
                             }).then(() => {
-                                var renttype;
-                                if(this.form3.rentType == "长租"){
-                                    renttype = 1;
-                                }else {
-                                    renttype = 0;
-                                }
                                 $.ajax({
                                     url: 'http://localhost:8080/householdinfo/addHouse',//地址
                                     data: {
@@ -511,7 +500,7 @@
                                         hsdConditionmaddr:"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg",
                                         hsdFacilityDesc:"1,1,1,1,1,1,1",
 
-                                        rtlfRentaltype:renttype,
+                                        rtlfRentaltype:0,//不用的类型
                                         rtlfRequest:this.form3.request,
                                         rtlfRent:this.form3.rent,
                                     },
