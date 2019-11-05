@@ -446,7 +446,7 @@ public class House_managementServiceImpl implements House_managementService {
         }
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(boolQueryBuilder).size(10);
+        searchSourceBuilder.query(boolQueryBuilder);
         searchSourceBuilder.sort("hsRent", SortOrder.ASC);
         String query = searchSourceBuilder.toString();
         Search search = new Search.Builder(searchSourceBuilder.toString())
