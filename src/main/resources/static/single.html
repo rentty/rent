@@ -41,7 +41,6 @@
 <script>
 	$(function () {
 		var hsId = Getparam("hsId");
-		console.log(hsId);
 		function Getparam(str) {
 
 			var ref = window.location.search.split("=")[1];
@@ -145,10 +144,10 @@
 				<div class="sample1">
 					<div class="carousel">
 						<ul>
-							<li> <img :src="imgsrc" alt="户型图"> </li>
-							<li> <img src="images/14.jpg" alt="环境图"> </li>
-							<li> <img src="images/15.jpg" alt="室内图"> </li>
-							<li> <img src="images/16.jpg" alt="室内图"> </li>
+							<li> <img :src="img1" alt="室内图"> </li>
+							<li> <img :src="img2" alt="户型图"> </li>
+							<li> <img :src="img3" alt="环境图"> </li>
+
 						</ul>
 						<div class="controls">
 							<div class="prev"></div>
@@ -157,10 +156,10 @@
 					</div>
 					<div class="thumbnails">
 						<ul>
-							<li> <img src="images/13.jpg" alt=" "> </li>
-							<li> <img src="images/14.jpg" alt=" "> </li>
-							<li> <img src="images/15.jpg" alt=" "> </li>
-							<li> <img src="images/16.jpg" alt=" "> </li>
+							<li> <img :src="img1" alt=" "> </li>
+							<li> <img :src="img2" alt=" "> </li>
+							<li> <img :src="img3" alt=" "> </li>
+
 						</ul>
 					</div>
 				</div>
@@ -249,7 +248,7 @@
 					<h4>评论</h4>
 					<div class="comments-grid">
 						<div class="comments-grid-left">
-							<img src="images/5.png" alt=" " class="img-responsive" />
+							<img :src="images/5.png" alt=" " class="img-responsive" />
 						</div>
 						<div class="comments-grid-right">
 							<h3><a href="#">Adam Smith</a></h3>
@@ -282,7 +281,7 @@
 			<div class="col-md-5 single-right">
 				<div class="categories">
 					<h1>{{ title }}</h1>
-					<h3>{{ rent }} <font size="3px">元/月 起</font>    |   {{ hsType }}  |  {{ hsArea }}<font size="3px"> m²</font> </h3>
+					<h3 id="rent">{{ rent }} <font size="3px">元/月 起</font>    |   {{ hsType }}  |  {{ hsArea }}<font size="3px"> m²</font> </h3>
 
 						<span>朝向  {{ hsOriented }}</span><br/><br/>
 					    <span>楼层  {{ hsLayer }}</span><br/><br/>
@@ -291,38 +290,104 @@
 						<span>更新  {{ rtlfReleasetime }}</span><br/><br/>
 
 				</div>
-				<script>
-					let vue = new Vue({
-						el: ".categories",
-						data() {
-							return{
-								title: "整租.上海",
-								rent: 3000,
-								hsType: "整套",
-								hsArea: 666,
 
-								hsOriented: "朝南",
-								hsLayer: "2/3层",
-								hsType: "1室1厅",
-								hsAddress: "北京西路1122号",
-								rtlfReleasetime: "2019/10/30"
-							}
-						}
-					});
-				</script>
 				<div class="categories categories-mid">
 					<h3>预订</h3>
 					<div id="calendar">
 
 					</div>
-					<label>金额</label>{{ money }}
-					<button>提交订单</button>
+					<br/>
+					<label>金额  </label>{{ money }}
+<!--					&nbsp;&nbsp;-->
+<!--					<form :action="'createOrder?rtlf_Id='rtlf_Id'&time='time'&during='during" method="get">-->
+
+<!--						<button>提交订单</button>-->
+<!--					</form>-->
 <script>
+	var hsId,rent;
+	$(function () {
+		hsId = Getparam("hsId");
+
+		function Getparam(str) {
+			var ref = window.location.search.split("=")[1];
+			return ref;
+		}
+		rent = $("#rent").text();
+	});
+
+	let vue = new Vue({
+		el: ".categories",
+		data() {
+			return{
+				title: "整租.上海",
+				rent: 3000,
+				hsArea: 666,
+
+				hsOriented: "朝南",
+				hsLayer: "2/3层",
+				hsType: "1室1厅",
+				hsAddress: "上海西路1122号",
+				rtlfReleasetime: "2019/10/30"
+			}
+		},
+		mounted(){
+			axios.
+			get("http://localhost:8080/getHouseDetail?hsId=1")
+					.then(response => {
+						console.log(response);
+						console.log(response.data.data.showHousedl);
+						var data = response.data.data.showHousedl;
+						this.title = data.title
+						this.rent = data.rent
+						this.hsType = data.hsType
+						this.hsArea = data.hsArea
+						this.hsOriented = data.hsOriented
+						this.hsAddress = data.hsAddress
+						this.hsLayer = data.hsLayer
+						this.rtlfReleasetime = data.rtlfReleasetime.split("T")[0]
+					})
+					.catch(function (error) { // 请求失败处理
+						console.log(error);
+					});
+		}
+
+	});
+
+	let vue1 = new Vue({
+		el: ".single",
+		data(){
+			return {
+				img1: "images/15.jpg",
+				img2: "images/15.jpg",
+				img3: "images/15.jpg",
+
+			}
+		},
+		mounted(){
+			axios.
+			get("http://localhost:8080/getHousePic?hsId=1")
+					.then(response =>{
+						var data = response.data.data.Housedl
+						this.img1 = data.hsdIdoormaddr
+						this.img2 = data.hsdFloorpaddr
+						this.img3 = data.hsdConditionmaddr
+					})
+					.catch(function (error) { // 请求失败处理
+						console.log(error);
+					});
+		}
+	});
+
+	var date = new Date();
+	var string1 = date.toLocaleDateString();
+	var string2 = string1.split("/");
+	var string3 = string2.join("-");
+
 	let c = new Calendar({
 		// 设置显示位置
 		parent: 'calendar',
 		// 初始化显示时间（默认选中时间）
-		time: '2019-6-19',
+		time: string3,
 		// viewMode：
 		// 0 - 日期模式（默认值）
 		viewMode: 0,
@@ -337,6 +402,8 @@
 			console.log('选择时间：' + time)
 			console.log('选择的 DOM 节点：' + $el)
 			console.log('日历实例：' + calendar)
+
+			console.log(time);
 		},
 		// 配置今天选择的事件处理器 onTodayPick，参数如下：
 		// 1. 先切换到日期试图模式；
@@ -346,8 +413,32 @@
 			console.log('选择的 DOM 节点：', $el)
 			console.log('日历实例：', calendar)
 		}
-	})
-
+	});
+	// let vue2 = new Vue({
+	// 	el: ".categories categories-mid",
+	// 	data(){
+	// 		return {
+	// 			rtlf_Id: hsId
+	//
+	//
+	// 		}
+	// 	},
+	// 	computed: {
+	// 		money: function () {
+	// 			return arr.length * rent/30
+	// 		}
+	// 	},
+		// mounted(){
+		// 	axios.
+		// 	get("http://localhost:8080")
+		// 			.then(response =>{
+		// 				console.log(response)
+		// 			})
+		// 			.catch(function (error) { // 请求失败处理
+		// 				console.log(error);
+		// 			});
+		// }
+	// });
 
 
 </script>
@@ -410,25 +501,7 @@
 
 		</div>
 	</div>
-<script>
-	let vue = new Vue({
-		el: ".single",
-		data(){
-			return {
-				imgsrc: "images/15.jpg",
-				title: "ddd"
-			}
-		},
-		mounted(){
-			axios.
-				get("http://localhost:8080")
-						.then(response => (this.info = response))
-						.catch(function (error) { // 请求失败处理
-							console.log(error);
-						});
-		}
-	});
-</script>
+
 
 	<script src="js/bootstrap.js"></script>
 
