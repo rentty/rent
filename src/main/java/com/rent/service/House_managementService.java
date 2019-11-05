@@ -74,7 +74,27 @@ public interface House_managementService {
     public List<HouseSituation> showHousesByRent();
 
     /**
+     *  显示户主的所有信息
+     */
+    public List<HouseUser> getAllHouseAndRentById(int id);
+
+    /**
      *  显示房屋详情信息
      */
-//    public
+    public HouseDetailInfo showHouseDetail(int id);
+
+    /**
+     *  查询房屋信息
+     */
+    public List<HouseInfo> searchEntity(String keyword,List<String> list);
+
+    /**
+     *  根据城市获取查询条件
+     */
+    public List<Dialog> getSearchCondition();
+
+    /**
+     *  根据城市获取查询条件值
+     */
+    public List<Entrydl> getSearchValue(String city);
 }

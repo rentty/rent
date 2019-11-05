@@ -40,10 +40,10 @@ public class UsermanagementServiceImpl implements UsermanagementService {
   /*  @Autowired
     RedisPool redisPool;*/
     @Override
-    public int Register(Registy registy) {
-        if(registy.getRgtId() != null){
+    public int Register(Registy registy,String Nickname) {
+        if(registy.getRgtUser() != null){
             RegistyExample registyExample = new RegistyExample();
-            registyExample.createCriteria().andRgtIdEqualTo(registy.getRgtId());
+            registyExample.createCriteria().andRgtUserEqualTo(registy.getRgtUser());
             if(registyMapper.selectByExample(registyExample).size() > 0){
                 return 0;
             }
@@ -52,7 +52,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         if( registyMapper.insert(registy) != 1){
             return -1;
         }
-        Userinfo userinfo = new Userinfo(registy.getRgtId(),null,null,null,null,null);
+        Userinfo userinfo = new Userinfo(registy.getRgtId(),Nickname,null,null,null,null);
         if(userinfoMapper.insertSelective(userinfo) != 1){
             rentalinfoMapper.deleteByPrimaryKey(registy.getRgtId());
             return -2;
@@ -241,7 +241,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
     @Override
     public List<MapHouse> findAllHouseAndRent(String type,String ori,int area1,int area2,int layer1,
-                                              int layer2,int rent1,int rent2,int renttype) {
+                                              int layer2,int rent1,int rent2) {
 
         HouseExample houseExample = new HouseExample();
         HouseExample.Criteria criteria = houseExample.createCriteria();
@@ -268,9 +268,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
         RentalinfoExample rentalinfoExample = new RentalinfoExample();
         RentalinfoExample.Criteria criteria1 = rentalinfoExample.createCriteria();
-        if(renttype != -1){
-            criteria1.andRtlfRentaltypeEqualTo(renttype);
-        }
+
         criteria1.andRtlfRentBetween(rent1,rent2);
 
         List<Rentalinfo> rentalinfoList = rentalinfoMapper.selectByExample(rentalinfoExample);
@@ -331,7 +329,6 @@ public class UsermanagementServiceImpl implements UsermanagementService {
                     break;
                 }
             }
-            mapHouse.setRtlfRentaltype(rentalinfo.getRtlfRentaltype());
             mapHouse.setRtlfRent(rentalinfo.getRtlfRent());
             mapHouse.setRtlfHhid(rentalinfo.getRtlfHhid());
             mapHouse.setRtlfRequest(rentalinfo.getRtlfRequest());

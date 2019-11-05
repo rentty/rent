@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>houseManag</title>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <style type="text/css">
+        .services{
+            position: absolute;
+            left: 0%;
+            width: 100%;
+        }
+        .container2{
+            position: absolute;
+            width: 100%;
+        }
+        .single-left{
+            height: 500px;
+            /* border-left: 1px;
+             border-left: solid;
+             border-left: #82848a;*/
+        }
+        .single-right{
+            position: absolute;
+            width: 85%;
+
+        }
+        .el-col{
+            width: 100%;
+            height: 100%;
+        }
+        .el-menu{
+            width: 100%;
+            height: 100%;
+        }
+        .el-menu-item{
+
+            width: 100%;
+        }
+        .tabListPage{
+            position: absolute;
+            left: 20%;
+        }
+    </style>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c11ae578c1dcee5ca73646f3c6c7fb7&plugin=AMap.DistrictSearch"></script>
+
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <!--<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+    function hideURLbar(){ window.scrollTo(0,1); } </script>-->
+    <!-- //for-mobile-apps -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/light-carousel.css" rel="stylesheet" type="text/css">
+    <link href="css/calendar.css" rel="stylesheet" type="text/css">
+    <!-- js -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <!--vue-->
+    <!--<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
+    <!--axios-->
+    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+
+    <script src="js/calendar.js"></script>
+
+    <!-- //js -->
+    <!--<link href='http://fonts.useso.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    --><!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        /*jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            });
+        });*/
+    </script>
+    <!-- start-smoth-scrolling -->
+    <script>
+        $(function () {
+            var hsId = Getparam("hsId");
+            console.log(hsId);
+            function Getparam(str) {
+
+                var ref = window.location.search.split("=")[1];
+                return ref;
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+<script src="js\vue.min.js"></script>
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script src="element-ui/lib/index.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<!-- header -->
+<div class="header">
+    <div class="header-top">
+        <div class="container">
+            <div class="header-top-left">
+                <ul>
+                    <li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>13556506447</li>
+                    <li><a href="mailto:1426413088@qq.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@YQ</a></li>
+                </ul>
+            </div>
+            <div class="header-top-left1">
+                <!--右侧上图标-->
+                <ul class="social-icons">
+                    <li><a href="short-codes.html" class="glyphicon glyphicon-log-in" style="color: rgb(255,255,255)">   Login</a></li>
+                </ul>
+            </div>
+            <div class="header-top-right">
+
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="logo">
+                        <h1><a class="navbar-brand" href="index.html">Rent </a></h1>
+                    </div>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                    <nav>
+                        <ul class="nav navbar-nav">
+                            <li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
+                            <li><a href="services.html" class="hvr-bounce-to-bottom">找房</a></li>
+                            <li><a href="searchByMap.html" class="hvr-bounce-to-bottom">地图找房</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- //header -->
+<!-- breadcrumbs -->
+<div class="services-top-breadcrumbs">
+    <div class="container">
+        <div class="services-top-breadcrumbs-right">
+            <ul>
+                <li><a href="addHouse.html">房屋管理</a> <i>/</i></li>
+                <li>管理房屋</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="services" id="app">
+    <div class="container2"  >
+        <div class="col-md-2 single-left">
+            <el-col :span="12" >
+                <el-menu
+                        class="el-menu-vertical-demo"
+                        default-active="1-2">
+                    <!--:collapse="isCollapse"-->
+                    <el-submenu index="1">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>房屋管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1" @click="ToAdd">添加房屋</el-menu-item>
+                            <el-menu-item index="1-2" @click="ToMana">管理房屋</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="2">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>订单管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="2-1">查看订单</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                </el-menu>
+
+            </el-col>
+        </div>
+        <div class="col-md-10 single-right">
+
+            <div class="app">
+                <!-- 将获取到的数据进行计算 -->
+                <el-table :data="tableData.slice((currentPage-1)*PageSize,currentPage*PageSize)" style="width: 100%">
+                    <el-table-column prop="rtlfId" label="编号" ></el-table-column>
+                    <el-table-column prop="rtlfRent" label="租金" ></el-table-column>
+                    <el-table-column prop="status" label="审核状态" ></el-table-column>
+                    <el-table-column prop="rtlfRentaltype" label="类型" ></el-table-column>
+                    <el-table-column prop="rtlfRequest" label="描述"></el-table-column>
+                    <el-table-column prop="address" label="地址" ></el-table-column>
+                    <!--<el-table-column label="操作">
+                        <template slot-scope="scope">
+                            <el-button type="primary" icon="el-icon-edit"
+                                       circle @click=""></el-button>
+
+                            <el-button type="danger" icon="el-icon-delete"
+                                       circle @click=""></el-button>
+                        </template>
+                    </el-table-column>-->
+
+                </el-table>
+                <div class="tabListPage">
+                    <el-pagination @size-change="handleSizeChange"
+                                   @current-change="handleCurrentChange"
+                                   :current-page="currentPage"
+                                   :page-sizes="pageSizes"
+                                   :page-size="PageSize" layout="total, sizes, prev, pager, next, jumper"
+                                   :total="totalCount">
+                    </el-pagination>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+
+<script src="js/bootstrap.js"></script>
+
+<script>
+    var districtStr = "0" ;
+    var vue =  new Vue({
+        el: '#app',
+        data: function() {
+
+            return {
+                tableData: [],
+                // 默认显示第一条
+                currentPage:1,
+                // 总条数，根据接口获取数据长度(注意：这里不能为空)
+                totalCount:1,
+                // 个数选择器（可修改）
+                pageSizes:[6,8,10,12,14],
+                // 默认每页显示的条数（可修改）
+                PageSize:5,
+             }
+
+        },
+        methods:{
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            },
+            getData(){
+                $.ajax({
+                    url: 'http://localhost:8080/admin/sysuser/getAllRentalinfo',//地址
+                    data: {},
+                    type: 'GET',//类型
+                    //请求成功
+                    success: function (data) {
+                        console.log(data)
+                    }
+                })
+            },
+            // 分页
+            // 每页显示的条数
+            handleSizeChange(val) {
+                // 改变每页显示的条数
+                this.PageSize=val
+                // 注意：在改变每页显示的条数时，要将页码显示到第一页
+                this.currentPage=1
+            },
+            // 显示第几页
+            handleCurrentChange(val) {
+                // 改变默认的页数
+                this.currentPage=val
+            },
+            created:function(){
+                console.log("d");
+                vue.getData()
+            },
+            ToAdd(){
+                window.location.href = 'addHouse.html';
+            },
+            ToMana(){
+                window.location.href = 'houseManag.html';
+            },
+        },
+        watch: {
+        }
+    })
+</script>
+<script>
+    $.ajax({
+        url: 'http://localhost:8080/householdinfo/getHouse',//地址
+        data: {id:2},
+        type: 'GET',//类型
+        //请求成功
+        success: function (data) {
+            console.log(data)
+            vue.tableData = data.data.houseList;
+            vue.totalCount = data.data.houseList.length;
+        }
+    })
+</script>
+</body>
+</html>

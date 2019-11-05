@@ -1,5 +1,7 @@
 package com.rent.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.rent.bean.House;
 import com.rent.bean.Housedl;
 import com.rent.bean.Sysuser;
@@ -79,13 +81,15 @@ public class SysUserController {
     }
 
     @ApiOperation(value = "房屋所有信息查询")
-    @GetMapping("/getAllHouseMsg")
+    @GetMapping("/getAllHouseMsg/{pn}")
     @ResponseBody
-    public Result getAllHouseMsg(){
+    public Result getAllHouseMsg(@PathVariable() int pn){
+        PageHelper.startPage(pn, 10);
         List<House> houseList = house_managementService.findAllHouse();
         List<Housedl> housedlList = house_managementService.findAllHousedl();
-        return Result.ok().data("house",houseList).data("housedl",housedlList);
-    }
+        PageInfo page = new PageInfo(houseList,5);
+        return Result.ok().data("page",page);
+    }//data("house",houseList).data("housedl",housedlList).
 
     @ApiOperation(value = "修改房屋审核状态")
     @GetMapping("/changeStatus")

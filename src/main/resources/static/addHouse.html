@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>addHouse</title>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <style type="text/css">
+        .services{
+            position: absolute;
+            left: 10%;
+            width: 80%;
+        }
+        .el-menu-vertical-demo{
+
+
+        }
+        .single-left{
+            height: 1000px;
+           /* border-left: 1px;
+            border-left: solid;
+            border-left: #82848a;*/
+        }
+        .single-right{
+            position: absolute;
+            left: 50px;
+        }
+        .el-col{
+            width: 100%;
+            height: 100%;
+        }
+        .el-menu{
+            width: 100%;
+            height: 100%;
+        }
+        .div1{
+            /*position: absolute;
+            height: 50%;*/
+            width: 100%;
+        }
+        .div2{
+            top: 350px;
+            position: absolute;
+            height: 320px;
+            width: 90%;
+        }
+        .div3{
+            position: absolute;
+            width: 100%;
+            top: 670px;
+        }
+        .houseDl{
+            position: absolute;
+            width: 100%;
+            top: 1000px;
+        }
+        .rentMsg{
+            position: absolute;
+            width: 100%;
+            top: 1400px;
+        }
+        .el-menu-item{
+
+            width: 100%;
+        }
+        .address{
+            width: 630px;
+        }
+        .shortSelect{
+            width: 300px;
+        }
+        .el-alert{
+            width: 680px;
+        }
+        .el-upload__input{
+            /*visible:false;*/
+
+        }
+        .el-divider{
+            width: 90%;
+        }
+        .btn{
+            position: absolute;
+            left: 35%;
+        }
+    </style>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c11ae578c1dcee5ca73646f3c6c7fb7&plugin=AMap.DistrictSearch"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+
+    <!--<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+    function hideURLbar(){ window.scrollTo(0,1); } </script>-->
+    <!-- //for-mobile-apps -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/light-carousel.css" rel="stylesheet" type="text/css">
+    <link href="css/calendar.css" rel="stylesheet" type="text/css">
+    <!-- js -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <!--vue-->
+    <!--<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
+    <!--axios-->
+    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+
+    <script src="js/calendar.js"></script>
+
+    <!-- //js -->
+    <link href='http://fonts.useso.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        /*jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            });
+        });*/
+    </script>
+    <!-- start-smoth-scrolling -->
+    <script>
+        $(function () {
+            var hsId = Getparam("hsId");
+            console.log(hsId);
+            function Getparam(str) {
+
+                var ref = window.location.search.split("=")[1];
+                return ref;
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+<script src="js\vue.min.js"></script>
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script src="element-ui/lib/index.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<!-- header -->
+<div class="header">
+    <div class="header-top">
+        <div class="container">
+            <div class="header-top-left">
+                <ul>
+                    <li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>13556506447</li>
+                    <li><a href="mailto:1426413088@qq.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@YQ</a></li>
+                </ul>
+            </div>
+            <div class="header-top-left1">
+                <!--右侧上图标-->
+                <ul class="social-icons">
+                    <li><a href="short-codes.html" class="glyphicon glyphicon-log-in" style="color: rgb(255,255,255)">   Login</a></li>
+
+                </ul>
+            </div>
+            <div class="header-top-right">
+
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="logo">
+                        <h1><a class="navbar-brand" href="index.html">Rent </a></h1>
+                    </div>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                    <nav>
+                        <ul class="nav navbar-nav">
+                            <li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
+                            <li><a href="services.html" class="hvr-bounce-to-bottom">找房</a></li>
+                            <li><a href="searchByMap.html" class="hvr-bounce-to-bottom">地图找房</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- //header -->
+<!-- breadcrumbs -->
+<div class="services-top-breadcrumbs">
+    <div class="container">
+        <div class="services-top-breadcrumbs-right">
+            <ul>
+                <li><a href="addHouse.html">房屋管理</a> <i>/</i></li>
+                <li>添加房屋</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="services" id="app">
+    <div class="container"  >
+        <div class="col-md-3 single-left">
+            <el-col :span="12" >
+                <el-menu
+                        class="el-menu-vertical-demo"
+                        @open="handleOpen"
+                        @close="handleClose"
+                        default-active="1-1">
+                        <!--:collapse="isCollapse"-->
+                    <el-submenu index="1">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>房屋管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1" @click="ToAdd">添加房屋</el-menu-item>
+                            <el-menu-item index="1-2" @click="ToMana">管理房屋</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="2">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>订单管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="2-1">查看订单</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                </el-menu>
+
+            </el-col>
+        </div>
+        <div class="col-md-8 single-right">
+
+            <div class="div1" >
+                <el-divider>基本信息</el-divider>
+            <el-form ref="form" :model="form" :inline="true" :rules="rules">
+
+
+                <el-form-item label="面积" prop="area">
+                    <el-input v-model="form.area" class="address"></el-input>
+                </el-form-item>
+                <br>
+                <el-form-item label="楼层" prop="layer" >
+                    <el-input v-model="form.layer" class="address"></el-input>
+                </el-form-item>
+                <br>
+                <el-form-item label="朝向" prop="ori">
+                    <el-select v-model="form.ori"  class="address">
+                        <el-option label="东" value="东" ></el-option>
+                        <el-option label="南" value="南"></el-option>
+                        <el-option label="西" value="西"></el-option>
+                        <el-option label="北" value="北"></el-option>
+                    </el-select>
+                </el-form-item>
+                <br>
+                <el-form-item label="户型"  prop="type1">
+                    <el-select v-model="form.type1" class="shortSelect">
+                        <el-option label="1" value="1" ></el-option>
+                        <el-option label="2" value="2"></el-option>
+                        <el-option label="3" value="3"></el-option>
+                        <el-option label="4" value="4"></el-option>
+                    </el-select>  室
+                </el-form-item>
+                <el-form-item prop="type2">
+                    <el-select v-model="form.type2"  class="shortSelect">
+                        <el-option label="1" value="1" ></el-option>
+                        <el-option label="2" value="2"></el-option>
+                        <el-option label="3" value="3"></el-option>
+                    </el-select>  卫
+                </el-form-item>
+                <br>
+
+            </el-form>
+            </div>
+            <el-divider>地址信息</el-divider>
+            <div class="div2">
+
+                <div id="container"></div>
+            </div>
+            <div class="div3" >
+                <el-alert
+                        title="请在以上地图中选择地点"
+                        type="warning"
+                        center
+                        show-icon>
+                </el-alert>
+                <br>
+                <el-form :inline="true" :model="form2" ref="form2" class="demo-form-inline" :rules="rules2" >
+                    <el-form-item label="城市"  prop="city">
+                        <el-input v-model="form2.city" id="city" class="address" ></el-input>
+                    </el-form-item>
+                    <el-form-item label="县区" prop="dis">
+                        <el-input v-model="form2.dis" id="dis"  class="address"></el-input>
+                    </el-form-item>
+                    <br>
+                    <el-form-item label="小区" prop="hou">
+                        <el-input v-model="form2.hou" id="hou"  class="address"></el-input>
+                    </el-form-item>
+                    <el-form-item label="详址" prop="addr">
+                        <el-input v-model="form2.addr" id="addr"  class="address"></el-input>
+                    </el-form-item>
+                </el-form>
+
+
+                <br>
+                <br>
+
+                <!--<form action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file">
+                    <input type="submit" value="提交">
+                </form>-->
+
+                <!--<el-upload
+                        class="upload-demo"
+                        action="http://localhost:8080/upload"
+                        :auto-upload="false"
+                        list-type="picture">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                </el-upload>-->
+            </div>
+
+            <div class="houseDl">
+                <el-divider>详细信息</el-divider>
+            </div>
+
+            <div class="rentMsg">
+                <el-divider>出租信息</el-divider>
+                <el-form :inline="true" :model="form3" ref="form3" class="demo-form-inline" :rules="rules3" >
+                    <el-form-item label="租金"  prop="rent">
+                        <el-input v-model="form3.rent" id="rent" class="address" ></el-input>
+                    </el-form-item>
+                    <br>
+                    <el-form-item label="描述" prop="request">
+                        <el-input type="textarea" v-model="form3.request"  class="address" ></el-input>
+                    </el-form-item>
+                </el-form>
+                <div class="btn" >
+                    <el-button type="primary"  @click="onSubmit">提交</el-button>
+                    <el-button @click="resetForm">重置</el-button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+
+<script src="js/bootstrap.js"></script>
+<script>
+    /*$(document).ready(function() {
+        $().UItoTop({ easingType: 'easeOutQuart' });
+    });*/
+</script>
+
+<script>
+    var districtStr = "0" ;
+    var vue =  new Vue({
+        el: '#app',
+        data: function() {
+            var checkNumber = (rule, value, callback) => {
+                setTimeout(() => {
+                    if (isNaN(value) || value == " ") {
+                        callback(new Error('请输入数字'));
+                    } else {
+                        callback();
+                    }
+                }, 500);
+            };
+            return {
+                //isCollapse: false,
+                lng:'',
+                lat:'',
+                form: {
+                    area:"100",
+                    layer:"1",
+                    ori:"南",
+                    type1:"1",
+                    type2:"1",
+                },
+                form2:{
+                    city:"",
+                    dis:"",
+                    hou:"",
+                    addr:"",
+                },
+                form3:{
+                    rent:"2000",
+                    request:"123",
+                },
+                rules: {
+                    area: [
+                        {required: true, message: '请输入房屋面积', trigger: 'blur'},
+                        {validator: checkNumber, trigger: 'blur'}
+                    ],
+                    layer: [
+                        {required: true, message: '请输入房屋楼层', trigger: 'blur'},
+                        {validator: checkNumber, trigger: 'blur'}
+                    ],
+                    ori: [
+                        {required: true, message: '请选择房屋朝向', trigger: 'blur'},
+                    ],
+                    type1: [
+                        {required: true, message: '请选择', trigger: 'blur'},
+                    ],
+                    type2: [
+                        {required: true, message: '请选择', trigger: 'blur'},
+                    ],
+                },
+                rules2: {
+                    city: [
+                        {required: true, message: '请输入城市', trigger: 'blur'},
+                    ],
+                    dis: [
+                        {required: true, message: '请输入县区', trigger: 'blur'},
+                    ],
+                    hou: [
+                        {required: true, message: '请输入小区', trigger: 'blur'},
+                    ],
+                    addr: [
+                        {required: true, message: '请输入详细地址', trigger: 'blur'},
+                    ],
+                },
+                rules3: {
+                    rent: [
+                        {required: true, message: '请输入租金', trigger: 'blur'},
+                        {validator: checkNumber, trigger: 'blur'}
+                    ],
+                    request: [
+                        {required: true, message: '请输入描述', trigger: 'blur'},
+                    ],
+                }
+            }
+
+        },
+        methods:{
+            ToAdd(){
+                window.location.href = 'addHouse.html';
+            },
+            ToMana(){
+                window.location.href = 'houseManag.html';
+            },
+            handleOpen(key, keyPath){
+                //console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                //console.log(key, keyPath);
+            },
+            onSubmit(){
+                console.log('submit!');
+            },
+            resetForm() {
+                this.$refs['form'].resetFields();
+                this.$refs['form2'].resetFields();
+                this.$refs['form3'].resetFields();
+                hou = "";
+                city = "";
+                dis = "";
+            },
+            checkForm(formName) {
+                return this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        if(this.form2.city != "" && this.form2.his != "" &&
+                            this.form2.hou != "" && this.form2.addr != ""){
+                                //console.log('submitAll');
+                            this.$confirm('请确认是否已在地图选点?', '提示', {
+                                confirmButtonText: '我已选好点，确定添加',
+                                cancelButtonText: '我还要修改，取消添加',
+                                type: 'warning'
+                            }).then(() => {
+                                $.ajax({
+                                    url: 'http://localhost:8080/householdinfo/addHouse',//地址
+                                    data: {
+                                        hsType:this.form.type1 + "室"+this.form.type2+ "卫",
+                                        hsArea:this.form.area,
+                                        hsCity:this.form2.city,
+                                        hsDistrict:this.form2.dis,
+                                        hsHousingestate:this.form2.hou,
+                                        hsAddress:this.form2.addr,
+                                        hsLayer:this.form.layer,
+                                        hsOriented:this.form.ori,
+                                        hsLongitude:this.lng,
+                                        username:"猎妈人",
+
+                                        hsdIdoormaddr:"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg",
+                                        hsdFloorpaddr:"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg",
+                                        hsdConditionmaddr:"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg",
+                                        hsdFacilityDesc:"1,1,1,1,1,1,1",
+
+                                        rtlfRentaltype:0,//不用的类型
+                                        rtlfRequest:this.form3.request,
+                                        rtlfRent:this.form3.rent,
+                                    },
+                                    dataType: "json",
+                                    type: 'POST',//类型
+                                    //请求成功
+                                    success: function (data) {
+                                        vue.$message({
+                                            message: '添加成功',
+                                            type: 'success'
+                                        });
+
+                                        console.log(data)
+                                    }
+                                })
+                            }).catch(() => {
+                                this.$message({
+                                    type: 'info',
+                                    message: '已取消删除'
+                                });
+                            });
+
+
+                        }
+                    } else {
+                        console.log('error submit1!!');
+                        return false;
+                    }
+                });
+            },
+            onSubmit() {
+                this.checkForm('form');
+                this.$refs['form2'].validate((valid) => {
+                    if (valid) {
+                    } else {
+                    }
+                });
+                this.$refs['form3'].validate((valid) => {
+                    if (valid) {
+                    } else {
+                    }
+                });
+            },
+        },
+        watch: {
+        }
+    })
+</script>
+<script>
+    var map = new AMap.Map('container',{ zoom: 10, center: [116.39,39.9] });
+    AMap.plugin([ 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView', 'AMap.MapType', 'AMap.Geolocation', ],
+        function(){
+            // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+            map.addControl(new AMap.ToolBar());
+            // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+            map.addControl(new AMap.Scale());
+            // 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+            map.addControl(new AMap.OverView({isOpen:true}));
+            // 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+            map.addControl(new AMap.MapType());
+            // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+            geolocation = new AMap.Geolocation({
+                enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                timeout: 5000,          //超过10秒后停止定位，默认：无穷大
+                maximumAge: 0,           //定位结果缓存0毫秒，默认：0
+                convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+                showButton: true,        //显示定位按钮，默认：true
+                buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
+                buttonDom: "定位",
+                buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+                showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
+                panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
+                zoomToAccuracy:true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            });
+            map.addControl(new AMap.Geolocation());
+        });
+
+    //获取当前位置
+    geolocation.getCurrentPosition(function(status,result){
+        if(status=='complete'){
+            console.log(result.position.toString());
+            var markerPosition = [result.position.getLng(), result.position.getLat()];//定位到当前的位置
+            map.panTo(markerPosition);
+        }else{
+            alert("地址获取错误");
+        }
+    });
+
+    //地图点击事件
+    function showInfoClick(e){
+
+        map.clearMap();
+        var text = e.lnglat.getLng()+','+e.lnglat.getLat();
+        console.log(text);
+        vue.lng = e.lnglat.getLng();
+        vue.lat = e.lnglat.getLat();
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(e.lnglat.getLng(),e.lnglat.getLat()),
+            icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+            offset: new AMap.Pixel(-25, -55)
+        });
+        map.add(marker);
+        var address = document.getElementById("address");
+        //获取结构化地址信息
+        // var lnglat = document.getElementById('btn1').value;
+        $.ajax({
+            url:'http://restapi.amap.com/v3/geocode/regeo?key=0aa468073085cb6ea24b602b2ce879cb&location='
+                +text+'&poitype=2&radius=1000&extensions=all&batch=false&roadlevel=0',
+            type:'GET',//类型
+            //restapi.amap.com/v3/geocode/regeo?key=5c11ae578c1dcee5ca73646f3c6c7fb7&location=116.481488,
+            //39.990464&poitype=商务写字楼&radius=1000&extensions=all&batch=false&roadlevel=0
+            success:function(data){
+
+                /*document.getElementById("city").value = data.regeocode.addressComponent.city;*/
+                vue.form2.city = data.regeocode.addressComponent.city;
+                vue.form2.dis = data.regeocode.addressComponent.district;
+                vue.form2.hou = data.regeocode.addressComponent.township;
+                vue.form2.addr = data.regeocode.addressComponent.streetNumber.street +
+                    data.regeocode.addressComponent.streetNumber.number;
+
+                console.log(data);
+            }
+        })
+
+    }
+    map.on('click', showInfoClick);
+</script>
+</body>
+</html>

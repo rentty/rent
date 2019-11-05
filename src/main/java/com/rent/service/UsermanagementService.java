@@ -15,7 +15,7 @@ public interface UsermanagementService {
  * @return  0 注册失败   1注册成功
  */
 
-    public int Register(Registy registy);
+    public int Register(Registy registy,String Nickname);
 
 
 /**
@@ -127,7 +127,7 @@ public interface UsermanagementService {
      */
 
     public  List<MapHouse>  findAllHouseAndRent(String type,String ori,int area1,int area2,int layer1,
-                                                int layer2,int rent1,int rent2,int renttype);
+                                                int layer2,int rent1,int rent2);
 
     /**
      * 计算每个区域有多少个房屋(地图用)

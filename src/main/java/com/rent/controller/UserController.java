@@ -35,8 +35,8 @@ public class UserController {
     @ApiOperation(value = "用户注册")
     @GetMapping("/registy")
     @ResponseBody
-    public Result registy(Registy registy){
-        int num = usermanagementService.Register(registy);
+    public Result registy(Registy registy, String Nickname){
+        int num = usermanagementService.Register(registy,Nickname);
         if(num == -1){
             return Result.error().message("新增注册用户表错误！");
         }else if (num == -2){
@@ -143,9 +143,9 @@ public class UserController {
     @PostMapping("/getMapHouseAndRent")
     @ResponseBody
     public Result getMapHouseAndRent(String type,String ori,int area1,int area2,int layer1,int layer2,
-                                     int rent1,int rent2,int renttype){
+                                     int rent1,int rent2){
         //System.out.println(type);
-        List<MapHouse> list = usermanagementService.findAllHouseAndRent(type,ori,area1,area2,layer1,layer2,rent1,rent2,renttype);
+        List<MapHouse> list = usermanagementService.findAllHouseAndRent(type,ori,area1,area2,layer1,layer2,rent1,rent2);
 
         return Result.ok().data("MapHouse",list).data("number",usermanagementService.countHouse(list));
         /*return Result.ok();*/

@@ -17,7 +17,7 @@
 <!-- js -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <!--vue-->
-	<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	<!--<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
 <!--axios-->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -37,22 +37,96 @@
 		});
 	});
 </script>
-<!-- start-smoth-scrolling -->
-<script>
-	$(function () {
-		var hsId = Getparam("hsId");
-		console.log(hsId);
-		function Getparam(str) {
 
-			var ref = window.location.search.split("=")[1];
-			return ref;
+	<!--//地图相关-->
+	<link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+	<!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+	<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+	<style type="text/css">
+		#container{
+			/*position: absolute;
+			width: 100%;
+			height: 600px;
+			left: 0px;
+			top: 60px;*/
+		}
+		.el-header, .el-footer {
+			background-color: #B3C0D1;
+			color: #333;
+			text-align: center;
+			line-height: 60px;
 		}
 
-	});
-</script>
+		.el-aside {
+			background-color: #D3DCE6;
+			color: #333;
+			text-align: center;
+			line-height: 200px;
+		}
+
+		.el-main {
+			background-color: #E9EEF3;
+			color: #333;
+			text-align: center;
+			line-height: 160px;
+		}
+
+		body > .el-container {
+			margin-bottom: 40px;
+		}
+
+		.el-container:nth-child(5) .el-aside,
+		.el-container:nth-child(6) .el-aside {
+			line-height: 260px;
+		}
+
+		.el-container:nth-child(7) .el-aside {
+			line-height: 320px;
+		}
+		.all{
+
+			width: 100%;
+			top: 10px;
+		}
+		.menu{
+			/*position: absolute;
+			width: 50%;
+			left: 0px;*/
+		}
+		.el-menu-item{
+			font-size: 20px;
+		}
+		.inputWord{
+			/*position: absolute;
+			width: 18%;
+			right: 8%;*/
+		}
+		.btn1{
+			/*position: absolute;
+			width: 8%;
+			right: 0px;
+			align-self: center;*/
+		}
+		.foot{
+			/*position: absolute;
+			width: 100%;
+			left: 0px;
+			align-self: center;*/
+		}
+		.tag{
+			/*position: absolute;
+			left: 0px;
+			align-self: center;*/
+		}
+	</style>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c11ae578c1dcee5ca73646f3c6c7fb7"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 	
 <body>
+<script src="js\vue.min.js"></script>
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script src="element-ui/lib/index.js"></script>
 <!-- header -->
 	<div class="header">	
 		<div class="header-top">
@@ -98,7 +172,7 @@
 							<ul class="nav navbar-nav">
 								<li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
 								<li><a href="services.html" class="hvr-bounce-to-bottom">找房</a></li>
-
+								<li><a href="searchByMap.html" class="hvr-bounce-to-bottom">地图找房</a></li>
 
 							</ul>
 						</nav>
@@ -145,10 +219,10 @@
 				<div class="sample1">
 					<div class="carousel">
 						<ul>
-							<li> <img :src="imgsrc" alt="户型图"> </li>
-							<li> <img src="images/14.jpg" alt="环境图"> </li>
-							<li> <img src="images/15.jpg" alt="室内图"> </li>
-							<li> <img src="images/16.jpg" alt="室内图"> </li>
+							<li> <img :src="img1" alt="室内图"> </li>
+							<li> <img :src="img2" alt="户型图"> </li>
+							<li> <img :src="img3" alt="环境图"> </li>
+
 						</ul>
 						<div class="controls">
 							<div class="prev"></div>
@@ -157,10 +231,10 @@
 					</div>
 					<div class="thumbnails">
 						<ul>
-							<li> <img src="images/13.jpg" alt=" "> </li>
-							<li> <img src="images/14.jpg" alt=" "> </li>
-							<li> <img src="images/15.jpg" alt=" "> </li>
-							<li> <img src="images/16.jpg" alt=" "> </li>
+							<li> <img :src="img1" alt=" "> </li>
+							<li> <img :src="img2" alt=" "> </li>
+							<li> <img :src="img3" alt=" "> </li>
+
 						</ul>
 					</div>
 				</div>
@@ -240,6 +314,57 @@
 						</span>
 					</p>
 				</div>
+                <script src="js/jquery.light-carousel.js"></script>
+                <div class="map" >
+                    <el-container>
+                        <el-header>
+                            12<el-button type="primary">主要按钮</el-button>
+                        </el-header>
+                        <el-main>
+                            <!--<div id="container"></div>-->
+                            123
+                        </el-main>
+                        <el-footer>
+                            12
+                        </el-footer>
+                    </el-container>
+                </div>
+                <!--//地图
+                <div id="app"  class="all">
+                    <div >
+                        <el-container>
+                            <el-header>
+                                <el-menu class="el-menu-demo menu" mode="horizontal" >
+                                    <el-menu-item index="1" v-on:click="searchWord('公交')">公交</el-menu-item>
+                                    <el-menu-item index="2" v-on:click="searchWord('购物')">购物</el-menu-item>
+                                    <el-menu-item index="3" v-on:click="searchWord('餐饮')">餐饮</el-menu-item>
+                                    <el-menu-item index="4" v-on:click="searchWord('医院')">医院</el-menu-item>
+                                    <el-menu-item index="5" v-on:click="searchWord('银行')">银行</el-menu-item>
+                                </el-menu>
+                                <el-input class="inputWord"
+                                          placeholder="请输入内容"
+                                          v-model="inputWordVue"
+                                          clearable>
+                                </el-input>
+                                <el-button class="btn1"  v-on:click="searchWord(inputWordVue)" >搜索</el-button>
+                            </el-header>
+                            <el-main>
+                                <div id="container"></div>
+                            </el-main>
+                            <el-footer>
+                                <el-tag class="tag" >{{word}}</el-tag>
+                                <div class="foot" >
+
+                                    <el-button-group>
+                                        <el-button type="primary" icon="el-icon-arrow-left" v-bind:disabled="boolLe"
+                                                   v-on:click="changePageLe" >上一页</el-button>
+                                        <el-button type="primary" icon="el-icon-arrow-right" v-bind:disabled="boolRe"
+                                                   v-on:click="changePageRi" >下一页</el-button>
+                                    </el-button-group>
+                                </div>
+                            </el-footer>
+                        </el-container>
+                    </div>-->
 
 				<div class="admin">
 					<p>未看房前，请不要支付任何费用。遇到"不方便看房"、"先交定金"、"房东人在外地"、"邮寄合同证件"等情况需谨慎，谨防上当受骗</p>
@@ -282,7 +407,7 @@
 			<div class="col-md-5 single-right">
 				<div class="categories">
 					<h1>{{ title }}</h1>
-					<h3>{{ rent }} <font size="3px">元/月 起</font>    |   {{ hsType }}  |  {{ hsArea }}<font size="3px"> m²</font> </h3>
+					<h3 id="rent">{{ rent }} <font size="3px">元/月 起</font>    |   {{ hsType }}  |  {{ hsArea }}<font size="3px"> m²</font> </h3>
 
 						<span>朝向  {{ hsOriented }}</span><br/><br/>
 					    <span>楼层  {{ hsLayer }}</span><br/><br/>
@@ -291,38 +416,104 @@
 						<span>更新  {{ rtlfReleasetime }}</span><br/><br/>
 
 				</div>
-				<script>
-					let vue = new Vue({
-						el: ".categories",
-						data() {
-							return{
-								title: "整租.上海",
-								rent: 3000,
-								hsType: "整套",
-								hsArea: 666,
 
-								hsOriented: "朝南",
-								hsLayer: "2/3层",
-								hsType: "1室1厅",
-								hsAddress: "北京西路1122号",
-								rtlfReleasetime: "2019/10/30"
-							}
-						}
-					});
-				</script>
 				<div class="categories categories-mid">
 					<h3>预订</h3>
 					<div id="calendar">
 
 					</div>
-					<label>金额</label>{{ money }}
-					<button>提交订单</button>
+					<br/>
+					<label>金额  </label>{{ money }}
+<!--					&nbsp;&nbsp;-->
+<!--					<form :action="'createOrder?rtlf_Id='rtlf_Id'&time='time'&during='during" method="get">-->
+
+<!--						<button>提交订单</button>-->
+<!--					</form>-->
 <script>
+	var hsId,rent;
+	$(function () {
+		hsId = Getparam("hsId");
+
+		function Getparam(str) {
+			var ref = window.location.search.split("=")[1];
+			return ref;
+		}
+		rent = $("#rent").text();
+	});
+
+	let vue = new Vue({
+		el: ".categories",
+		data() {
+			return{
+				title: "整租.上海",
+				rent: 3000,
+				hsArea: 666,
+
+				hsOriented: "朝南",
+				hsLayer: "2/3层",
+				hsType: "1室1厅",
+				hsAddress: "上海西路1122号",
+				rtlfReleasetime: "2019/10/30"
+			}
+		},
+		mounted(){
+			axios.
+			get("http://localhost:8080/getHouseDetail?hsId=1")
+					.then(response => {
+						console.log(response);
+						console.log(response.data.data.showHousedl);
+						var data = response.data.data.showHousedl;
+						this.title = data.title
+						this.rent = data.rent
+						this.hsType = data.hsType
+						this.hsArea = data.hsArea
+						this.hsOriented = data.hsOriented
+						this.hsAddress = data.hsAddress
+						this.hsLayer = data.hsLayer
+						this.rtlfReleasetime = data.rtlfReleasetime.split("T")[0]
+					})
+					.catch(function (error) { // 请求失败处理
+						console.log(error);
+					});
+		}
+
+	});
+
+	let vue1 = new Vue({
+		el: ".single",
+		data(){
+			return {
+				img1: "images/15.jpg",
+				img2: "images/15.jpg",
+				img3: "images/15.jpg",
+
+			}
+		},
+		mounted(){
+			axios.
+			get("http://localhost:8080/getHousePic?hsId=1")
+					.then(response =>{
+						var data = response.data.data.Housedl
+						this.img1 = data.hsdIdoormaddr
+						this.img2 = data.hsdFloorpaddr
+						this.img3 = data.hsdConditionmaddr
+					})
+					.catch(function (error) { // 请求失败处理
+						console.log(error);
+					});
+		}
+	});
+
+	var date = new Date();
+	var string1 = date.toLocaleDateString();
+	var string2 = string1.split("/");
+	var string3 = string2.join("-");
+
 	let c = new Calendar({
 		// 设置显示位置
 		parent: 'calendar',
 		// 初始化显示时间（默认选中时间）
-		time: '2019-6-19',
+		time: string3,
 		// viewMode：
 		// 0 - 日期模式（默认值）
 		viewMode: 0,
@@ -410,25 +601,7 @@
 
 		</div>
 	</div>
-<script>
-	let vue = new Vue({
-		el: ".single",
-		data(){
-			return {
-				imgsrc: "images/15.jpg",
-				title: "ddd"
-			}
-		},
-		mounted(){
-			axios.
-				get("http://localhost:8080")
-						.then(response => (this.info = response))
-						.catch(function (error) { // 请求失败处理
-							console.log(error);
-						});
-		}
-	});
-</script>
+
 
 	<script src="js/bootstrap.js"></script>
 
@@ -441,5 +614,237 @@
 			});
 	</script>
 <!-- //here ends scrolling icon -->
+		<!--地图相关-->
+		<!--<script>
+			var page = 1;
+			var keyWord = "公交";
+			var total = 0;
+			var vue =  new Vue({
+				el: '#app',
+				data: function() {
+					return {
+						visible: false,
+						inputWordVue:'',
+						boolLe:true,
+						boolRe:false,
+						word:'asd',
+					}
+				},
+				methods: {
+					create:function(){
+						console.log(total);
+						if(total == 1){
+							this.boolLe  = true;
+							this.boolRe  = true;
+						}
+					},
+					searchWord: function (message) {
+						//alert(message)
+						page =1;
+						search(message,1)
+						keyWord = message;
+					},
+					changePageLe:function () {
+
+						search(keyWord,page-1);
+						if(page == 2){
+							this.boolLe  = true;
+						}
+						this.boolRe  = false;
+						page = page - 1;
+					},
+					changePageRi:function () {
+						console.log(total);
+
+						search(keyWord,page+1);
+						if(total > page){
+							this.boolLe  = false;
+						}
+						if((total - 1 ) <= page){
+							console.log("==");
+							//Vue.set(this.val,disabled,true);
+							this.boolRe  = true;
+						}
+						page = page +1;
+					},
+
+				},
+				//自动加载
+				/*created(){
+                    console.log(total);
+                    //search("公交",1);
+                    if(total == 1){
+                        this.boolLe  = true;
+                        this.boolRe  = true;
+                    }
+                },*/
+				watch: {
+
+				}
+
+			})
+		</script>
+		<script type="text/javascript">
+			var map = new AMap.Map("container", {
+				resizeEnable: true
+			});
+			AMap.plugin([ 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView', 'AMap.MapType', 'AMap.Geolocation', ],
+					function(){
+						// 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+						map.addControl(new AMap.ToolBar());
+						// 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+						map.addControl(new AMap.Scale());
+						// 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+						map.addControl(new AMap.OverView({isOpen:true}));
+						// 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+						map.addControl(new AMap.MapType());
+						// 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+						/*geolocation = new AMap.Geolocation({
+                            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                            timeout: 5000,          //超过10秒后停止定位，默认：无穷大
+                            maximumAge: 0,           //定位结果缓存0毫秒，默认：0
+                            convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+                            showButton: true,        //显示定位按钮，默认：true
+                            buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
+                            buttonDom: "定位",
+                            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                            showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+                            showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
+                            panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
+                            zoomToAccuracy:true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                        });
+                        map.addControl(new AMap.Geolocation());*/
+					});
+
+			function search(word,page){
+				var cpoint = [116.405467, 39.907761]; //中心点坐标
+				//alert(cyc);
+				map.clearMap();
+				AMap.service(["AMap.PlaceSearch"], function() {
+					//构造地点查询类
+					var placeSearch = new AMap.PlaceSearch({
+						type: word, // 兴趣点类别
+						pageSize: 50, // 单页显示结果条数
+						pageIndex: page, // 页码
+						city: "010", // 兴趣点城市
+						citylimit: true,  //是否强制限制在设置的城市内搜索
+						//map: map, // 展现结果的地图实例
+						//panel: "panel", // 结果列表将在此容器中进行展示。
+						//autoFitView: true, // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+						//children:1,
+					});
+
+					var circle = new AMap.Circle({
+						center: cpoint,// 圆心位置
+						radius: 500, //半径
+						strokeColor: "#f24c22", //线颜色
+						strokeOpacity: 0.2, //线透明度
+						strokeWeight: 3,    //线宽
+						fillColor: "#1791fc", //填充色
+						fillOpacity: 0.05,//填充透明度
+						bubble:true//是否将覆盖物的鼠标或touch等事件冒泡到地图上
+					});
+					circle.setMap(map);//显示圆圈
+
+					//alert(cyc)
+					placeSearch.searchNearBy('', cpoint,500, function(status, result) {
+						console.log(result);
+						total = parseInt(result.poiList.count / 50) + 1;
+						if(total == 1 && page == 1){
+							vue.boolRe = true;
+							vue.boolLe = true;
+						}else if(total > 1 && page == 1) {
+							vue.boolRe = false;
+							vue.boolLe = true;
+						}
+						//console.log(total+"ed");
+						var marker = new AMap.Marker({
+							icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+							position: cpoint,
+							map: map,
+							offset: new AMap.Pixel(-25, -55)
+						});
+
+						vue.word = result.poiList.count + "条搜索结果，共" + total + "页，当前第" + page + "页";
+						var list = result.poiList.pois;
+						for(var i=0;i<list.length;i++){
+							var Lng = [list[i].location.lng,list[i].location.lat];
+							var marker = new AMap.Marker({
+								position: Lng,
+								map: map,
+							});
+
+							var title = '',
+									content = [];
+							content.push(list[i].name+"<br>");
+							content.push(list[i].distance +"m");
+
+							marker.content = content.join("") ;
+							marker.on('click', markerClick);
+						}
+
+					});
+					map.setZoomAndCenter(16, cpoint);
+				});
+			}
+			search("公交",1);
+			//vue.create();
+
+			var infoWindow = new AMap.InfoWindow({
+				//isCustom: true,  //使用自定义窗体
+				offset: new AMap.Pixel(0, -25)
+			});
+
+			function markerClick(e) {
+
+				infoWindow.setContent(e.target.content);
+				infoWindow.open(map, e.target.getPosition());
+			}
+
+			//构建自定义信息窗体
+			function createInfoWindow(title, content) {
+				var info = document.createElement("div");
+				info.className = "custom-info input-card content-window-card";
+
+				//可以通过下面的方式修改自定义窗体的宽高
+				//info.style.width = "400px";
+				// 定义顶部标题
+				var top = document.createElement("div");
+				var titleD = document.createElement("div");
+				var closeX = document.createElement("img");
+				top.className = "info-top";
+				titleD.innerHTML = title;
+				closeX.src = "https://webapi.amap.com/images/close2.gif";
+				closeX.onclick = closeInfoWindow;
+
+				top.appendChild(titleD);
+				top.appendChild(closeX);
+				info.appendChild(top);
+
+				// 定义中部内容
+				var middle = document.createElement("div");
+				middle.className = "info-middle";
+				middle.style.backgroundColor = 'white';
+				middle.innerHTML = content;
+				info.appendChild(middle);
+
+				// 定义底部内容
+				var bottom = document.createElement("div");
+				bottom.className = "info-bottom";
+				bottom.style.position = 'relative';
+				bottom.style.top = '0px';
+				bottom.style.margin = '0 auto';
+				var sharp = document.createElement("img");
+				sharp.src = "https://webapi.amap.com/images/sharp.png";
+				bottom.appendChild(sharp);
+				info.appendChild(bottom);
+				return info;
+			}
+
+			//关闭信息窗体
+			function closeInfoWindow() {
+				map.clearInfoWindow();
+			}
+		</script>-->
 </body>
 </html>
