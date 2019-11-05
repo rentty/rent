@@ -35,8 +35,8 @@ public class UserController {
     @ApiOperation(value = "用户注册")
     @GetMapping("/registy")
     @ResponseBody
-    public Result registy(Registy registy){
-        int num = usermanagementService.Register(registy);
+    public Result registy(Registy registy, String Nickname){
+        int num = usermanagementService.Register(registy,Nickname);
         if(num == -1){
             return Result.error().message("新增注册用户表错误！");
         }else if (num == -2){

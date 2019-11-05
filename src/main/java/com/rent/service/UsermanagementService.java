@@ -15,7 +15,7 @@ public interface UsermanagementService {
  * @return  0 注册失败   1注册成功
  */
 
-    public int Register(Registy registy);
+    public int Register(Registy registy,String Nickname);
 
 
 /**
