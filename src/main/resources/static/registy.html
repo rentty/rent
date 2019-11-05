@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="./css/login.css" type="text/css">
+    <script type="text/javascript" src="./js/jquery-1.12.3.min.js"></script>
+</head>
+<body>
+    <div id="app"><!--  action="/login" method="post"-->
+        <div class="login-page">
+            <div class="form">
+                <h3>账号注册</h3>
+                <input v-model="Nickname" type="text" placeholder="昵称" name="Nickname" required="required"/>
+                <input v-model="username" type="text" placeholder="用户名" name="username" required="required"/>
+                <input v-model="password" type="password" placeholder="密码" name="password" required="required"/>
+                <button @click="registy(username,password,Nickname)">注册</button>
+            </div>
+        </div>
+    </div>
+
+<script src="./js/vue.min.js"></script>
+<script src="./element-ui/lib/index.js"></script>
+<script>
+
+    var vm = new Vue({
+        el: '#app',
+        data:function(){
+            return {
+                img_url:'/code/image',
+                username: '',
+                password: '',
+                Nickname: ''
+            }
+        },
+        methods: {
+            registy:function(username,password,Nickname){
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/user/registy',
+                    data: {rgtUser: username,
+                    rgtPassword: password,
+                    Nickname: Nickname},
+                    success:function (data) {
+                        if(data.message == "成功"){
+                            alert("注册成功")
+                        }else if(data.message == "用户已存在！"){
+                            alert("用户已存在！")
+                        }
+                        window.location.href="/login.html"
+                        console.log(data)
+                    }
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>
