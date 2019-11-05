@@ -20,6 +20,10 @@
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/vue/component.css"/>
+
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -29,10 +33,18 @@
 	});
 </script>
 <!-- start-smoth-scrolling -->
-
+<style type="text/css">
+	.selecton{
+		color: deepskyblue;
+	}
+	.selectno{
+		color: gray;
+	}
+</style>
 </head>
 	
 <body>
+
 <!-- header -->
 	<div class="header">	
 		<div class="header-top">
@@ -43,42 +55,38 @@
 						<li><a href="mailto:info@example.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>info@example.com</a></li>
 					</ul>
 				</div>
+			
 				<div class="header-top-left1">
-					<ul class="social-icons">
-						<li><a href="#" class="icon icon-border facebook"></a></li>
-						<li><a href="#" class="icon icon-border twitter"></a></li>
-						<li><a href="#" class="icon icon-border instagram"></a></li>
-						<li><a href="#" class="icon icon-border pinterest"></a></li>
-					</ul>
-				</div>
+				<ul class="social-icons">
+               <li> <a alt="点击登录" title="点击登录"  href="#" class="btn btn-default" role="button">登录</a><i></i></li>
+                <li><a alt="点击注册" title="点击注册"  href="#" class="btn btn-default" role="button">注册</a></li>
+             </ul>
+              </div>
+             <!--房屋搜索-->
 				<div class="header-top-right">
 					<div class="search">
 						<input class="search_box" type="checkbox" id="search_box">
 						<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
 						<div class="search_form">
 							<form action="#" method="post">
-								<input type="text" name="Search" placeholder="Search...">
+								<input type="text" name="Search" placeholder="房屋搜索">
 								<input type="submit" value=" ">
 							</form>
 						</div>
 					</div>
 				</div>
+				
 				<div class="clearfix"> </div>
 			</div>
 		</div>
+		<!--标题-->
 		<div class="header-bottom">
 			<div class="container">
 				<nav class="navbar navbar-default">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<div class="navbar-header">
-					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					  </button>
 						<div class="logo">
-							<h1><a class="navbar-brand" href="index.html">Plottage <span>Real Estate</span></a></h1>
+							<h1><a class="navbar-brand" href="index.html">在线租房系统 <!--<span>rent</span>--></a></h1>
 						</div>
 					</div>
 
@@ -86,11 +94,11 @@
 					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
 						<nav>
 							<ul class="nav navbar-nav">
-								<li><a href="index.html" class="hvr-bounce-to-bottom">Home</a></li>
-								<li><a href="services.html" class="hvr-bounce-to-bottom">Services</a></li>
-								<li class="active"><a href="gallery.html">Gallery</a></li>
-								<li><a href="short-codes.html" class="hvr-bounce-to-bottom">Short Codes</a></li>
-								<li><a href="mail.html" class="hvr-bounce-to-bottom">Mail Us</a></li>
+								<li><a href="index.html" class="hvr-bounce-to-bottom">首页</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom">区域找房</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom">地铁找房</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom">地图找房</a></li>
+								<!--<li><a href="mail.html" class="hvr-bounce-to-bottom">Mail Us</a></li>-->
 							</ul>
 						</nav>
 					</div>
@@ -99,293 +107,54 @@
 			</div>
 		</div>
 	</div>
-<!-- //header -->
-<!-- breadcrumbs -->
-	<div class="services-top-breadcrumbs">
-		<div class="container">
-			<div class="services-top-breadcrumbs-right">
-				<ul>
-					<li><a href="index.html">Home</a> <i>/</i></li>
-					<li>Photo Gallery</li>
-				</ul>
-			</div>
-			<div class="services-top-breadcrumbs-left">
-				<h3>Photo Gallery</h3>
-			</div>
-			<div class="clearfix"> </div>
+
+<!--条目栏-->
+<div class="container">
+		<div class="collapse navbar-collapse nav-wil" id="tiaomu" >
+			
+					<nav>
+					<ol class="list-unstyled">
+								
+						<li v-for="arrk,indexs in arrs" class="clearfix">
+							<ul class="nav navbar-nav" style="float: left;">
+								<li><a href="#" class="selectno">{{arrk.title}}</a></li>
+							  <li  v-for="lis,index in arrk.arr"><a v-bind:href="lis.addr" v-bind:class="selecton[indexs][index].selectonclass" v-on:click="selectcolumn(indexs,index)" v-bind:title="lis.texts">{{lis.texts}}</a></li>
+							</ul>
+						</li>
+					</ol>
+							
+					</nav>
 		</div>
-	</div>
-<!-- //breadcrumbs -->
+		</div>
+		
 <!-- gallery -->
 	<div class="gallery">
 		<div class="container">
-			<h3><span>Gallery</span></h3>
-			<p class="autem">maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+			<div class="collapse navbar-collapse nav-wil" >
+						<nav>
+							<ul class="nav navbar-nav" style="float: left;">
+								<li><a href="index.html" class="hvr-bounce-to-bottom">综合排序</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom">价格由低到高</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom">价格由高到低</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom">面积从大到小</a></li>
+								<!--<li><a href="mail.html" class="hvr-bounce-to-bottom">Mail Us</a></li>-->
+							</ul>
+						</nav>
+					</div>
+			
 			<div class="gallery-grids carouselGallery-grid hidden-xs">
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="0" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/7.jpg" data-posturl="#" 
-						style="background-image:url(images/7.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>4535
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="1" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/9.jpg" data-posturl="#" 
-						style="background-image:url(images/9.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>3144
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="2" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/8.jpg" data-posturl="#" 
-						style="background-image:url(images/8.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>5345
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="3" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/6.jpg" data-posturl="#" 
-						style="background-image:url(images/6.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>1233
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="4" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/10.jpg" data-posturl="#" 
-						style="background-image:url(images/10.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>9896
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="5" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/12.jpg" data-posturl="#" 
-						style="background-image:url(images/12.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>2432
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="6" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/8.jpg" data-posturl="#" 
-						style="background-image:url(images/8.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>5467
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="7" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/7.jpg" data-posturl="#" 
-						style="background-image:url(images/7.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>5345
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 gallery-grid">
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" data-index="8" data-username=" " data-imagetext="At vero eos et accusamus et iusto odio 
-						 dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-						 et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio." 
-						data-location="Temporibus" data-imagepath="images/6.jpg" data-posturl="#" 
-						style="background-image:url(images/6.jpg);">
-						<div class="carouselGallery-item">
-							<div class="carouselGallery-item-meta">
-								<span class="carouselGallery-item-meta-user">
-									Temporibus
-								</span>
-								<span class="carouselGallery-item-meta-likes">
-									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>2544
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
+				<!--展示组件-->
+		<div id="house-gallery">
+        <page v-bind:item="result" v-bind:gallerylength="gallerylength"></page>
+       </div>
 				<div class="clearfix"> </div>
 				<script src="js/main.js"></script>
 			</div>
 		</div>
 	</div>
+	
 <!-- //gallery -->
-<!-- footer -->
-	<div class="footer">
-		<div class="container">
-			<h2>Sign up for our newsletter</h2>
-			<p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae eros eget tellus 
-				tristique bibendum. Donec rutrum sed sem quis venenatis.</p>
-			<div class="footer-contact">
-				<form action="#" method="post">
-					<input type="text" name="Email" placeholder="Enter your email to update" required=" ">
-					<input type="submit" value="Subscribe">
-				</form>
-			</div>
-			<div class="footer-grids">
-				<div class="col-md-4 footer-grid">
-					<p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> General Pvt 66, Dong Da
-						Hanoi, Vietnam.</p>
-					<p><a href="mailto:contact@example.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> contact@example.com</a></p>
-					<p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>+0123 456 686</p>
-				</div>
-				<div class="col-md-2 footer-grid">
-					<ul>
-						<li><a href="mail.html">Contact</a></li>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="short-codes.html">Short Codes</a></li>
-						<li><a href="gallery.html">Gallery</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 footer-grid">
-					<div class="footer-grid1">
-						<div class="footer-grid1-left">
-							<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive"></a>
-						</div>
-						<div class="footer-grid1-right">
-							<a href="single.html">eveniet ut molesti</a>
-							<div class="m1">
-								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-							</div>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-					<div class="footer-grid1">
-						<div class="footer-grid1-left">
-							<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive"></a>
-						</div>
-						<div class="footer-grid1-right">
-							<a href="single.html">earum rerum tenet</a>
-							<div class="m1">
-								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-							</div>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-					<div class="footer-grid1">
-						<div class="footer-grid1-left">
-							<a href="single.html"><img src="images/8.jpg" alt=" " class="img-responsive"></a>
-						</div>
-						<div class="footer-grid1-right">
-							<a href="single.html">maiores alias cons</a>
-							<div class="m1">
-								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-							</div>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-				</div>
-				<div class="col-md-3 footer-grid">
-					<div class="footer-grid-instagram">
-						<a href="single.html"><img src="images/9.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="footer-grid-instagram">
-						<a href="single.html"><img src="images/10.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="footer-grid-instagram">
-						<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="footer-grid-instagram">
-						<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="footer-copy">
-				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-			</div>
-		</div>
-	</div>
+
 <!-- //footer -->
 <!-- for bootstrap working -->
 	<script src="js/bootstrap.js"></script>
@@ -405,7 +174,65 @@
 			$().UItoTop({ easingType: 'easeOutQuart' });
 								
 			});
+			
 	</script>
+
+	<!--分页********************************************************-->
+	<template id="page-template"><!--只有一个<></>-->
+    	<div class="">
+    	<!--<ol>
+    		 <li v-for="(object, index) in item.slice(biganindex-1,pagelinum+biganindex-1)">
+    {{ index }} - {{ object.message }}
+  </li>
+    	</ol>-->
+    	<ol class="list-unstyled" id="house-gallery">
+					<house-gallery v-bind:item="tool" v-for="tool in item.slice(biganindex-1,pagelinum+biganindex-1)"></house-gallery>
+		</ol>			
+    	<div>
+        <ul class="pagination">
+          <li :class="{disabled: current == 1}" @click="decre" v-if="allpage > 1">上一页</li>
+          <li :class="{active: current == 1}" @click="goto(1)">1</li>
+          <li class="ellipsis" v-show="current >= showItem && bigLimit > 10">...</li>
+          <li :class="{active: current == index+offset}" v-for="(item,index) in middlePages" @click="goto(index+offset)">{{index+offset}}</li>
+          <li class="ellipsis" v-show="current < bigLimit && bigLimit > 10">...</li>
+          <li :class="{active: current == allpage}" @click="goto(allpage)" v-if="allpage > 1">{{allpage}}</li>
+          <li :class="{disabled: current == allpage}" @click="incre" v-if="allpage > 1">下一页</li>
+        </ul>
+        </div>
+        </div>
+    </template>
+    <!--展示template-->
+    <template id="gallery-template">
+    <li class="clearfix">
+				  <div class="gallery-grid col-md-3">                                                                                     
+					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" style="background-image:url(images/8.jpg);">  
+						<div class="carouselGallery-item">                                                                  
+							<div class="carouselGallery-item-meta">
+								<span class="carouselGallery-item-meta-user">
+								Temporibus
+							</span>
+							<span class="carouselGallery-item-meta-likes">
+									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>4535
+								</span>
+							</div>
+						</div>'
+					</div>'
+				 </div>'
+				<div style="float: right;" >{{item.price}}</div>
+					<h2><a href="#" style="text-decoration: none;">{{item.title}}</a></h2><!--房屋标题信息-->
+					<ol class="list-unstyled"><!--主要信息-->
+						<li>整套 · 65m² · 南北</li>
+						<li>嘉定-江桥</li>
+					</ol>
+					<ol style="position: relative;top: 120px;" class="list-unstyled">
+						<li style="float: left;">A-----------------------------------</li>
+						<li style="float: left;">B-----------------------------------</li>
+					</ol>
+    </li>
+    </template>
+    
+
 <!-- //here ends scrolling icon -->
+<script src="js/vue/component.js"></script><!--引入含有vue实例对象，必须在组件后引入-->
 </body>
 </html>

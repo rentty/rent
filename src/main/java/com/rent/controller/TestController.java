@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -185,4 +186,43 @@ OrdermanagementService ordermanagementService;
     {
         helloService.update(key,value);
     }
+    @GetMapping("/testss")
+    @ResponseBody
+    public Object testss(String username)
+    {
+   /*     Userinfo userinfo = new Userinfo();
+        userinfo.setUifAvatar("sdfsf");
+        userinfo.setUifId(12);
+        userinfo.setUifPhone("121212");
+
+        Userinfo userinfo1 = new Userinfo();
+        userinfo1.setUifAvatar("sdfsf1");
+        userinfo1.setUifId(121);
+        userinfo1.setUifPhone("1212121");
+        List<Userinfo> list = new ArrayList<Userinfo>();
+        list.add(userinfo);
+        list.add(userinfo1);*/
+   String result="[{title:'整租 · 水岸金桥苑 · 1居室',price:'2000元/月'},{title:'整租 · 水岸金桥苑 · 3居室',price:'3000元/月'},{title:'整租 · 水岸金桥苑 · 4居室',price:'5000元/月'},{title:'整租 · 水岸金桥苑 · 5居室',price:'2000元/月'},{title:'整租 · 水岸金桥苑 · 6居室',price:'3000元/月'},{title:'整租 · 水岸金桥苑 · 7居室',price:'5000元/月'},{title:'整租 · 水岸金桥苑 · 7居室',price:'8000元/月'}]";
+       return JSonPool.toObject(result,Object.class);
+        //return "ok";
+    }
+    @GetMapping("/tiaomu")
+    @ResponseBody
+    public Object tiaomu()
+    {
+        String result="[{title:'湛江',arr:[{addr:'http://www.baidu.com',texts:'霞山',id:1},{addr:'#',texts:'3',id:2},{addr:'#',texts:'霞山',id:3},{addr:'#',texts:'霞山',id:4},{addr:'#',texts:'霞山',id:5}]},{title:'广州',arr:[{addr:'#',texts:'2',id:6},{addr:'#',texts:'3',id:7}]},{title:'湛江',arr:[{addr:'#',texts:'霞山',id:8},{addr:'#',texts:'3',id:9}]}]" ;
+        return JSonPool.toObject(result,Object.class);
+
+    }
+    @GetMapping("/updatagallery")
+    @ResponseBody
+    public Object updatagallery(int a,int b,int c)
+    {
+        System.out.println(a+"  "+b+"  "+c);
+        String result="[{title:'整租 · 水岸金桥苑 · 2居室',price:'2000元/月'},{title:'整租 · 水岸金桥苑 · 3居室',price:'3000元/月'},{title:'整租 · 水岸金桥苑 · 4居室',price:'5000元/月'},{title:'整租 · 水岸金桥苑 · 5居室',price:'2000元/月'},{title:'整租 · 水岸金桥苑 · 6居室',price:'3000元/月'},{title:'整租 · 水岸金桥苑 · 7居室',price:'5000元/月'},{title:'整租 · 水岸金桥苑 · 7居室',price:'8000元/月'}]";
+        return JSonPool.toObject(result,Object.class);
+
+    }
+
+
 }
