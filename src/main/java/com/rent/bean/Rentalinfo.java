@@ -19,6 +19,7 @@ public class Rentalinfo implements Serializable {
     @ApiModelProperty(value = "要求描述")
     private String rtlfRequest;
 
+    @ApiModelProperty(value = "租金")
     private Integer rtlfRent;
 
     private static final long serialVersionUID = 1L;

@@ -11,9 +11,6 @@ public class HouseSituation implements Serializable {
     @ApiModelProperty("房屋图片地址")
     private String hsdldoormaddr;
 
-    @ApiModelProperty("房屋设施描述")
-    private String hsdFacilityDesc;
-
     @ApiModelProperty(value = "城市")
     private String hsCity;
 
@@ -40,14 +37,6 @@ public class HouseSituation implements Serializable {
 
     public void setHsdldoormaddr(String hsdldoormaddr) {
         this.hsdldoormaddr = hsdldoormaddr;
-    }
-
-    public String getHsdFacilityDesc() {
-        return hsdFacilityDesc;
-    }
-
-    public void setHsdFacilityDesc(String hsdFacilityDesc) {
-        this.hsdFacilityDesc = hsdFacilityDesc;
     }
 
     public String getHsCity() {
@@ -85,10 +74,9 @@ public class HouseSituation implements Serializable {
     public HouseSituation() {
     }
 
-    public HouseSituation(int hsId, String hsdldoormaddr, String hsdFacilityDesc, String hsCity, String hsDistrict, String hsTitle, int rtlfRent) {
+    public HouseSituation(int hsId, String hsdldoormaddr, String hsCity, String hsDistrict, String hsTitle, int rtlfRent) {
         this.hsId = hsId;
         this.hsdldoormaddr = hsdldoormaddr;
-        this.hsdFacilityDesc = hsdFacilityDesc;
         this.hsCity = hsCity;
         this.hsDistrict = hsDistrict;
         this.hsTitle = hsTitle;
@@ -100,7 +88,6 @@ public class HouseSituation implements Serializable {
         return "HouseSituation{" +
                 "hsId=" + hsId +
                 ", hsdldoormaddr='" + hsdldoormaddr + '\'' +
-                ", hsdFacilityDesc='" + hsdFacilityDesc + '\'' +
                 ", hsCity='" + hsCity + '\'' +
                 ", hsDistrict='" + hsDistrict + '\'' +
                 ", hsTitle='" + hsTitle + '\'' +

@@ -24,6 +24,9 @@ public class HouseInfo implements Serializable {
     @ApiModelProperty(value = "小区")
     private String hsHousingEstate;
 
+    @ApiModelProperty(value = "标题")
+    private String hsTitle;
+
     @ApiModelProperty(value = "室内图地址，图片服务器上的地址")
     private String hsdIdoorMAddr;
 
@@ -36,19 +39,18 @@ public class HouseInfo implements Serializable {
     public HouseInfo() {
     }
 
-    public HouseInfo(Long hsId, String hsDistrict, String hsCity, double hsRent, String hsType, String hsHousingEstate, String hsdIdoorMAddr, Long hsArea, List<String> houseAttrValueList) {
+    public HouseInfo(Long hsId, String hsDistrict, String hsCity, double hsRent, String hsType, String hsHousingEstate, String hsTitle, String hsdIdoorMAddr, Long hsArea, List<String> houseAttrValueList) {
         this.hsId = hsId;
         this.hsDistrict = hsDistrict;
         this.hsCity = hsCity;
         this.hsRent = hsRent;
         this.hsType = hsType;
         this.hsHousingEstate = hsHousingEstate;
+        this.hsTitle = hsTitle;
         this.hsdIdoorMAddr = hsdIdoorMAddr;
         this.hsArea = hsArea;
-
         this.houseAttrValueList = houseAttrValueList;
     }
-
 
     @Override
     public String toString() {
@@ -59,6 +61,7 @@ public class HouseInfo implements Serializable {
                 ", hsRent=" + hsRent +
                 ", hsType='" + hsType + '\'' +
                 ", hsHousingEstate='" + hsHousingEstate + '\'' +
+                ", hsTitle='" + hsTitle + '\'' +
                 ", hsdIdoorMAddr='" + hsdIdoorMAddr + '\'' +
                 ", hsArea=" + hsArea +
                 ", houseAttrValueList=" + houseAttrValueList +
@@ -137,5 +140,11 @@ public class HouseInfo implements Serializable {
         this.hsArea = hsArea;
     }
 
+    public String getHsTitle() {
+        return hsTitle;
+    }
 
+    public void setHsTitle(String hsTitle) {
+        this.hsTitle = hsTitle;
+    }
 }
