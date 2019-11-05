@@ -74,7 +74,8 @@ public interface House_managementService {
     public List<HouseSituation> showHousesByRent();
 
     /**
-     *  显示房屋详情信息
+     *  显示户主的所有信息
      */
-//    public
+    public List<Rentalinfo> getAllHouseAndRentById(int id);
+
 }
