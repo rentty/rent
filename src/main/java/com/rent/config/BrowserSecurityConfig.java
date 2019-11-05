@@ -45,7 +45,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**","/fonts/**","/images/**","/code/image","/js/**");
+        web.ignoring().antMatchers("/css/**","/element-ui/**","/fonts/**","/images/**","/code/image","/js/**");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -61,9 +61,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .failureHandler(authenticationFailureHandler) // 处理登录失败
                 .and()
                 .authorizeRequests() // 授权配置
-                .antMatchers("/authentication/require", "/login.html",
+                .antMatchers("/authentication/require", "/login.html", "/registy.html",
                         "/code/image","/code/sms","/session/invalid","/oauth/callback/qq",
-                        "/signout/success").permitAll() // 登录跳转 URL 无需认证
+                        "/signout/success","/admin/user/registy").permitAll() // 登录跳转 URL 无需认证
                 .anyRequest()  // 所有请求
                 .authenticated() // 都需要认证
                 .and()

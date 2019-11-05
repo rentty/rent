@@ -6,10 +6,11 @@ import com.rent.service.House_managementService;
 import com.rent.service.JSonPool;
 import io.searchbox.client.JestClient;
 import io.searchbox.client.JestResult;
-import io.searchbox.core.Bulk;
-import io.searchbox.core.Delete;
-import io.searchbox.core.Index;
-import io.searchbox.core.Update;
+import io.searchbox.core.*;
+import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.*;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,10 @@ public class House_managementServiceImpl implements House_managementService {
     @Autowired
     EntrydlMapper entrydlMapper;
 
-    HouseExample houseExample = new HouseExample();
+    @Autowired
+    DialogMapper dialogMapper;
+
+
 /*    @Override
     public void entryRent_house(House house, String username) {
     int id=0;
@@ -131,6 +135,7 @@ public class House_managementServiceImpl implements House_managementService {
         houseInfo.setHsDistrict(house.getHsDistrict());
         houseInfo.setHsHousingEstate(house.getHsHousingestate());
         houseInfo.setHsRent(rentalinfo.getRtlfRent());
+        houseInfo.setHsTitle(house.getHsHousingestate() + "•" + house.getHsType().substring(0,1) + "居室");
         houseInfo.setHsType(house.getHsType().substring(0,2));
 
 
@@ -142,14 +147,22 @@ public class House_managementServiceImpl implements House_managementService {
         criteria1.andEdlDetailEqualTo(houseInfo.getHsDistrict());
 
         EntrydlExample.Criteria criteria2 = entrydlExample.createCriteria();
-        criteria2.andEdlDetailEqualTo(houseInfo.getHsType().substring(0,2));
+
+        String type;
+        if(Integer.valueOf(houseInfo.getHsType().substring(0,1)) >= 4) {
+            type = "4室及以上";
+        } else {
+            type = houseInfo.getHsType().substring(0,2);
+        }
+
+        criteria2.andEdlDetailEqualTo(type);
         EntrydlExample.Criteria criteria3 = entrydlExample.createCriteria();
         Long rent = ((long) houseInfo.getHsRent() / 1000);
         Long rentCheck = ((long) houseInfo.getHsRent() / 100);
         int check = (int) (rentCheck % 10);
         Long rent1;
         Long rent2;
-        if (check <= 5 && rent > 0 && rent <= 4) {
+        if ((check <= 5 && houseInfo.getHsRent() % 100 == 0 )  && rent > 0 && rent <= 4) {
             rent--;
         }
         if (rent == 0) {
@@ -213,6 +226,7 @@ public class House_managementServiceImpl implements House_managementService {
 
     @Override
     public List<House> findAllHouseByStatus(int status) {
+        HouseExample houseExample = new HouseExample();
         HouseExample.Criteria criteria = houseExample.createCriteria();
         criteria.andHsStatusEqualTo(status);
         return houseMapper.selectByExample(houseExample);
@@ -247,10 +261,11 @@ public class House_managementServiceImpl implements House_managementService {
         houseInfo.setHsArea(house.getHsArea().longValue());
         houseInfo.setHsCity(house.getHsCity());
         houseInfo.setHsdIdoorMAddr(housedl.getHsdIdoormaddr());
-        houseInfo.setHsDistrict(house.getHsDistrict());
+        houseInfo.setHsDistrict(house.getHsDistrict().substring(0,2));
         houseInfo.setHsHousingEstate(house.getHsHousingestate());
         houseInfo.setHsRent(rentalinfo.getRtlfRent());
         houseInfo.setHsType(house.getHsType().substring(0,2));
+        houseInfo.setHsTitle(house.getHsHousingestate() + "•" + house.getHsType().substring(0,1) + "居室");
 
 
         List<String> houseAttrValueList = new ArrayList<>();
@@ -261,14 +276,20 @@ public class House_managementServiceImpl implements House_managementService {
         criteria1.andEdlDetailEqualTo(houseInfo.getHsDistrict());
 
         EntrydlExample.Criteria criteria2 = entrydlExample.createCriteria();
-        criteria2.andEdlDetailEqualTo(houseInfo.getHsType().substring(0,2));
+        String type;
+        if(Integer.valueOf(houseInfo.getHsType().substring(0,1)) >= 4) {
+            type = "4室及以上";
+        } else {
+            type = houseInfo.getHsType().substring(0,2);
+        }
+        criteria2.andEdlDetailEqualTo(type);
         EntrydlExample.Criteria criteria3 = entrydlExample.createCriteria();
         Long rent = ((long) houseInfo.getHsRent() / 1000);
         Long rentCheck = ((long) houseInfo.getHsRent() / 100);
         int check = (int) (rentCheck % 10);
         Long rent1;
         Long rent2;
-        if (check <= 5 && rent > 0 && rent <= 4) {
+        if ((check <= 5 && houseInfo.getHsRent() % 100 == 0 ) && rent > 0 && rent <= 4) {
             rent--;
         }
         if (rent == 0) {
@@ -360,5 +381,95 @@ public class House_managementServiceImpl implements House_managementService {
         return rentalinfoList;
     }
 
+    @Override
+    public HouseDetailInfo showHouseDetail(int id) {
+        House house = houseMapper.selectByPrimaryKey(id);
+        Housedl housedl = housedlMapper.selectByPrimaryKey(id);
+        Rentalinfo rentalinfo = rentalinfoMapper.selectByPrimaryKey(id);
+        HouseDetailInfo houseDetailInfo = new HouseDetailInfo();
+        houseDetailInfo.setHsId(id);
+        houseDetailInfo.setHsAddress(house.getHsAddress());
+        houseDetailInfo.setHsdConditionmaddr(housedl.getHsdConditionmaddr());
+        houseDetailInfo.setHsdFloorpaddr(housedl.getHsdFloorpaddr());
+        houseDetailInfo.setHsdIdoormaddr(housedl.getHsdIdoormaddr());
+        houseDetailInfo.setHsLayer(house.getHsLayer());
+        houseDetailInfo.setHsOriented(house.getHsOriented());
+        houseDetailInfo.setRtlfReleasetime(rentalinfo.getRtlfReleasetime());
+        houseDetailInfo.setRtlfRent(rentalinfo.getRtlfRent());
+        houseDetailInfo.setHsTitle(house.getHsHousingestate() + "•" + house.getHsType().substring(0,1) + "居室");
+        return houseDetailInfo;
+    }
 
+    @Override
+    public List<HouseInfo> searchEntity(String keyword, List<String> list) {
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        if (keyword != null && !StringUtils.isBlank(keyword)) {
+            MatchQueryBuilder matchQueryBuilder=new MatchQueryBuilder("hsHousingEstate",keyword);
+            boolQueryBuilder.must(matchQueryBuilder);
+        }
+
+        if(list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                String valueId = list.get(i);
+                QueryBuilder termQueryBuilder=new TermsQueryBuilder("houseAttrValueList",valueId);
+                boolQueryBuilder.filter(termQueryBuilder);
+            }
+        }
+
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(boolQueryBuilder).size(10);
+        searchSourceBuilder.sort("hsRent", SortOrder.ASC);
+        String query = searchSourceBuilder.toString();
+        Search search = new Search.Builder(searchSourceBuilder.toString())
+                .addIndex("rent").addType("HouseInfo").build();
+
+        try {
+            SearchResult result = jestClient.execute(search);
+            List<SearchResult.Hit<HouseInfo,Void>> hits = result.getHits(HouseInfo.class);
+            List<HouseInfo> houselists = new ArrayList<HouseInfo>();
+
+            for (SearchResult.Hit<HouseInfo, Void> hit : hits) {
+                HouseInfo source = hit.source;
+                HouseInfo houseInfo = new HouseInfo();
+                houseInfo.setHsId(source.getHsId());
+                houseInfo.setHsArea(source.getHsArea());
+                houseInfo.setHsCity(source.getHsCity());
+                houseInfo.setHsdIdoorMAddr(source.getHsdIdoorMAddr());
+                houseInfo.setHsDistrict(source.getHsDistrict());
+                houseInfo.setHsRent(source.getHsRent());
+                houseInfo.setHsTitle(source.getHsTitle());
+                System.out.println(houseInfo);
+                houselists.add(houseInfo);
+            }
+            return houselists;
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<Dialog> getSearchCondition() {
+        return dialogMapper.selectByExample(null);
+    }
+
+    @Override
+    public List<Entrydl> getSearchValue(String city) {
+        EntrydlExample entrydlExample = new EntrydlExample();
+        EntrydlExample.Criteria criteria = entrydlExample.createCriteria();
+        EntrydlExample.Criteria criteria1 = entrydlExample.createCriteria();
+        if(city.equals("广州")) {
+            criteria.andEdlIdBetween(100,200);
+        } else if(city.equals("肇庆")) {
+            criteria.andEdlIdBetween(200,300);
+        } else {
+            criteria.andEdlIdBetween(300,400);
+        }
+        criteria1.andEdlIdBetween(500,700);
+        entrydlExample.or(criteria1);
+        List<Entrydl> list = entrydlMapper.selectByExample(entrydlExample);
+        return list;
+    }
 }
