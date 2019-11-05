@@ -78,4 +78,23 @@ public interface House_managementService {
      */
     public List<Rentalinfo> getAllHouseAndRentById(int id);
 
+    /**
+     *  显示房屋详情信息
+     */
+    public HouseDetailInfo showHouseDetail(int id);
+
+    /**
+     *  查询房屋信息
+     */
+    public List<HouseInfo> searchEntity(String keyword,List<String> list);
+
+    /**
+     *  根据城市获取查询条件
+     */
+    public List<Dialog> getSearchCondition();
+
+    /**
+     *  根据城市获取查询条件值
+     */
+    public List<Entrydl> getSearchValue(String city);
 }
