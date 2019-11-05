@@ -1,12 +1,14 @@
 package com.rent.controller;
 
-import com.springsecurity.springsecurity.bean.ImageCode;
-import com.springsecurity.springsecurity.bean.SmsCode;
+
+import com.rent.common.ImageCode;
+import com.rent.common.SmsCode;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -47,10 +49,19 @@ public class ValidateController {
         // 输出验证码到控制台代替短信发送服务
         System.out.println("您的登录验证码为：" + smsCode.getCode() + "，有效时间为60秒");
     }
+    @RequestMapping("/oauth/callback/qq")
+    public String qqLogin(){
+        return "success";
+    }
     @GetMapping("session/invalid")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public String sessionInvalid(){
         return "session已失效，请重新认证";
+    }
+
+    @GetMapping("/signout/success")
+    public String signout() {
+        return "退出成功，请重新登录";
     }
 
     private SmsCode createSMSCode() {
