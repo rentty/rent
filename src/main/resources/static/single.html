@@ -17,7 +17,7 @@
 <!-- js -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <!--vue-->
-	<!--<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
+	<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
 <!--axios-->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -124,7 +124,7 @@
 </head>
 	
 <body>
-<script src="js\vue.min.js"></script>
+<!--<script src="js\vue.min.js"></script>-->
 <!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
 <script src="element-ui/lib/index.js"></script>
 <!-- header -->
@@ -423,7 +423,7 @@
 
 					</div>
 					<br/>
-					<label>金额  </label>{{ money }}
+					<label>金额  </label>
 <!--					&nbsp;&nbsp;-->
 <!--					<form :action="'createOrder?rtlf_Id='rtlf_Id'&time='time'&during='during" method="get">-->
 
@@ -461,8 +461,8 @@
 			get("http://localhost:8080/getHouseDetail?hsId=1")
 					.then(response => {
 						console.log(response);
-						console.log(response.data.data.showHousedl);
-						var data = response.data.data.showHousedl;
+						console.log(response.data.data.showHousedl)
+						var data = response.data.data.showHousedl
 						this.title = data.title
 						this.rent = data.rent
 						this.hsType = data.hsType
@@ -471,6 +471,7 @@
 						this.hsAddress = data.hsAddress
 						this.hsLayer = data.hsLayer
 						this.rtlfReleasetime = data.rtlfReleasetime.split("T")[0]
+						console.log(data.rtlfReleasetime.split("T")[0])
 					})
 					.catch(function (error) { // 请求失败处理
 						console.log(error);
