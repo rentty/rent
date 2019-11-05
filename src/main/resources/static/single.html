@@ -140,7 +140,7 @@
 				<div class="header-top-left1">
 					<!--右侧上图标-->
 					<ul class="social-icons">
-						<li><a href="short-codes.html" class="glyphicon glyphicon-log-in" style="color: rgb(255,255,255)">   Login</a></li>
+						<li><a href="login.html" class="glyphicon glyphicon-log-in" style="color: rgb(255,255,255)">   Login</a></li>
 
 					</ul>
 				</div>
@@ -429,6 +429,59 @@
 
 <!--						<button>提交订单</button>-->
 <!--					</form>-->
+
+					<div class="related-posts">
+						<h3>相关推荐</h3>
+						<div class="related-post">
+							<div class="related-post-left">
+								< a href=" ">< img src="images/6.jpg" alt=" " class="img-responsive" /></ a>
+						</div>
+						<div class="related-post-right">
+							<h4>< a href="single.html">Donec sollicitudin</ a></h4>
+							<p>Aliquam dapibus tincidunt metus.
+								<span>Praesent justo dolor, lobortis.</span>
+							</p >
+						</div>
+						<div class="clearfix"> </div>
+
+					</div>
+					<div class="related-post">
+						<div class="related-post-left">
+							< a href="single.html">< img src="images/7.jpg" alt=" " class="img-responsive" /></ a>
+					</div>
+					<div class="related-post-right">
+						<h4>< a href="single.html">Donec sollicitudin</ a></h4>
+						<p>Aliquam dapibus tincidunt metus.
+							<span>Praesent justo dolor, lobortis.</span>
+						</p >
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="related-post">
+					<div class="related-post-left">
+						< a href="single.html">< img src="images/8.jpg" alt=" " class="img-responsive" /></ a>
+				</div>
+				<div class="related-post-right">
+					<h4>< a href="single.html">Donec sollicitudin</ a></h4>
+					<p>Aliquam dapibus tincidunt metus.
+						<span>Praesent justo dolor, lobortis.</span>
+					</p >
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="write-reply">
+			<br/>
+			<br/>
+			<h3>评论和建议</h3>
+			<form action="#" method="post">
+				<textarea name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Write a comment here...</textarea>
+				<input type="text" name="Name" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name...';}" required="">
+				<input type="email" name="Email" value="Email..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email...';}" required="">
+				<input type="text" name="Website" value="Website..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Website...';}" required="">
+				<input type="submit" value="Send" >
+			</form>
+		</div>
 <script>
 	var hsId,rent;
 	$(function () {
@@ -462,7 +515,7 @@
 					.then(response => {
 						console.log(response);
 						console.log(response.data.data.showHousedl)
-						var data = response.data.data.showHousedl
+						let data = response.data.data.showHousedl
 						this.title = data.title
 						this.rent = data.rent
 						this.hsType = data.hsType
@@ -494,7 +547,7 @@
 			axios.
 			get("http://localhost:8080/getHousePic?hsId=1")
 					.then(response =>{
-						var data = response.data.data.Housedl
+						let data = response.data.data.Housedl
 						this.img1 = data.hsdIdoormaddr
 						this.img2 = data.hsdFloorpaddr
 						this.img3 = data.hsdConditionmaddr
