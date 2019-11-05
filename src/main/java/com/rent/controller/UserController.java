@@ -142,11 +142,13 @@ public class UserController {
     @ApiOperation(value = "地图请求返回房屋和出租信息")
     @PostMapping("/getMapHouseAndRent")
     @ResponseBody
-    public Result getMapHouseAndRent(String type,String ori,int area1,int area2,int layer,
+    public Result getMapHouseAndRent(String type,String ori,int area1,int area2,int layer1,int layer2,
                                      int rent1,int rent2,int renttype){
-        List<MapHouse> list = usermanagementService.findAllHouseAndRent(type,ori,area1,area2,layer,rent1,rent2,renttype);
+        //System.out.println(type);
+        List<MapHouse> list = usermanagementService.findAllHouseAndRent(type,ori,area1,area2,layer1,layer2,rent1,rent2,renttype);
 
         return Result.ok().data("MapHouse",list).data("number",usermanagementService.countHouse(list));
+        /*return Result.ok();*/
     }
 
     @ApiOperation(value = "从地图添加房屋数据")

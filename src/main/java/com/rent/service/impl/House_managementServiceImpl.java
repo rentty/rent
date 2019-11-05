@@ -15,7 +15,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -59,11 +61,15 @@ public class House_managementServiceImpl implements House_managementService {
 
     @Override
     public int entryHouse(House house, Housedl housedl, Rentalinfo rentalinfo, String username) {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        rentalinfo.setRtlfReleasetime(date);
+
         house.setHsStatus(0);
         int i = houseMapper.insertSelective(house);
 
         housedl.setHsdId(house.getHsId());
-        rentalinfo.setRtlfHhid(house.getHsId());
+        rentalinfo.setRtlfId(house.getHsId());
         int j = housedlMapper.insert(housedl);
         UserinfoExample userinfoExample = new UserinfoExample();
         UserinfoExample.Criteria criteria = userinfoExample.createCriteria();
@@ -342,6 +348,16 @@ public class House_managementServiceImpl implements House_managementService {
         }
 
         return list1;
+    }
+
+    @Override
+    public List<Rentalinfo> getAllHouseAndRentById(int id) {
+        RentalinfoExample rentalinfoExample = new RentalinfoExample();
+        RentalinfoExample.Criteria criteria = rentalinfoExample.createCriteria();
+        criteria.andRtlfHhidEqualTo(id);
+        List<Rentalinfo> rentalinfoList = rentalinfoMapper.selectByExample(rentalinfoExample);
+
+        return rentalinfoList;
     }
 
 

@@ -13,12 +13,15 @@
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/light-carousel.css" rel="stylesheet" type="text/css">
+<link href="css/calendar.css" rel="stylesheet" type="text/css">
 <!-- js -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <!--vue-->
-	<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	<!--<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
 <!--axios-->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<script src="js/calendar.js"></script>
 
 <!-- //js -->
 <link href='http://fonts.useso.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
@@ -44,12 +47,97 @@
 			var ref = window.location.search.split("=")[1];
 			return ref;
 		}
-
 	});
 </script>
+	<!--//地图相关-->
+	<link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+	<!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+	<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+	<style type="text/css">
+		#container{
+			/*position: absolute;
+			width: 100%;
+			height: 600px;
+			left: 0px;
+			top: 60px;*/
+		}
+		.el-header, .el-footer {
+			background-color: #B3C0D1;
+			color: #333;
+			text-align: center;
+			line-height: 60px;
+		}
+
+		.el-aside {
+			background-color: #D3DCE6;
+			color: #333;
+			text-align: center;
+			line-height: 200px;
+		}
+
+		.el-main {
+			background-color: #E9EEF3;
+			color: #333;
+			text-align: center;
+			line-height: 160px;
+		}
+
+		body > .el-container {
+			margin-bottom: 40px;
+		}
+
+		.el-container:nth-child(5) .el-aside,
+		.el-container:nth-child(6) .el-aside {
+			line-height: 260px;
+		}
+
+		.el-container:nth-child(7) .el-aside {
+			line-height: 320px;
+		}
+		.all{
+
+			width: 100%;
+			top: 10px;
+		}
+		.menu{
+			/*position: absolute;
+			width: 50%;
+			left: 0px;*/
+		}
+		.el-menu-item{
+			font-size: 20px;
+		}
+		.inputWord{
+			/*position: absolute;
+			width: 18%;
+			right: 8%;*/
+		}
+		.btn1{
+			/*position: absolute;
+			width: 8%;
+			right: 0px;
+			align-self: center;*/
+		}
+		.foot{
+			/*position: absolute;
+			width: 100%;
+			left: 0px;
+			align-self: center;*/
+		}
+		.tag{
+			/*position: absolute;
+			left: 0px;
+			align-self: center;*/
+		}
+	</style>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c11ae578c1dcee5ca73646f3c6c7fb7"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 	
 <body>
+<script src="js\vue.min.js"></script>
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script src="element-ui/lib/index.js"></script>
 <!-- header -->
 	<div class="header">	
 		<div class="header-top">
@@ -63,7 +151,7 @@
 				<div class="header-top-left1">
 					<!--右侧上图标-->
 					<ul class="social-icons">
-						<li><a href="short-codes.html" class="icon icon-border facebook"></a></li>
+						<li><a href="short-codes.html" class="glyphicon glyphicon-log-in" style="color: rgb(255,255,255)">   Login</a></li>
 
 					</ul>
 				</div>
@@ -95,7 +183,7 @@
 							<ul class="nav navbar-nav">
 								<li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
 								<li><a href="services.html" class="hvr-bounce-to-bottom">找房</a></li>
-
+								<li><a href="searchByMap.html" class="hvr-bounce-to-bottom">地图找房</a></li>
 
 							</ul>
 						</nav>
@@ -112,7 +200,7 @@
 		<div class="container">
 			<div class="services-top-breadcrumbs-right">
 				<ul>
-					<li><a href="show.html">Home</a> <i>/</i></li>
+					<li><a href="base.html">Home</a> <i>/</i></li>
 					<li>Detail Page</li>
 				</ul>
 			</div>
@@ -138,7 +226,7 @@
 <!-- single -->
 	<div class="single">
 		<div class="container">
-			<div class="col-md-8 single-left">
+			<div class="col-md-7 single-left">
 				<div class="sample1">
 					<div class="carousel">
 						<ul>
@@ -161,61 +249,142 @@
 						</ul>
 					</div>
 				</div>
-				<script src="js/jquery.light-carousel.js"></script> 
-				<script>
+				<script src="js/jquery.light-carousel.js"></script>
+				<div class="map" >
+					<el-container>
+						<el-header>
+							12<el-button type="primary">主要按钮</el-button>
+						</el-header>
+						<el-main>
+							<!--<div id="container"></div>-->
+							123
+						</el-main>
+						<el-footer>
+							12
+						</el-footer>
+					</el-container>
+				</div>
+				<!--//地图
+				<div id="app"  class="all">
+					<div >
+						<el-container>
+							<el-header>
+								<el-menu class="el-menu-demo menu" mode="horizontal" >
+									<el-menu-item index="1" v-on:click="searchWord('公交')">公交</el-menu-item>
+									<el-menu-item index="2" v-on:click="searchWord('购物')">购物</el-menu-item>
+									<el-menu-item index="3" v-on:click="searchWord('餐饮')">餐饮</el-menu-item>
+									<el-menu-item index="4" v-on:click="searchWord('医院')">医院</el-menu-item>
+									<el-menu-item index="5" v-on:click="searchWord('银行')">银行</el-menu-item>
+								</el-menu>
+								<el-input class="inputWord"
+										  placeholder="请输入内容"
+										  v-model="inputWordVue"
+										  clearable>
+								</el-input>
+								<el-button class="btn1"  v-on:click="searchWord(inputWordVue)" >搜索</el-button>
+							</el-header>
+							<el-main>
+								<div id="container"></div>
+							</el-main>
+							<el-footer>
+								<el-tag class="tag" >{{word}}</el-tag>
+								<div class="foot" >
+
+									<el-button-group>
+										<el-button type="primary" icon="el-icon-arrow-left" v-bind:disabled="boolLe"
+												   v-on:click="changePageLe" >上一页</el-button>
+										<el-button type="primary" icon="el-icon-arrow-right" v-bind:disabled="boolRe"
+												   v-on:click="changePageRi" >下一页</el-button>
+									</el-button-group>
+								</div>
+							</el-footer>
+						</el-container>
+					</div>-->
+
+
+
+					<script>
 					$('.sample1').lightCarousel();
 				</script> 
 				<div class="single-left2">
-					<h3>{{ title }}</h3>
+					<br/>
+					<br/>
+					<h3>具备设施</h3>
 					<ul class="com">
-						<li><span class="glyphicon glyphicon-user" aria-hidden="true"></span><a href="#">Admin</a></li>
-						<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">2 Comments</a></li>
-						<li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span><a href="#">50 Likes</a></li>
-						<li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span><a href="#">3 Tags</a></li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+								<img src="images/写字台.png" height="64" width="64"/>
+								<p style="text-align: center">写字台</p>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+							<img src="images/冰箱.png" height="64" width="64"/>
+							<p style="text-align: center">冰箱</p>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+								<img src="images/单人床.png" height="64" width="64"/>
+								<p style="text-align: center">单人床</p>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+
+								<img src="images/厨房.png" height="64" width="64"/>
+								<p style="text-align: center">厨房</p>
+						</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+
+								<img src="images/双人床.png" height="64" width="64"/>
+								<p style="text-align: center">双人床</p>
+						</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+
+								<img src="images/宽带.png" height="64" width="64"/>
+								<p style="text-align: center">宽带</p>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="thumbnail" style="display: inline-block">
+
+								<img src="images/梳妆台.png" height="64" width="64"/>
+								<p style="text-align: center">梳妆台</p>
+						</a>
+						</li>
+
 					</ul>
+
 					<div class="single-left2-sub">
 						<ul>
-							<li>Recent Tags: </li>
-							<li><a href="#">Designs</a></li>
-							<li><a href="#">Category</a></li>
-							<li><a href="#">Packages</a></li>
+							<li>房屋要求: </li>
 						</ul>
 					</div>
 				</div>
 				<div class="single-left3">
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis 
-						praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
-						excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-						officia deserunt mollitia animi, id est laborum et dolorum fuga. 
-						<span>Et harum quidem rerum facilis est et expedita distinctio. Nam libero 
-						tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus 
-						id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis 
-						dolor repellendus</span>. Temporibus autem quibusdam et aut officiis debitis 
-						aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et 
-						molestiae non recusandae. <span>Itaque earum rerum hic tenetur a sapiente delectus, 
-						ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis 
-						doloribus asperiores repellat.
-						Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur</span></p>
+					<p>
+						<span>
+							房东直招！长住有优惠，地址：五角场国权路85弄小区，国权路35号3楼310室 米兰白领社区，
+							你我他的租房第一站 所有图片都是本人实地拍摄所得，描述真实。自己家小区的房子新小区，
+							和图片一模一样，低于市场价格。小区对面大润发超市，绿色米兰奥特莱斯，上海财富国际广场。
+							距离10号线国权路步行800米，直达市中心。8号线延吉中路站1公里，五角场，同济大学，复旦大学都非常近，
+							周边配套成熟，交通便利，
+							吃喝玩乐一条街。房屋配套齐全，全新装修。可押一付一。看房请提前预约。
+						</span>
+					</p>
 				</div>
-				<div class="single-left4">
-					<h4>Share This Post</h4>
-					<ul class="social-icons social-icons1">
-						<li><a href="#" class="icon icon-border icon-border1 facebook"></a></li>
-						<li><a href="#" class="icon icon-border icon-border1 twitter"></a></li>
-						<li><a href="#" class="icon icon-border icon-border1 instagram"></a></li>
-						<li><a href="#" class="icon icon-border icon-border1 pinterest"></a></li>
-					</ul>
-				</div>
+
 				<div class="admin">
-					<p>But I must explain to you how all this mistaken idea of denouncing 
-						pleasure and praising pain was born and I will give you a complete 
-						account of the system, and expound the actual teachings of the great 
-						explorer of the truth, the master-builder of human happiness. 
-						No one rejects, dislikes, or avoids pleasure itself.</p>
-					<a href="#"><i>John Frank</i></a>
+					<p>未看房前，请不要支付任何费用。遇到"不方便看房"、"先交定金"、"房东人在外地"、"邮寄合同证件"等情况需谨慎，谨防上当受骗</p>
+					<a href="#"><i>!温馨提示</i></a>
 				</div>
 				<div class="comments">
-					<h4>Comments</h4>
+					<h4>评论</h4>
 					<div class="comments-grid">
 						<div class="comments-grid-left">
 							<img src="images/5.png" alt=" " class="img-responsive" />
@@ -245,42 +414,84 @@
 						<div class="clearfix"> </div>
 					</div>
 				</div>
-				<div class="write-reply">
-					<h3>Write a Reply Or Comment</h3>
-					<form action="#" method="post">
-						<textarea name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Write a comment here...</textarea>
-						<input type="text" name="Name" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name...';}" required="">
-						<input type="email" name="Email" value="Email..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email...';}" required="">
-						<input type="text" name="Website" value="Website..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Website...';}" required="">
-						<input type="submit" value="Send" >
-					</form>
-				</div>
+
 			</div>
-			<div class="col-md-4 single-right">
+
+			<div class="col-md-5 single-right">
 				<div class="categories">
-					<h3>Categories</h3>
-					<ul>
-						<li><a href="#">Aliquam dapibus tincidunt</a></li>
-						<li><a href="#">Donec sollicitudin molestie</a></li>
-						<li><a href="#">Fusce feugiat malesuada odio</a></li>
-						<li><a href="#">Cum sociis natoque penatibus</a></li>
-						<li><a href="#">Magnis dis parturient montes</a></li>
-						<li><a href="#">Donec sollicitudin molestie</a></li>
-					</ul>
+					<h1>{{ title }}</h1>
+					<h3>{{ rent }} <font size="3px">元/月 起</font>    |   {{ hsType }}  |  {{ hsArea }}<font size="3px"> m²</font> </h3>
+
+						<span>朝向  {{ hsOriented }}</span><br/><br/>
+					    <span>楼层  {{ hsLayer }}</span><br/><br/>
+						<span>户型  {{ hsType }}</span><br/><br/>
+						<span>地址  {{ hsAddress }}</span><br/><br/>
+						<span>更新  {{ rtlfReleasetime }}</span><br/><br/>
+
 				</div>
+				<script>
+					let vue = new Vue({
+						el: ".categories",
+						data() {
+							return{
+								title: "整租.上海",
+								rent: 3000,
+								hsType: "整套",
+								hsArea: 666,
+
+								hsOriented: "朝南",
+								hsLayer: "2/3层",
+								hsType: "1室1厅",
+								hsAddress: "北京西路1122号",
+								rtlfReleasetime: "2019/10/30"
+							}
+						}
+					});
+				</script>
 				<div class="categories categories-mid">
-					<h3>Archives</h3>
-					<ul>
-						<li><a href="#">May 20,2009</a></li>
-						<li><a href="#">July 31,2010</a></li>
-						<li><a href="#">January 20,2012</a></li>
-						<li><a href="#">November 2,2014</a></li>
-						<li><a href="#">December 25,2015</a></li>
-						<li><a href="#">May 28,2016</a></li>
-					</ul>
+					<h3>预订</h3>
+					<div id="calendar">
+
+					</div>
+					<label>金额</label>{{ money }}
+					<button>提交订单</button>
+<script>
+	let c = new Calendar({
+		// 设置显示位置
+		parent: 'calendar',
+		// 初始化显示时间（默认选中时间）
+		time: '2019-6-19',
+		// viewMode：
+		// 0 - 日期模式（默认值）
+		viewMode: 0,
+		// pickMode：
+		// multiple - 多选模式
+		pickMode: 'multiple',
+		// 配置日期选择的事件处理器 onDatePick，参数如下：
+		// time - 选中的多个日期（已排序）时间
+		// $el - 点击的 DOM 节点
+		// calendar - 日历控件的实例
+		onDatePick: function (time, $el, calendar) {
+			console.log('选择时间：' + time)
+			console.log('选择的 DOM 节点：' + $el)
+			console.log('日历实例：' + calendar)
+		},
+		// 配置今天选择的事件处理器 onTodayPick，参数如下：
+		// 1. 先切换到日期试图模式；
+		// 2. 触发日期选择的业务逻辑；
+		onTodayPick: function (time, $el, calendar) {
+			console.log('选择时间：', time)
+			console.log('选择的 DOM 节点：', $el)
+			console.log('日历实例：', calendar)
+		}
+	})
+
+
+
+</script>
 				</div>
 				<div class="related-posts">
-					<h3>Related Posts</h3>
+					<h3>相关推荐</h3>
 					<div class="related-post">
 						<div class="related-post-left">
 							<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
@@ -292,6 +503,7 @@
 							</p>
 						</div>
 						<div class="clearfix"> </div>
+
 					</div>
 					<div class="related-post">
 						<div class="related-post-left">
@@ -318,10 +530,25 @@
 						<div class="clearfix"> </div>
 					</div>
 				</div>
+				<div class="write-reply">
+					<br/>
+					<br/>
+					<h3>评论和建议</h3>
+					<form action="#" method="post">
+						<textarea name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Write a comment here...</textarea>
+						<input type="text" name="Name" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name...';}" required="">
+						<input type="email" name="Email" value="Email..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email...';}" required="">
+						<input type="text" name="Website" value="Website..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Website...';}" required="">
+						<input type="submit" value="Send" >
+					</form>
+				</div>
 			</div>
-			<div class="clearfix"> </div>
+			<div class="clearfix">
+			</div>
+
 		</div>
 	</div>
+
 <script>
 	let vue = new Vue({
 		el: ".single",
@@ -341,114 +568,249 @@
 		}
 	});
 </script>
-<!-- //single -->
-<!-- footer -->
-	<div class="footer">
-		<div class="container">
-			<h2>Sign up for our newsletter</h2>
-			<p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae eros eget tellus 
-				tristique bibendum. Donec rutrum sed sem quis venenatis.</p>
-			<div class="footer-contact">
-				<form action="#" method="post">
-					<input type="text" name="Email" placeholder="Enter your email to update" required=" ">
-					<input type="submit" value="Subscribe">
-				</form>
-			</div>
-			<div class="footer-grids">
-				<div class="col-md-4 footer-grid">
-					<p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> General Pvt 66, Dong Da
-						Hanoi, Vietnam.</p>
-					<p><a href="mailto:contact@example.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> contact@example.com</a></p>
-					<p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>+0123 456 686</p>
-				</div>
-				<div class="col-md-2 footer-grid">
-					<ul>
-						<li><a href="mail.html">Contact</a></li>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="short-codes.html">Short Codes</a></li>
-						<li><a href="gallery.html">Gallery</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 footer-grid">
-					<div class="footer-grid1">
-						<div class="footer-grid1-left">
-							<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive"></a>
-						</div>
-						<div class="footer-grid1-right">
-							<a href="single.html">eveniet ut molesti</a>
-							<div class="m1">
-								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-							</div>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-					<div class="footer-grid1">
-						<div class="footer-grid1-left">
-							<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive"></a>
-						</div>
-						<div class="footer-grid1-right">
-							<a href="single.html">earum rerum tenet</a>
-							<div class="m1">
-								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-							</div>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-					<div class="footer-grid1">
-						<div class="footer-grid1-left">
-							<a href="single.html"><img src="images/8.jpg" alt=" " class="img-responsive"></a>
-						</div>
-						<div class="footer-grid1-right">
-							<a href="single.html">maiores alias cons</a>
-							<div class="m1">
-								<a href="single.html"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span></a>
-							</div>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-				</div>
-				<div class="col-md-3 footer-grid">
-					<div class="footer-grid-instagram">
-						<a href="single.html"><img src="images/9.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="footer-grid-instagram">
-						<a href="single.html"><img src="images/10.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="footer-grid-instagram">
-						<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="footer-grid-instagram">
-						<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="footer-copy">
-				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-			</div>
-		</div>
-	</div>
-<!-- //footer -->
-<!-- for bootstrap working -->
+
 	<script src="js/bootstrap.js"></script>
-<!-- //for bootstrap working -->
-<!-- here stars scrolling icon -->
+
 	<script type="text/javascript">
 		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
+
 								
 			$().UItoTop({ easingType: 'easeOutQuart' });
 								
 			});
 	</script>
 <!-- //here ends scrolling icon -->
+		<!--地图相关-->
+		<!--<script>
+			var page = 1;
+			var keyWord = "公交";
+			var total = 0;
+			var vue =  new Vue({
+				el: '#app',
+				data: function() {
+					return {
+						visible: false,
+						inputWordVue:'',
+						boolLe:true,
+						boolRe:false,
+						word:'asd',
+					}
+				},
+				methods: {
+					create:function(){
+						console.log(total);
+						if(total == 1){
+							this.boolLe  = true;
+							this.boolRe  = true;
+						}
+					},
+					searchWord: function (message) {
+						//alert(message)
+						page =1;
+						search(message,1)
+						keyWord = message;
+					},
+					changePageLe:function () {
+
+						search(keyWord,page-1);
+						if(page == 2){
+							this.boolLe  = true;
+						}
+						this.boolRe  = false;
+						page = page - 1;
+					},
+					changePageRi:function () {
+						console.log(total);
+
+						search(keyWord,page+1);
+						if(total > page){
+							this.boolLe  = false;
+						}
+						if((total - 1 ) <= page){
+							console.log("==");
+							//Vue.set(this.val,disabled,true);
+							this.boolRe  = true;
+						}
+						page = page +1;
+					},
+
+				},
+				//自动加载
+				/*created(){
+                    console.log(total);
+                    //search("公交",1);
+                    if(total == 1){
+                        this.boolLe  = true;
+                        this.boolRe  = true;
+                    }
+                },*/
+				watch: {
+
+				}
+
+			})
+		</script>
+		<script type="text/javascript">
+			var map = new AMap.Map("container", {
+				resizeEnable: true
+			});
+			AMap.plugin([ 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView', 'AMap.MapType', 'AMap.Geolocation', ],
+					function(){
+						// 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+						map.addControl(new AMap.ToolBar());
+						// 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+						map.addControl(new AMap.Scale());
+						// 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+						map.addControl(new AMap.OverView({isOpen:true}));
+						// 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+						map.addControl(new AMap.MapType());
+						// 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+						/*geolocation = new AMap.Geolocation({
+                            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                            timeout: 5000,          //超过10秒后停止定位，默认：无穷大
+                            maximumAge: 0,           //定位结果缓存0毫秒，默认：0
+                            convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+                            showButton: true,        //显示定位按钮，默认：true
+                            buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
+                            buttonDom: "定位",
+                            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                            showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+                            showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
+                            panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
+                            zoomToAccuracy:true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                        });
+                        map.addControl(new AMap.Geolocation());*/
+					});
+
+			function search(word,page){
+				var cpoint = [116.405467, 39.907761]; //中心点坐标
+				//alert(cyc);
+				map.clearMap();
+				AMap.service(["AMap.PlaceSearch"], function() {
+					//构造地点查询类
+					var placeSearch = new AMap.PlaceSearch({
+						type: word, // 兴趣点类别
+						pageSize: 50, // 单页显示结果条数
+						pageIndex: page, // 页码
+						city: "010", // 兴趣点城市
+						citylimit: true,  //是否强制限制在设置的城市内搜索
+						//map: map, // 展现结果的地图实例
+						//panel: "panel", // 结果列表将在此容器中进行展示。
+						//autoFitView: true, // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+						//children:1,
+					});
+
+					var circle = new AMap.Circle({
+						center: cpoint,// 圆心位置
+						radius: 500, //半径
+						strokeColor: "#f24c22", //线颜色
+						strokeOpacity: 0.2, //线透明度
+						strokeWeight: 3,    //线宽
+						fillColor: "#1791fc", //填充色
+						fillOpacity: 0.05,//填充透明度
+						bubble:true//是否将覆盖物的鼠标或touch等事件冒泡到地图上
+					});
+					circle.setMap(map);//显示圆圈
+
+					//alert(cyc)
+					placeSearch.searchNearBy('', cpoint,500, function(status, result) {
+						console.log(result);
+						total = parseInt(result.poiList.count / 50) + 1;
+						if(total == 1 && page == 1){
+							vue.boolRe = true;
+							vue.boolLe = true;
+						}else if(total > 1 && page == 1) {
+							vue.boolRe = false;
+							vue.boolLe = true;
+						}
+						//console.log(total+"ed");
+						var marker = new AMap.Marker({
+							icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+							position: cpoint,
+							map: map,
+							offset: new AMap.Pixel(-25, -55)
+						});
+
+						vue.word = result.poiList.count + "条搜索结果，共" + total + "页，当前第" + page + "页";
+						var list = result.poiList.pois;
+						for(var i=0;i<list.length;i++){
+							var Lng = [list[i].location.lng,list[i].location.lat];
+							var marker = new AMap.Marker({
+								position: Lng,
+								map: map,
+							});
+
+							var title = '',
+									content = [];
+							content.push(list[i].name+"<br>");
+							content.push(list[i].distance +"m");
+
+							marker.content = content.join("") ;
+							marker.on('click', markerClick);
+						}
+
+					});
+					map.setZoomAndCenter(16, cpoint);
+				});
+			}
+			search("公交",1);
+			//vue.create();
+
+			var infoWindow = new AMap.InfoWindow({
+				//isCustom: true,  //使用自定义窗体
+				offset: new AMap.Pixel(0, -25)
+			});
+
+			function markerClick(e) {
+
+				infoWindow.setContent(e.target.content);
+				infoWindow.open(map, e.target.getPosition());
+			}
+
+			//构建自定义信息窗体
+			function createInfoWindow(title, content) {
+				var info = document.createElement("div");
+				info.className = "custom-info input-card content-window-card";
+
+				//可以通过下面的方式修改自定义窗体的宽高
+				//info.style.width = "400px";
+				// 定义顶部标题
+				var top = document.createElement("div");
+				var titleD = document.createElement("div");
+				var closeX = document.createElement("img");
+				top.className = "info-top";
+				titleD.innerHTML = title;
+				closeX.src = "https://webapi.amap.com/images/close2.gif";
+				closeX.onclick = closeInfoWindow;
+
+				top.appendChild(titleD);
+				top.appendChild(closeX);
+				info.appendChild(top);
+
+				// 定义中部内容
+				var middle = document.createElement("div");
+				middle.className = "info-middle";
+				middle.style.backgroundColor = 'white';
+				middle.innerHTML = content;
+				info.appendChild(middle);
+
+				// 定义底部内容
+				var bottom = document.createElement("div");
+				bottom.className = "info-bottom";
+				bottom.style.position = 'relative';
+				bottom.style.top = '0px';
+				bottom.style.margin = '0 auto';
+				var sharp = document.createElement("img");
+				sharp.src = "https://webapi.amap.com/images/sharp.png";
+				bottom.appendChild(sharp);
+				info.appendChild(bottom);
+				return info;
+			}
+
+			//关闭信息窗体
+			function closeInfoWindow() {
+				map.clearInfoWindow();
+			}
+		</script>-->
 </body>
 </html>

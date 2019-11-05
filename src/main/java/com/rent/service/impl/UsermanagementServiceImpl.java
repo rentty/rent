@@ -240,36 +240,41 @@ public class UsermanagementServiceImpl implements UsermanagementService {
     }
 
     @Override
-    public List<MapHouse> findAllHouseAndRent(String type,String ori,int area1,int area2,int layer,
-                                              int rent1,int rent2,int renttype) {
+    public List<MapHouse> findAllHouseAndRent(String type,String ori,int area1,int area2,int layer1,
+                                              int layer2,int rent1,int rent2,int renttype) {
 
         HouseExample houseExample = new HouseExample();
         HouseExample.Criteria criteria = houseExample.createCriteria();
+       //System.out.println(":"+type);
+
         if(!type.equals("-1")){
-            criteria.andHsTypeEqualTo(type);
+            type = "%" +type + "%";
+            criteria.andHsTypeLike(type);
         }
         if(!ori.equals("-1")){
             criteria.andHsOrientedEqualTo(ori);
         }
-        if(area1 != -1){
-            criteria.andHsAreaBetween(area1,area2);
-        }
-        if(layer != -1){
-            criteria.andHsLayerEqualTo(layer);
-        }
+        /*if(area1 > area2){
+            int x = area1;
+            area1 = area2;
+            area2 = x;
+        }*/
+        criteria.andHsAreaBetween(area1,area2);
+        criteria.andHsLayerBetween(layer1,layer2);
+
+        criteria.andHsStatusEqualTo(1);
         List<House> houseList = houseMapper.selectByExample(houseExample);
-        //System.out.println(houseList);
+        System.out.println("+houseList.size():"+houseList.size());
 
         RentalinfoExample rentalinfoExample = new RentalinfoExample();
         RentalinfoExample.Criteria criteria1 = rentalinfoExample.createCriteria();
         if(renttype != -1){
             criteria1.andRtlfRentaltypeEqualTo(renttype);
         }
-        if(rent1 != -1){
-            criteria1.andRtlfRentBetween(rent1,rent2);
-        }
+        criteria1.andRtlfRentBetween(rent1,rent2);
+
         List<Rentalinfo> rentalinfoList = rentalinfoMapper.selectByExample(rentalinfoExample);
-        //System.out.println(rentalinfoList);
+        System.out.println("rentalinfoList.size:"+rentalinfoList.size());
 
         List<Integer> houseIds=new ArrayList<Integer>();
         for(int i=0;i< houseList.size();i++){
@@ -301,7 +306,8 @@ public class UsermanagementServiceImpl implements UsermanagementService {
             for(int j = 0;j < houseList.size() ;j++){
                 if(houseList.get(j).getHsId() == list.get(i)){
                     house = houseList.get(j);
-                    //break;
+                    //System.out.println(i);
+                    break;
                 }
             }
             mapHouse.setHsId(house.getHsId());
@@ -318,8 +324,10 @@ public class UsermanagementServiceImpl implements UsermanagementService {
 
             Rentalinfo rentalinfo = new Rentalinfo();
             for(int j = 0;j < rentalinfoList.size() ;j++){
-                if(rentalinfoList.get(j).getRtlfId() == list.get(i)){
+                if(rentalinfoList.get(j).getRtlfId().equals(list.get(i))){
                     rentalinfo = rentalinfoList.get(j);
+                    //System.out.println(rentalinfoList.get(j).getRtlfId() + "," +list.get(i));
+                    //System.out.println(i);
                     break;
                 }
             }
@@ -361,7 +369,7 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         String type = room + "室" + wroom + "卫";
         int area = random.nextInt(150) + 50;
         String city = "广州市";
-        String dis = "越秀区";
+        String dis = "南沙区";
         int x = random.nextInt(4);
         String hou = new String();
         String ori = new String();
@@ -384,8 +392,8 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         int layer = (random.nextInt(30) + 1) ;
 
         House house = new House(null,type,area,city,dis,hou,address,layer,ori,Double.valueOf(lng),Double.valueOf(lat),1);
-
         houseMapper.insert(house);
+
         //System.out.println(house.getHsId());
         int rent = area * 20 + random.nextInt(1000);
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
@@ -394,8 +402,15 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         Rentalinfo rentalinfo = new Rentalinfo(house.getHsId(),date ,random.nextInt(2)
             ,3,"欢迎光临",rent);
         rentalinfoMapper.insert(rentalinfo);
-        System.out.println(rentalinfo);
+        //System.out.println(rentalinfo);
 
+        //
+        Housedl housedl =new Housedl(house.getHsId(),"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg"
+                ,"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg"
+                ,"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg"
+                ,"1,1,1,1,1,1,1");
+        //housedlMapper.insert(housedl);
+        System.out.println(housedlMapper.insertSelective(housedl));
         return 0;
     }
 
