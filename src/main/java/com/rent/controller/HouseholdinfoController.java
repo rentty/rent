@@ -8,12 +8,15 @@ import com.rent.common.Result;
 import com.rent.service.House_managementService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin
 @Controller
 @Api(tags = "Householdinfo", description = "户主管理")
 @RequestMapping("/householdinfo")
@@ -146,10 +149,21 @@ public class HouseholdinfoController {
     @PostMapping("/addHouse")
     @ResponseBody
     public Result addHouse(House house, Housedl housedl, Rentalinfo rentalinfo, String username) {
+        System.out.println(house);
+        System.out.println(housedl);
+        System.out.println(rentalinfo);
         if(house_managementService.entryHouse(house,housedl,rentalinfo,username) != 1){
             return Result.error();
         }else {
             return Result.ok();
         }
+    }
+
+    @ApiOperation(value = "查询房屋信息")
+    @GetMapping("/getHouse")
+    @ResponseBody
+    public Result getHouse(int id, HttpResponse response) {
+        /*response.setHeader("Access-Control-Allow-Origin", "*");*/
+        return Result.ok().data("houseList",house_managementService.getAllHouseAndRentById(id));
     }
 }

@@ -2,6 +2,7 @@ package com.rent.controller;
 
 import com.rent.bean.Dialog;
 import com.rent.bean.Userinfo;
+import com.rent.common.Result;
 import com.rent.service.FastDFSClientUtil;
 import com.rent.service.HelloService;
 import io.swagger.annotations.Api;
@@ -10,16 +11,14 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
+@CrossOrigin
 @Controller
 @Api(tags = "HelloController", description = "hehe管理")
 public class HelloController {
@@ -45,17 +44,15 @@ public class HelloController {
     @Autowired
     FastDFSClientUtil dfsClient;
     @PostMapping("/upload")
-    public String fdfsUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-
-
+    public Result fdfsUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+       // System.out.println("*****");
         try {
             String fileUrl = dfsClient.uploadFile(file);
+            System.out.println(fileUrl);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        return "index";
+        return Result.ok();
     }
 
 }

@@ -6,75 +6,474 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>地区找房检索</title>
     <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
     <style type="text/css">
+        .seachDiv{
+            position: absolute;
+            left: 3%;
+            top: 5%;
+            width: 38%;
+
+        }
+        .coll{
+
+        }
+        .title0{
+            margin: 10px;
+            padding: 10px;
+        }
+        .title1{
+            margin: 10px;
+            padding: 10px;
+        }
+        .shortSelect{
+            width: 80px;
+        }
+        .btn{
+            /*position: absolute;
+            width: 30%;
+            left: 35%;
+            bottom: 5px;*/
+            margin-left: 40px;
+        }
 
     </style>
     <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c11ae578c1dcee5ca73646f3c6c7fb7&plugin=AMap.DistrictSearch"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
 <body>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="js\vue.min.js"></script>
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script src="element-ui/lib/index.js"></script>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <div id="app">
     <div id="container" >
-
     </div>
+    <div class="seachDiv" >
+        <div>
+        <el-collapse v-model="activeNames" @change="handleChange" class="coll" >
+            <el-collapse-item name="1">
+                <template slot="title" >
+                    <div  class="title0" >按条件查询</div>
+                </template>
+                <el-form ref="form" :model="form" label-width="80px" :inline="true" :rules="rules" >
+                    <el-form-item label="租金" prop="region1">
+                        <el-select v-model="form.region1" placeholder="请输入/选择租金下限"
+                                   filterable allow-create default-first-option >
+                            <el-option label="0" value="0"></el-option>
+                            <el-option label="1000" value="1000"></el-option>
+                            <el-option label="2000" value="2000"></el-option>
+                            <el-option label="4000" value="4000"></el-option>
+                            <el-option label="不限" value="0"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item  prop="region2">
+                        <el-select v-model="form.region2" placeholder="请输入/选择租金上限"
+                                   filterable allow-create default-first-option >
+                            <el-option label="1000" value="1000"></el-option>
+                            <el-option label="2000" value="2000"></el-option>
+                            <el-option label="4000" value="4000"></el-option>
+                            <el-option label="8000" value="8000"></el-option>
+                            <el-option label="不限" value="14999"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="面积"  prop="area1">
+                        <el-select v-model="form.area1" placeholder="请输入/选择面积下限"
+                                   filterable allow-create default-first-option>
+                            <el-option label="50" value="50" ></el-option>
+                            <el-option label="100" value="100"></el-option>
+                            <el-option label="不限" value="0"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item prop="area2">
+                        <el-select v-model="form.area2" placeholder="请输入/选择面积上限"
+                                   filterable allow-create default-first-option >
+                            <el-option label="150" value="150"></el-option>
+                            <el-option label="200" value="200"></el-option>
+                            <el-option label="不限" value="499"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="户型"  prop="type1">
+                        <el-select v-model="form.type1" placeholder="" class="shortSelect">
+                            <el-option label="1" value="1" ></el-option>
+                            <el-option label="2" value="2"></el-option>
+                            <el-option label="3" value="3"></el-option>
+                            <el-option label="4" value="4"></el-option>
+                            <el-option label="不限" value=""></el-option>
+                        </el-select>  室
 
+                    </el-form-item>
+                    <el-form-item prop="type2">
+                        <el-select v-model="form.type2" placeholder="" class="shortSelect">
+                            <el-option label="1" value="1" ></el-option>
+                            <el-option label="2" value="2"></el-option>
+                            <el-option label="3" value="3"></el-option>
+                            <el-option label="不限" value=""></el-option>
+                        </el-select>  卫
+                    </el-form-item>
+                    <el-form-item label="楼层"  prop="layer1">
+                        <el-select v-model="form.layer1" placeholder="" class="shortSelect"
+                                   filterable allow-create default-first-option >
+                            <el-option label="10" value="10" ></el-option>
+                            <el-option label="20" value="20"></el-option>
+                            <el-option label="不限" value="1"></el-option>
+                        </el-select>
+
+                    </el-form-item>
+                    <el-form-item prop="layer2">
+                        <el-select v-model="form.layer2" placeholder="" class="shortSelect"
+                                   filterable allow-create default-first-option >
+                            <el-option label="20" value="20" ></el-option>
+                            <el-option label="30" value="30"></el-option>
+                            <el-option label="不限" value="30"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="朝向" prop="ori">
+                        <el-select v-model="form.ori" placeholder="" class="shortSelect">
+                            <el-option label="东" value="东" ></el-option>
+                            <el-option label="南" value="南"></el-option>
+                            <el-option label="西" value="西"></el-option>
+                            <el-option label="北" value="北"></el-option>
+                            <el-option label="不限" value="-1"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="出租类型" prop="rentType">
+                        <el-radio-group v-model="form.rentType">
+                            <el-radio label="短租"  value="0" ></el-radio>
+                            <el-radio label="长租"  value="1" ></el-radio>
+                            <el-radio label="不限"  value="-1" ></el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                    <el-form-item class="btn" >
+                        <el-button type="primary" @click="onSubmit">搜索</el-button>
+                        <el-button @click="resetForm">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-collapse-item>
+        </el-collapse>
+        </div>
+        <div class="msgDetil">
+            <el-carousel height="150px">
+                <el-carousel-item>
+                    <img src="http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg">
+                </el-carousel-item>
+                <el-carousel-item>
+                    <img src="http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg">
+                </el-carousel-item>
+                <el-carousel-item>
+                    <img src="http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg">
+                </el-carousel-item>
+            </el-carousel>
+            <!--<img src="http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg">-->
+        </div>
+    </div>
 </div>
 
 <script>
-
+    var districtStr = "0" ;
     var vue =  new Vue({
         el: '#app',
         data: function() {
+            var checkRent = (rule, value, callback) => {
+                setTimeout(() => {
+                    if (isNaN(value) || value == " ") {
+                        callback(new Error('请输入正数'));
+                    } else {
+                        if (value < 0 || value > 15000) {
+                            callback(new Error('租金范围应在0-15000之间'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }, 500);
+            };
+            var checkArea = (rule, value, callback) => {
+                setTimeout(() => {
+                    if (isNaN(value) || value == " ") {
+                        callback(new Error('请输入正数'));
+                    } else {
+                        if (value < 0 || value > 500) {
+                            callback(new Error('房屋面积应在0-500之间'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }, 500);
+            };
+            var checkLayer = (rule, value, callback) => {
+                if(value == ""){
+                    callback();
+                }
+                setTimeout(() => {
+                    if (isNaN(value) || value == " ") {
+                        callback(new Error('请输入正数'));
+                    } else {
+                        if (value < 1 || value > 30) {
+                            callback(new Error('楼层高度应在1-30之间'));
+                        } else {
+                            callback();
+                        }
+                    }
+                }, 500);
+            };
             return {
                 visible: false,
-
-            }
-        },
-        methods: {
-            create:function(){
-                console.log(total);
-                if(total == 1){
-                    this.boolLe  = true;
-                    this.boolRe  = true;
+                activeNames: ['1'],
+                form: {
+                    region1: '',
+                    region2: '',
+                    area1:'',
+                    area2:'',
+                    type1:'',
+                    type2:'',
+                    layer1:'',
+                    layer2:'',
+                    ori:'',
+                    rentType: '',
+                },
+                rules: {
+                    region1:[
+                        {validator: checkRent, trigger: 'blur'}
+                    ],
+                    region2:[
+                        {validator: checkRent, trigger: 'blur'}
+                    ],
+                    area1:[
+                        {validator: checkArea, trigger: 'blur'}
+                    ],
+                    area2:[
+                        {validator: checkArea, trigger: 'blur'}
+                    ],
+                    layer1:[
+                        {validator: checkLayer, trigger: 'blur'}
+                    ],
+                    layer2:[
+                        {validator: checkLayer, trigger: 'blur'}
+                    ],
                 }
             }
 
         },
+        methods: {
+            handleChange(val) {
+                //console.log(val);
+            },
+            resetForm() {
+                this.$refs['form'].resetFields();
+            },
+            onSubmit() {
+                this.$refs['form'].validate((valid) => {
+                    if (valid) {
+                        console.log('submit!');
+                        var type;
+                        if(this.form.type1 == "" && this.form.type2 != ""){
+                            type = this.form.type2 + "卫";
+                        }else if(this.form.type2 == "" && this.form.type1 != ""){
+                            type = this.form.type1 + "室";
+                        }else if(this.form.type1 == "" && this.form.type2 == ""){
+                            type = -1;
+                        }else {
+                            type = this.form.type1 + "室" + this.form.type2 + "卫";
+                        }
 
+                        var rentType;
+                        if(this.form.rentType == "短租"){
+                            rentType = 0;
+                        }else if(this.form.rentType == "长租"){
+                            rentType = 1;
+                        }else {
+                            rentType = -1;
+                        }
+
+                        $.ajax({
+                            url:'http://localhost:8080/admin/user/getMapHouseAndRent',//地址
+                            data:{
+                                type:type,
+                                ori:this.form.ori == ""?-1:this.form.ori,
+                                area1:this.form.area1 == ""?0:this.form.area1,
+                                area2:this.form.area2 == ""?10000:this.form.area2,
+                                layer1:this.form.layer1 == ""?0:this.form.layer1,
+                                layer2:this.form.layer2 == ""?1000:this.form.layer2,
+                                rent1:this.form.region1 == ""?0:this.form.region1,
+                                rent2:this.form.region2 == ""?99999:this.form.region2,
+                                renttype:rentType,
+                            },
+                            dataType: "json",
+                            type:'POST',//类型
+                            //请求成功
+                            success:function(data){
+                                houseData = data;
+                                updateBtn(houseData.data.number);
+                                //console.log(districtStr)
+                                if(districtStr != "0"){
+                                    //console.log("changeHousePoint(districtStr)");
+                                    changeHousePoint(districtStr);
+                                }
+
+
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+                //console.log();
+            },
+
+        },
         watch: {
 
         }
-
     })
 </script>
 <script type="text/javascript">
+
     var houseData;
     $.ajax({
-        url:'http://localhost:8080/admin/user/getMapHouseAndRent?type=-1&ori=-1&area1=-1&area2=-1&layer=-1&rent1=-1&rent2=-1&renttype=-1',//地址
+        url:'http://localhost:8080/admin/user/getMapHouseAndRent?type=-1&ori=-1&area1=0&area2=9999&layer1=0&layer2=9999&rent1=0&rent2=99999&renttype=-1',//地址
         type:'POST',//类型
         //请求成功
         success:function(data){
-            console.log(data);
+            //console.log(data);
             houseData = data;
             updateBtn(houseData.data.number);
+
         }
     })
 
+    //改变区域按钮的房屋数量
     function updateBtn(val) {
         var textGr = map.getAllOverlays('Text');
+        //console.log("map.getAllOverlays('Text')")
+        //console.log(textGr);
         for(var i = 0;i<textGr.length;i++){
-            //console.log(val[textGr[i].Je.text]);
-            if(val[textGr[i].Je.text] == null){
-                textGr[i].setText(textGr[i].Je.text + "<br>" + 0);
-            }else {
-                textGr[i].setText(textGr[i].Je.text + "<br>" +val[textGr[i].Je.text]);
+            //console.log(val[textGr[i].Je.text.substring(0,3)]);
+            if(val[textGr[i].Je.text.substring(0,3)] == null &&
+                textGr[i].B.extData['sort'] == "his"){
+                //textGr[i].setText("");
+                textGr[i].setText(textGr[i].Je.text.substring(0,3) + "<br>" + 0);
+            }
+            else {
+                textGr[i].setText(textGr[i].Je.text.substring(0,3) + "<br>" +val[textGr[i].Je.text.substring(0,3)]);
             }
         }
         //console.log(textGr);
+    }
+
+    //显示区域内的房屋标点
+    function changeHousePoint(dis) {
+        //console.log(dis)
+        map.remove(overlayGroups);
+        markers = [];
+
+        var list = map.getAllOverlays('polygon');
+        var pol;
+        //console.log(dis);
+        //console.log("map.getAllOverlays('polygon')")
+        //console.log(list);
+        //显示边界
+        for(var i = 0;i < list.length;i++){
+            //console.log(list[i].Je.extData);
+            //console.log(val.target.B.text);
+            if(list[i].Je.extData == dis){
+                console.log("list[i].Je.extData == dis");
+                pol = list[i];
+                list[i].show();
+               /* map.setZoomAndCenter(14,
+                    [val.lnglat.lng,val.lnglat.lat]);*/
+            }else {
+                list[i].hide();
+            }
+        }
+
+        //
+        var Hlist = houseData.data.MapHouse;
+        //console.log(houseData);
+        for(var i = 0;i < Hlist.length;i++){
+            if(pol.contains([Hlist[i].hsLongitude,Hlist[i].hsLatitude])){
+                var text = new AMap.Text({
+                    text:"$"+Hlist[i].rtlfRent,
+                    anchor:'center', // 设置文本标记锚点
+                    cursor:'pointer',
+                    style:{
+                        'padding': '0.25rem 0.25rem',
+                        'margin-bottom': '1rem',
+                        'border-radius': '.50rem',
+                        'background-color': '#EEAD0E',
+                        'border-width': 0,
+                        /*'box-shadow': '0 2px 6px 0 rgba(114, 124, 245, .5)',*/
+                        'text-align': 'center',
+                        'font-size': '16px',
+                        'color': 'white',
+                    },
+                    position: [Hlist[i].hsLongitude,Hlist[i].hsLatitude],
+                    extData: {
+                        sort: "house",
+                        cli:"0",
+                    },
+                });
+                //鼠标移过事件
+                var content = [];
+                content.push("面积："+Hlist[i].hsArea+"<br>");
+                content.push("层数："+Hlist[i].hsLayer+"<br>");
+                content.push("朝向："+Hlist[i].hsOriented+"<br>");
+                content.push("租金："+Hlist[i].rtlfRent+"<br>");
+                var str = (Hlist[i].rtlfRentaltype == 0?'短租':'长租');
+                content.push("出租类型："+str+"<br>");
+                content.push("户型："+Hlist[i].hsType+"<br>");
+                content.push("地址："+Hlist[i].hsCity+Hlist[i].hsDistrict +Hlist[i].hsHousingestate
+                    + Hlist[i].hsAddress+"<br>");
+                content.push("<a href='' >"+"更详细信息"+"</a><br>");
+
+                text.content = content.join("") ;
+                text.on('mouseover', markerClick);
+                text.on('mouseout', closeInfoWindow);
+                text.on('click', clickHouseBtn);
+
+                markers.push(text);
+            }
+        }
+        overlayGroups = new AMap.OverlayGroup(markers);
+        map.add(overlayGroups);
+    }
+
+    function clickHouseBtn(val) {
+        console.log(val);
+
+        var textGr = map.getAllOverlays('Text');
+        for(var i = 0;i<textGr.length;i++){
+            if(textGr[i].B.extData['sort'] == "house"){
+                //console.log("styel");
+                var style = {
+                    'padding': '0.25rem 0.25rem',
+                    'margin-bottom': '1rem',
+                    'border-radius': '.50rem',
+                    'background-color': '#EEAD0E',
+                    'border-width': 0,
+
+                    'text-align': 'center',
+                    'font-size': '16px',
+                    'color': 'white',
+                };
+                textGr[i].setStyle(style);
+            }
+
+        }
+        var style = {
+            'padding': '0.25rem 0.25rem',
+            'margin-bottom': '1rem',
+            'border-radius': '.50rem',
+            'background-color': '#FA5858',
+            'border-width': 0,
+
+            'text-align': 'center',
+            'font-size': '16px',
+            'color': 'white',
+        };
+        val.target.setStyle(style);
+        val.target.setExtData("er:'op'");
     }
 </script>
 <script type="text/javascript">
@@ -82,7 +481,8 @@
     var city = "广州";
     var cityLng ;
     var markers = [];
-    var overlayGroups = new AMap.OverlayGroup(markers);
+    var overlayGroups = new AMap.OverlayGroup(markers);//房屋标点群组
+
     var mapOpts = {
         showIndoorMap: false, // 是否在有矢量底图的时候自动展示室内地图，PC默认true,移动端默认false
         resizeEnable: true, //是否监控地图容器尺寸变化，默认值为false
@@ -110,7 +510,7 @@
     });//注意：需要使用插件同步下发功能才能这样直接使用(或在申请key值哪里加 &plugin=AMap.DistrictSearch )
     district.search(city, function(status, result) {
         if(status=='complete') {
-            console.log(result);
+            //console.log(result);
             var bounds = result.districtList[0].boundaries;
             cityLng = [result.districtList[0].center.lng,result.districtList[0].center.lat];
             //console.log(cityLng);
@@ -132,8 +532,6 @@
             var list = result.districtList[0].districtList;
             for(var i = 0;i < list.length ;i++){
                 // 创建纯文本标记
-
-
                 var text = new AMap.Text({
                     text:list[i].name,
                     anchor:'center', // 设置文本标记锚点
@@ -151,7 +549,10 @@
                         'font-size': '16px',
                         'color': 'white'
                     },
-                    position: [list[i].center.lng,list[i].center.lat]
+                    position: [list[i].center.lng,list[i].center.lat],
+                    extData: {
+                        sort: "his",
+                    },
                 });
                 text.setMap(map);
                 text.on('click', dirClick);
@@ -172,10 +573,11 @@
                                    strokeColor: '#0091ea',
                                    fillColor: '#80d8ff',
                                    fillOpacity: 0.2,
-                                   path: bounds[j]
+                                   path: bounds[j],
+                                   extData:result.districtList[0].name,
                                });
                            }
-                           polygon.setExtData(result.districtList[0].name);
+                           //polygon.setExtData(result.districtList[0].name);
                        }
                         map.setZoomAndCenter(13, [result.districtList[0].center.lng,result.districtList[0].center.lat]);
                     }
@@ -185,68 +587,78 @@
         }
     });
 
-    //点击区域按钮
+    //点击区域按钮显示边界和房屋标点
     function dirClick(val) {
-        console.log(overlayGroups);
+        //console.log(overlayGroups);
         map.remove(overlayGroups);
+        districtStr =  val.target.B.text;//存储当前选中的区域，给刷新搜索结果使用
         markers = [];
-        //console.log(map.getAllOverlays('polygon'));
-        var list = map.getAllOverlays('polygon');
+
+        changeHousePoint(val.target.B.text);
+
+        /*var list = map.getAllOverlays('polygon');
         var pol;
+        //显示边界
         for(var i = 0;i < list.length;i++){
             //console.log(list[i].Je.extData);
             //console.log(val.target.B.text);
             if(list[i].Je.extData == val.target.B.text){
+                district =  val.target.B.text;//存储当前选中的区域，给刷新搜索结果使用
                 pol = list[i];
                 list[i].show();
-                map.setZoomAndCenter(14,
-                    [val.lnglat.lng,val.lnglat.lat]);
+                /!*map.setZoomAndCenter(14,
+                    [val.lnglat.lng,val.lnglat.lat]);*!/
             }else {
                 list[i].hide();
             }
         }
         //显示区域内的房屋标点
-        var list = houseData.data.MapHouse;
-        for(var i = 0;i < list.length;i++){
-            if(pol.contains([list[i].hsLongitude,list[i].hsLatitude])){
+        var Hlist = houseData.data.MapHouse;
+        //console.log(houseData);
+        for(var i = 0;i < Hlist.length;i++){
+            if(pol.contains([Hlist[i].hsLongitude,Hlist[i].hsLatitude])){
                 //console.log(i);
-                /*var marker = new AMap.Marker({
+                /!*var marker = new AMap.Marker({
                     position: [list[i].hsLongitude,list[i].hsLatitude],
                     icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
                     extData: {
                         name: list[i].hsId
                     }
-                });*/
+                });*!/
                 var text = new AMap.Text({
-                    text:"$"+list[i].rtlfRent,
+                    text:"$"+Hlist[i].rtlfRent,
                     anchor:'center', // 设置文本标记锚点
                     cursor:'pointer',
-                    /*animation:"AMAP_ANIMATION_DROP",*/
+                    /!*animation:"AMAP_ANIMATION_DROP",*!/
                     style:{
                         'padding': '0.25rem 0.25rem',
                         'margin-bottom': '1rem',
                         'border-radius': '.50rem',
                         'background-color': '#EEAD0E',
-                        /* 'width': '15rem',*/
+                        /!* 'width': '15rem',*!/
                         'border-width': 0,
                         'box-shadow': '0 2px 6px 0 rgba(114, 124, 245, .5)',
                         'text-align': 'center',
                         'font-size': '16px',
                         'color': 'white',
-                       /* 'animation':'AMAP_ANIMATION_DROP',*/
+                       /!* 'animation':'AMAP_ANIMATION_DROP',*!/
                     },
-                    position: [list[i].hsLongitude,list[i].hsLatitude]
+                    position: [Hlist[i].hsLongitude,Hlist[i].hsLatitude],
+                    extData: {
+                        sort: "house",
+                    },
                 });
                 //鼠标移过事件
                 var content = [];
-                content.push("面积："+list[i].hsArea+"<br>");
-                content.push("层数："+list[i].hsLayer+"<br>");
-                content.push("朝向："+list[i].hsOriented+"<br>");
-                var str = (list[i].rtlfRentaltype == 0?'短租':'长租');
+                content.push("面积："+Hlist[i].hsArea+"<br>");
+                content.push("层数："+Hlist[i].hsLayer+"<br>");
+                content.push("朝向："+Hlist[i].hsOriented+"<br>");
+                content.push("租金："+Hlist[i].rtlfRent+"<br>");
+                var str = (Hlist[i].rtlfRentaltype == 0?'短租':'长租');
                 content.push("出租类型："+str+"<br>");
-                content.push("户型："+list[i].hsType+"<br>");
-                content.push("地址："+list[i].hsCity+list[i].hsDistrict +list[i].hsHousingestate
-                    + list[i].hsAddress+"<br>");
+                content.push("户型："+Hlist[i].hsType+"<br>");
+                content.push("地址："+Hlist[i].hsCity+Hlist[i].hsDistrict +Hlist[i].hsHousingestate
+                    + Hlist[i].hsAddress+"<br>");
                 content.push("<a href='' >"+"更详细信息"+"</a><br>");
 
                 text.content = content.join("") ;
@@ -257,7 +669,7 @@
             }
         }
         overlayGroups = new AMap.OverlayGroup(markers);
-        map.add(overlayGroups);
+        map.add(overlayGroups);*/
         //map.remove(overlayGroups);
     }
 
@@ -279,11 +691,11 @@
 
     //监听地图缩放级别
     map.on('zoomchange', function() {
-        console.log("当前缩放级别："+map.getZoom());
+        //console.log("当前缩放级别："+map.getZoom());
         var nowzoom = map.getZoom();
         if(nowzoom <= 11){
             map.remove(overlayGroups);
-            markers = [];
+            //markers = [];
         }
         if(nowzoom > 13){
 
@@ -291,26 +703,27 @@
     });
 
     //
-    map.on('click', getDataClick);
+    //map.on('click', getDataClick);
 
+    //从地图获取房屋数据，录入数据库
     function getDataClick() {
         if(confirm("输入数据？"))
         {
-            for(var i =0;i<1;i++){
+            for(var i =0;i<3;i++){
                 AMap.service(["AMap.PlaceSearch"], function() {
                     //构造地点查询类
                     var placeSearch = new AMap.PlaceSearch({
                      type: "宾馆", // 兴趣点类别
                         pageSize: 50, // 单页显示结果条数
                         pageIndex: i, // 页码
-                        city: "越秀区", // 兴趣点城市
+                        city: "南沙区", // 兴趣点城市
                         citylimit: true,  //是否强制限制在设置的城市内搜索
                     });
 
                     //alert(cyc)
                     placeSearch.search("宾馆", function(status, result) {
-                        console.log(result);//result.poiList.pois.length
-                        for(var j = 0;j<1;j++){
+                        console.log(result);//
+                        for(var j = 22;j<result.poiList.pois.length;j++){
                             var marker = new AMap.Marker({
                                 position: [result.poiList.pois[j].location.lng,
                                     result.poiList.pois[j].location.lat],
@@ -327,11 +740,11 @@
                                 type:'POST',//类型
                                 //请求成功
                                 success:function(data){
-                                    console.log("chenggong");
+                                    //console.log("chenggong");
                                 }
                             })
-                        }
 
+                        }
                     });
                 });
             }

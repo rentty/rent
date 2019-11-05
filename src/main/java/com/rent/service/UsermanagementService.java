@@ -126,8 +126,8 @@ public interface UsermanagementService {
      * @return
      */
 
-    public  List<MapHouse>  findAllHouseAndRent(String type,String ori,int area1,int area2,int layer,
-                                                int rent1,int rent2,int renttype);
+    public  List<MapHouse>  findAllHouseAndRent(String type,String ori,int area1,int area2,int layer1,
+                                                int layer2,int rent1,int rent2,int renttype);
 
     /**
      * 计算每个区域有多少个房屋(地图用)
