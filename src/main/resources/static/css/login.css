@@ -4,6 +4,9 @@
     margin: auto;
 }
 .form {
+    alpha(Opacity=85);
+    -moz-opacity:0.85;
+    opacity: 0.85;
     position: relative;
     z-index: 1;
     background: #ffffff;
@@ -88,10 +91,11 @@
     color: #ef3b3a;
 }
 body {
-    background: #76b852; /* fallback for old browsers */
-    background: -webkit-linear-gradient(right, #76b852, #8dc26f);
-    background: -moz-linear-gradient(right, #76b852, #8dc26f);
-    background: -o-linear-gradient(right, #76b852, #8dc26f);
-    background: linear-gradient(to left, #76b852, #8dc26f);
+    background-image: url("../images/地图.jpg");
+    /*background: #76b852; !* fallback for old browsers *!*/
+    /*background: -webkit-linear-gradient(right, #76b852, #8dc26f);*/
+    /*background: -moz-linear-gradient(right, #76b852, #8dc26f);*/
+    /*background: -o-linear-gradient(right, #76b852, #8dc26f);*/
+    /*background: linear-gradient(to left, #76b852, #8dc26f);*/
     font-family: Lato,"PingFang SC","Microsoft YaHei",sans-serif;
 }
