@@ -94,7 +94,8 @@ public interface House_managementService {
     public List<Dialog> getSearchCondition();
 
     /**
-     *  根据城市获取查询条件值
+     *  根据城市获取区域值
      */
     public List<Entrydl> getSearchValue(String city);
+
 }

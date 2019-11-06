@@ -162,7 +162,7 @@ public class House_managementServiceImpl implements House_managementService {
         int check = (int) (rentCheck % 10);
         Long rent1;
         Long rent2;
-        if ((check <= 5 && houseInfo.getHsRent() % 100 == 0 )  && rent > 0 && rent <= 4) {
+        if ((check < 5 || (check ==5 && houseInfo.getHsRent() % 100 == 0) )  && rent > 0 && rent <= 4) {
             rent--;
         }
         if (rent == 0) {
@@ -289,7 +289,7 @@ public class House_managementServiceImpl implements House_managementService {
         int check = (int) (rentCheck % 10);
         Long rent1;
         Long rent2;
-        if ((check <= 5 && houseInfo.getHsRent() % 100 == 0 ) && rent > 0 && rent <= 4) {
+        if ((check < 5 || (check ==5 && houseInfo.getHsRent() % 100 == 0) ) && rent > 0 && rent <= 4) {
             rent--;
         }
         if (rent == 0) {
@@ -311,7 +311,7 @@ public class House_managementServiceImpl implements House_managementService {
         } else {
             hsRent = "8000以上";
         }
-
+        System.out.println(hsRent);
         criteria3.andEdlDetailEqualTo(hsRent);
 
         entrydlExample.or(criteria2);
