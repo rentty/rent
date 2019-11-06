@@ -47,6 +47,9 @@ public class House_managementServiceImpl implements House_managementService {
     @Autowired
     DialogMapper dialogMapper;
 
+    @Autowired
+    OrderMapper orderMapper;
+
 
 /*    @Override
     public void entryRent_house(House house, String username) {
@@ -500,5 +503,30 @@ public class House_managementServiceImpl implements House_managementService {
         entrydlExample.or(criteria1);
         List<Entrydl> list = entrydlMapper.selectByExample(entrydlExample);
         return list;
+    }
+
+    @Override
+    public int deleteById(int id) {
+        OrderExample orderExample = new OrderExample();
+        OrderExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andHsIdEqualTo(id);
+        List<Order>  orderList = orderMapper.selectByExample(orderExample);
+        if(orderList.size() > 0){
+            return  -1;
+
+        }else {
+            System.out.println(deleteHouse(id));
+            return id;
+        }
+    }
+
+    @Override
+    public int updateById(int id, int rent, String req) {
+        Rentalinfo rentalinfo = new Rentalinfo();
+        rentalinfo.setRtlfId(id);
+        rentalinfo.setRtlfRent(rent);
+        rentalinfo.setRtlfRequest(req);
+
+        return rentalinfoMapper.updateByPrimaryKeySelective(rentalinfo);
     }
 }

@@ -97,4 +97,14 @@ public interface House_managementService {
      *  根据城市获取查询条件值
      */
     public List<Entrydl> getSearchValue(String city);
+
+ /**
+  *  根据房屋编号判断是否可以删除(是否有订单)
+  */
+ public int deleteById(int id);
+
+ /**
+  *  修改出租信息
+  */
+ public int updateById(int id,int rent,String req);
 }

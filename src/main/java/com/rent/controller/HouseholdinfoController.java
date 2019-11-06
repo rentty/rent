@@ -166,4 +166,22 @@ public class HouseholdinfoController {
         /*response.setHeader("Access-Control-Allow-Origin", "*");*/
         return Result.ok().data("houseList",house_managementService.getAllHouseAndRentById(id));
     }
+
+    @ApiOperation(value = "删除房屋信息")
+    @DeleteMapping("/deleteHouseById")
+    @ResponseBody
+    public Result deleteHouseById(int id) {
+        /*response.setHeader("Access-Control-Allow-Origin", "*");*/
+
+        return Result.ok().data("num",house_managementService.deleteById(id));
+    }
+
+    @ApiOperation(value = "修改房屋出租信息")
+    @GetMapping("/updateHouseById")
+    @ResponseBody
+    public Result updateHouseById(Integer  rtlfId,Integer  rtlfRent,String rtlfRequest) {
+        /*response.setHeader("Access-Control-Allow-Origin", "*");*/
+
+        return Result.ok().data("num",house_managementService.updateById(rtlfId,rtlfRent,rtlfRequest));
+    }
 }
