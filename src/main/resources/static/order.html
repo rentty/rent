@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>houseManag</title>
-    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
-    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <meta charset="UTF-8">
+    <title>订单</title>
     <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
     <style type="text/css">
         .services{
@@ -43,14 +42,10 @@
             left: 20%;
         }
     </style>
-    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5c11ae578c1dcee5ca73646f3c6c7fb7&plugin=AMap.DistrictSearch"></script>
-
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="" />
-    <!--<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-    function hideURLbar(){ window.scrollTo(0,1); } </script>-->
     <!-- //for-mobile-apps -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -58,27 +53,9 @@
     <link href="css/calendar.css" rel="stylesheet" type="text/css">
     <!-- js -->
     <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <!--vue-->
-    <!--<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
-    <!--axios-->
-    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
-
     <script src="js/calendar.js"></script>
-
-    <!-- //js -->
-    <!--<link href='http://fonts.useso.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-    --><!-- start-smoth-scrolling -->
     <script type="text/javascript" src="js/move-top.js"></script>
     <script type="text/javascript" src="js/easing.js"></script>
-    <script type="text/javascript">
-        /*jQuery(document).ready(function($) {
-            $(".scroll").click(function(event){
-                event.preventDefault();
-                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-            });
-        });*/
-    </script>
     <!-- start-smoth-scrolling -->
     <script>
         $(function () {
@@ -93,14 +70,12 @@
         });
     </script>
 </head>
-
 <body>
 <script src="js\vue.min.js"></script>
-<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
 <script src="element-ui/lib/index.js"></script>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <!-- header -->
-<div class="header">
+<div class="header" id="head">
     <div class="header-top">
         <div class="container">
             <div class="header-top-left">
@@ -115,8 +90,15 @@
                     <li><a href="short-codes.html" class="glyphicon glyphicon-log-in" style="color: rgb(255,255,255)">   Login</a></li>
                 </ul>
             </div>
-            <div class="header-top-right">
 
+            <div class="header-top-right">
+                <el-dropdown  @command="handleCommand">
+                    <el-avatar size="small" src="http://qzapp.qlogo.cn/qzapp/101803315/2D0C55FD46D7E9EA3B9C3B431346168C/30"></el-avatar>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="/base.html">个人中心</el-dropdown-item>
+                        <el-dropdown-item command="/signout" divided>退 出</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
             </div>
             <div class="clearfix"> </div>
         </div>
@@ -158,8 +140,8 @@
     <div class="container">
         <div class="services-top-breadcrumbs-right">
             <ul>
-                <li><a href="addHouse.html">房屋管理</a> <i>/</i></li>
-                <li>管理房屋</li>
+                <li><a href="addHouse.html">订单管理</a> <i>/</i></li>
+                <li>查看订单</li>
             </ul>
         </div>
     </div>
@@ -170,7 +152,7 @@
             <el-col :span="12" >
                 <el-menu
                         class="el-menu-vertical-demo"
-                        default-active="1-2">
+                        default-active="2-1">
                     <!--:collapse="isCollapse"-->
                     <el-submenu index="1">
                         <template slot="title">
@@ -200,20 +182,24 @@
             <div class="app">
                 <!-- 将获取到的数据进行计算 -->
                 <el-table :data="tableData.slice((currentPage-1)*PageSize,currentPage*PageSize)" style="width: 100%">
-                    <el-table-column prop="rtlfId" label="编号" ></el-table-column>
-                    <el-table-column prop="rtlfRent" label="租金" ></el-table-column>
-                    <el-table-column prop="status" label="审核状态" ></el-table-column>
-                    <el-table-column prop="rtlfRequest" label="描述"></el-table-column>
-                    <el-table-column prop="address" label="地址" ></el-table-column>
-                    <el-table-column label="操作">
+                    <el-table-column prop="odId" label="订单编号" ></el-table-column>
+                    <el-table-column prop="odOrderTime" label="下单时间" ></el-table-column>
+                    <el-table-column prop="uifId" label="用户编号" ></el-table-column>
+                    <el-table-column prop="hhifId" label="户主编号" ></el-table-column>
+                    <el-table-column prop="odBooktime" label="预订时间"></el-table-column>
+                    <el-table-column prop="odDuration" label="租期时长" ></el-table-column>
+                    <el-table-column prop="hsId" label="预定房屋编号" ></el-table-column>
+                    <el-table-column prop="odRent" label="支付金额" ></el-table-column>
+                    <el-table-column prop="odStatus" label="订单状态" ></el-table-column>
+                    <!--<el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button type="primary" icon="el-icon-edit"
-                                       circle @click="editHouse(scope.row)"></el-button>
+                                       circle @click=""></el-button>
 
                             <el-button type="danger" icon="el-icon-delete"
-                                       circle @click="deleteConfirm(scope.row)"></el-button>
+                                       circle @click=""></el-button>
                         </template>
-                    </el-table-column>
+                    </el-table-column>-->
 
                 </el-table>
                 <div class="tabListPage">
@@ -227,45 +213,30 @@
                 </div>
             </div>
         </div>
-        <!-- 修改表单 -->
-        <el-dialog title="修改出租信息" :visible.sync="dialogFormVisible">
-            <el-form :model="form">
-                <el-form-item label="编号" :label-width="formLabelWidth">
-                    <el-input v-model="form.rtlfId" autocomplete="off" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="租金" :label-width="formLabelWidth">
-                    <el-input v-model="form.rtlfRent" placeholder="请输入租金"></el-input>
-                </el-form-item>
-                <el-form-item label="描述" :label-width="formLabelWidth">
-                    <el-input v-model="form.rtlfRequest" type="textarea" placeholder="请输入描述"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="updateHouse()">确 定</el-button>
-            </div>
-        </el-dialog>
+
     </div>
 </div>
 <br>
 <br>
-
 <script src="js/bootstrap.js"></script>
-
 <script>
     var districtStr = "0" ;
+    var vue2 = new Vue({
+        el: '#head',
+        data: function(){
+            return{}
+        },
+        methods: {
+            handleCommand(command) {
+                window.location.href=command
+            }
+        }
+    });
     var vue =  new Vue({
         el: '#app',
         data: function() {
 
             return {
-                dialogFormVisible : false,
-                formLabelWidth: '120px',
-                form : {
-                    rtlfId : '',
-                    rtlfRent : '',
-                    rtlfRequest : ''
-                },
                 tableData: [],
                 // 默认显示第一条
                 currentPage:1,
@@ -279,82 +250,6 @@
 
         },
         methods:{
-            updateHouse(){
-                console.log("updateHouse");
-                $.ajax({
-                    type : 'Get',
-                    url : "http://localhost:8080/householdinfo/updateHouseById",
-                    data : {
-                        rtlfId:this.form.rtlfId,
-                        rtlfRent:this.form.rtlfRent,
-                        rtlfRequest:this.form.rtlfRequest,
-                    },
-                    success : function(data){
-                        //alert("success");
-                        vue.dialogFormVisible = false;
-                        vue.$notify({
-                            title: '成功',
-                            message: '出租信息修改成功',
-                            type: 'success'
-                        });
-                    },
-                    error : function(){
-                        alert("error");
-                    }
-                });
-            },
-            editHouse : function(data){
-                console.log(data);
-                this.dialogFormVisible = true;
-                this.form.rtlfId = data.rtlfId;
-                this.form.rtlfRent = data.rtlfRent;
-                this.form.rtlfRequest = data.rtlfRequest;
-            },
-            deleteConfirm(val){
-                this.$confirm('确认删除该房屋?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    $.ajax({
-                        url: 'http://localhost:8080/householdinfo/deleteHouseById',//地址
-                        data: {id:val.rtlfId},
-                        type: 'DELETE',//类型
-                        //请求成功
-                        success: function (data) {
-                            console.log(data)
-                            if(data.data.num == -1){
-                                vue.$alert('该房屋在订单中，不能被删除！', '提示', {
-                                    confirmButtonText: '确定',
-                                });
-                            }else {
-                                vue.$message({
-                                    message: '已成功删除!',
-                                    type: 'success'
-                                });
-                                $.ajax({
-                                    url: 'http://localhost:8080/householdinfo/getHouse',//地址
-                                    data: {id:2},
-                                    type: 'GET',//类型
-                                    //请求成功
-                                    success: function (data) {
-                                        console.log(data)
-                                        vue.tableData = data.data.houseList;
-                                        vue.totalCount = data.data.houseList.length;
-                                    }
-                                })
-                            }
-                        }
-                    })
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-            });
-                //console.log(val);
-
-            },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
@@ -413,5 +308,6 @@
         }
     })
 </script>
+
 </body>
 </html>

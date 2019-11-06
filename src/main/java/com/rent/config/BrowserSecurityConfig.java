@@ -69,7 +69,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/signout")
-                .logoutSuccessUrl("/signout/success")
+                .logoutSuccessUrl("/login.html")
                 .deleteCookies("JSESSIONID")
                 .and()
                 .sessionManagement() // 添加 Session管理器

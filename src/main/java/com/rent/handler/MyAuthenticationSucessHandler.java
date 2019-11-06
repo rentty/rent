@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rent.bean.Registy;
 import com.rent.bean.RegistyExample;
+import com.rent.bean.Userinfo;
 import com.rent.common.MyUser;
 import com.rent.mapper.RegistyMapper;
+import com.rent.mapper.UserinfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -19,6 +21,7 @@ import springfox.documentation.spring.web.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,6 +38,9 @@ public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandl
 
     @Autowired
     private RegistyMapper registyMapper;
+
+    @Autowired
+    private UserinfoMapper userinfoMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -55,7 +61,20 @@ public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandl
         int id = registy.getRgtId();
         System.out.println(id);
 //        System.out.println(mapper.writeValueAsString(authentication.getPrincipal().toString()));
-        redirectStrategy.sendRedirect(request, response, "/base.html?rgtId="+id);
+        Userinfo userinfo = userinfoMapper.selectByPrimaryKey(id);
+        HashMap map = new HashMap();
+        if(userinfo.getUifUsertype() == 0){
+            //租客
+            map.put("status",12);
+        }else if(userinfo.getUifUsertype() == 1){
+            //户主
+            map.put("status",11);
+        }else {
+
+        }
+        map.put("user",userinfo);
+        request.getSession().setAttribute("userMap",map);
+        redirectStrategy.sendRedirect(request, response, "/base.html?rgtId="+id+"&status="+userinfo.getUifUsertype());
         return;
     }
 }

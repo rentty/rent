@@ -1,0 +1,37 @@
+ body{
+        font-family:"Segoe UI";
+      }
+      li{
+        list-style:none;
+      }
+      a{
+        text-decoration:none;
+      }
+      .pagination {
+          position: relative;
+        }
+        .pagination li{
+          display: inline-block;
+          margin:0 5px;
+          padding:6px 12px;
+          display:inline-block;
+          border:1px solid #ddd;
+          background:#fff;
+ 
+ 
+ 
+ 
+          color:#0E90D2;
+        }
+        .pagination li a{
+          
+        }
+        .pagination li:hover{
+          background:#eee; cursor:pointer;
+        }
+        .pagination li.active{
+          background:#0E90D2;
+          color:#fff;
+        }
+        li.disabled{color:#dcdcdc;}
+        li.disabled:hover{background:#fff;}

@@ -76,7 +76,7 @@ public interface House_managementService {
     /**
      *  显示户主的所有信息
      */
-    public List<Rentalinfo> getAllHouseAndRentById(int id);
+    public List<HouseUser> getAllHouseAndRentById(int id);
 
     /**
      *  显示房屋详情信息
@@ -94,7 +94,17 @@ public interface House_managementService {
     public List<Dialog> getSearchCondition();
 
     /**
-     *  根据城市获取查询条件值
+     *  根据城市获取区域值
      */
     public List<Entrydl> getSearchValue(String city);
+
+ /**
+  *  根据房屋编号判断是否可以删除(是否有订单)
+  */
+ public int deleteById(int id);
+
+ /**
+  *  修改出租信息
+  */
+ public int updateById(int id,int rent,String req);
 }

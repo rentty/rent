@@ -85,11 +85,9 @@
             var hsId = Getparam("hsId");
             console.log(hsId);
             function Getparam(str) {
-
                 var ref = window.location.search.split("=")[1];
                 return ref;
             }
-
         });
     </script>
 </head>
@@ -247,17 +245,18 @@
                                     <el-option label="不限" value="-1"></el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="出租类型" prop="rentType">
-                                <el-radio-group v-model="form.rentType">
-                                    <el-radio label="短租"  value="0" ></el-radio>
-                                    <el-radio label="长租"  value="1" ></el-radio>
-                                    <el-radio label="不限"  value="-1" ></el-radio>
-                                </el-radio-group>
+                            <el-form-item >
+                                <el-select v-model="cityForm.select" laber="城市" @change="newCity">
+                                    <el-option label="广州" value="广州"></el-option>
+                                    <el-option label="长沙" value="长沙"></el-option>
+                                </el-select>
                             </el-form-item>
+                            <br>
                             <el-form-item class="btn" >
                                 <el-button type="primary" @click="onSubmit">搜索</el-button>
                                 <el-button @click="resetForm">重置</el-button>
                             </el-form-item>
+
                         </el-form>
                     </el-collapse-item>
                 </el-collapse>
@@ -338,6 +337,9 @@
             return {
                 visible: false,
                 activeNames: ['1'],
+                cityForm:{
+                    select:'广州',
+                },
                 form: {
                     region1: '',
                     region2: '',
@@ -348,7 +350,6 @@
                     layer1:'',
                     layer2:'',
                     ori:'',
-                    rentType: '',
                 },
                 rules: {
                     region1:[
@@ -374,6 +375,28 @@
 
         },
         methods: {
+            newCity(){
+                city = this.cityForm.select;
+                var district = new AMap.DistrictSearch({
+                    level:"city",
+                    showbiz:false,
+                    extensions:"all",
+                    subdistrict:1,
+                });//注意：需要使用插件同步下发功能才能这样直接使用(或在申请key值哪里加 &plugin=AMap.DistrictSearch )
+                district.search(city, searchDis);
+
+                $.ajax({
+                    url:'http://localhost:8080/admin/user/getMapHouseAndRent?type=-1&ori=-1&area1=0&area2=9999&layer1=0&layer2=9999&rent1=0&rent2=99999',//地址
+                    type:'POST',//类型
+                    //请求成功
+                    success:function(data){
+                        //console.log(data);
+                        houseData = data;
+                        updateBtn(houseData.data.number);
+
+                    }
+                })
+            },
             handleChange(val) {
                 //console.log(val);
             },
@@ -395,15 +418,6 @@
                             type = this.form.type1 + "室" + this.form.type2 + "卫";
                         }
 
-                        var rentType;
-                        if(this.form.rentType == "短租"){
-                            rentType = 0;
-                        }else if(this.form.rentType == "长租"){
-                            rentType = 1;
-                        }else {
-                            rentType = -1;
-                        }
-
                         $.ajax({
                             url:'http://localhost:8080/admin/user/getMapHouseAndRent',//地址
                             data:{
@@ -415,7 +429,6 @@
                                 layer2:this.form.layer2 == ""?1000:this.form.layer2,
                                 rent1:this.form.region1 == ""?0:this.form.region1,
                                 rent2:this.form.region2 == ""?99999:this.form.region2,
-                                renttype:rentType,
                             },
                             dataType: "json",
                             type:'POST',//类型
@@ -428,8 +441,6 @@
                                     //console.log("changeHousePoint(districtStr)");
                                     changeHousePoint(districtStr);
                                 }
-
-
                             }
                         })
                     } else {
@@ -450,7 +461,7 @@
 
     var houseData;
     $.ajax({
-        url:'http://localhost:8080/admin/user/getMapHouseAndRent?type=-1&ori=-1&area1=0&area2=9999&layer1=0&layer2=9999&rent1=0&rent2=99999&renttype=-1',//地址
+        url:'http://localhost:8080/admin/user/getMapHouseAndRent?type=-1&ori=-1&area1=0&area2=9999&layer1=0&layer2=9999&rent1=0&rent2=99999',//地址
         type:'POST',//类型
         //请求成功
         success:function(data){
@@ -539,16 +550,15 @@
                 content.push("朝向："+Hlist[i].hsOriented+"<br>");
                 content.push("租金："+Hlist[i].rtlfRent+"<br>");
                 var str = (Hlist[i].rtlfRentaltype == 0?'短租':'长租');
-                content.push("出租类型："+str+"<br>");
                 content.push("户型："+Hlist[i].hsType+"<br>");
                 content.push("地址："+Hlist[i].hsCity+Hlist[i].hsDistrict +Hlist[i].hsHousingestate
                     + Hlist[i].hsAddress+"<br>");
-                content.push("<a href='' >"+"更详细信息"+"</a><br>");
+                content.push("<a href='single.html?hsId="+ Hlist[i].hsId +"'>更详细信息</a><br>");
 
                 text.content = content.join("") ;
-                text.on('mouseover', markerClick);
-                text.on('mouseout', closeInfoWindow);
-                text.on('click', clickHouseBtn);
+                text.on('click', markerClick);
+               /* text.on('mouseout', closeInfoWindow);*/
+                /*text.on('click', clickHouseBtn);*/
 
                 markers.push(text);
             }
@@ -557,6 +567,7 @@
         map.add(overlayGroups);
     }
 
+    //点击租金
     function clickHouseBtn(val) {
         console.log(val);
 
@@ -626,9 +637,10 @@
         extensions:"all",
         subdistrict:1,
     });//注意：需要使用插件同步下发功能才能这样直接使用(或在申请key值哪里加 &plugin=AMap.DistrictSearch )
-    district.search(city, function(status, result) {
+    district.search(city, searchDis);
+    function searchDis(status, result) {
         if(status=='complete') {
-            //console.log(result);
+            console.log(result);
             var bounds = result.districtList[0].boundaries;
             cityLng = [result.districtList[0].center.lng,result.districtList[0].center.lat];
             //console.log(cityLng);
@@ -703,8 +715,7 @@
             }
             map.setZoomAndCenter(11, cityLng);
         }
-    });
-
+    }
     //点击区域按钮显示边界和房屋标点
     function dirClick(val) {
         //console.log(overlayGroups);
@@ -794,7 +805,7 @@
 
     var infoWindow = new AMap.InfoWindow({
         //isCustom: true,  //使用自定义窗体
-        offset: new AMap.Pixel(0,-15)
+        offset: new AMap.Pixel(0,-8)
     });
 
     //打开信息窗体

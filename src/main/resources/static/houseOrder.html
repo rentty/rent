@@ -170,7 +170,7 @@
             <el-col :span="12" >
                 <el-menu
                         class="el-menu-vertical-demo"
-                        default-active="1-2">
+                        default-active="2-1">
                     <!--:collapse="isCollapse"-->
                     <el-submenu index="1">
                         <template slot="title">
@@ -205,15 +205,15 @@
                     <el-table-column prop="status" label="审核状态" ></el-table-column>
                     <el-table-column prop="rtlfRequest" label="描述"></el-table-column>
                     <el-table-column prop="address" label="地址" ></el-table-column>
-                    <el-table-column label="操作">
+                    <!--<el-table-column label="操作">
                         <template slot-scope="scope">
                             <el-button type="primary" icon="el-icon-edit"
-                                       circle @click="editHouse(scope.row)"></el-button>
+                                       circle @click=""></el-button>
 
                             <el-button type="danger" icon="el-icon-delete"
-                                       circle @click="deleteConfirm(scope.row)"></el-button>
+                                       circle @click=""></el-button>
                         </template>
-                    </el-table-column>
+                    </el-table-column>-->
 
                 </el-table>
                 <div class="tabListPage">
@@ -227,24 +227,7 @@
                 </div>
             </div>
         </div>
-        <!-- 修改表单 -->
-        <el-dialog title="修改出租信息" :visible.sync="dialogFormVisible">
-            <el-form :model="form">
-                <el-form-item label="编号" :label-width="formLabelWidth">
-                    <el-input v-model="form.rtlfId" autocomplete="off" disabled></el-input>
-                </el-form-item>
-                <el-form-item label="租金" :label-width="formLabelWidth">
-                    <el-input v-model="form.rtlfRent" placeholder="请输入租金"></el-input>
-                </el-form-item>
-                <el-form-item label="描述" :label-width="formLabelWidth">
-                    <el-input v-model="form.rtlfRequest" type="textarea" placeholder="请输入描述"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="updateHouse()">确 定</el-button>
-            </div>
-        </el-dialog>
+
     </div>
 </div>
 <br>
@@ -259,13 +242,6 @@
         data: function() {
 
             return {
-                dialogFormVisible : false,
-                formLabelWidth: '120px',
-                form : {
-                    rtlfId : '',
-                    rtlfRent : '',
-                    rtlfRequest : ''
-                },
                 tableData: [],
                 // 默认显示第一条
                 currentPage:1,
@@ -279,82 +255,6 @@
 
         },
         methods:{
-            updateHouse(){
-                console.log("updateHouse");
-                $.ajax({
-                    type : 'Get',
-                    url : "http://localhost:8080/householdinfo/updateHouseById",
-                    data : {
-                        rtlfId:this.form.rtlfId,
-                        rtlfRent:this.form.rtlfRent,
-                        rtlfRequest:this.form.rtlfRequest,
-                    },
-                    success : function(data){
-                        //alert("success");
-                        vue.dialogFormVisible = false;
-                        vue.$notify({
-                            title: '成功',
-                            message: '出租信息修改成功',
-                            type: 'success'
-                        });
-                    },
-                    error : function(){
-                        alert("error");
-                    }
-                });
-            },
-            editHouse : function(data){
-                console.log(data);
-                this.dialogFormVisible = true;
-                this.form.rtlfId = data.rtlfId;
-                this.form.rtlfRent = data.rtlfRent;
-                this.form.rtlfRequest = data.rtlfRequest;
-            },
-            deleteConfirm(val){
-                this.$confirm('确认删除该房屋?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    $.ajax({
-                        url: 'http://localhost:8080/householdinfo/deleteHouseById',//地址
-                        data: {id:val.rtlfId},
-                        type: 'DELETE',//类型
-                        //请求成功
-                        success: function (data) {
-                            console.log(data)
-                            if(data.data.num == -1){
-                                vue.$alert('该房屋在订单中，不能被删除！', '提示', {
-                                    confirmButtonText: '确定',
-                                });
-                            }else {
-                                vue.$message({
-                                    message: '已成功删除!',
-                                    type: 'success'
-                                });
-                                $.ajax({
-                                    url: 'http://localhost:8080/householdinfo/getHouse',//地址
-                                    data: {id:2},
-                                    type: 'GET',//类型
-                                    //请求成功
-                                    success: function (data) {
-                                        console.log(data)
-                                        vue.tableData = data.data.houseList;
-                                        vue.totalCount = data.data.houseList.length;
-                                    }
-                                })
-                            }
-                        }
-                    })
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-            });
-                //console.log(val);
-
-            },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
