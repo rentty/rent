@@ -47,6 +47,9 @@ public class House_managementServiceImpl implements House_managementService {
     @Autowired
     DialogMapper dialogMapper;
 
+    @Autowired
+    OrderMapper orderMapper;
+
 
 /*    @Override
     public void entryRent_house(House house, String username) {
@@ -162,7 +165,7 @@ public class House_managementServiceImpl implements House_managementService {
         int check = (int) (rentCheck % 10);
         Long rent1;
         Long rent2;
-        if ((check <= 5 && houseInfo.getHsRent() % 100 == 0 )  && rent > 0 && rent <= 4) {
+        if ((check < 5 || (check ==5 && houseInfo.getHsRent() % 100 == 0) )  && rent > 0 && rent <= 4) {
             rent--;
         }
         if (rent == 0) {
@@ -289,7 +292,7 @@ public class House_managementServiceImpl implements House_managementService {
         int check = (int) (rentCheck % 10);
         Long rent1;
         Long rent2;
-        if ((check <= 5 && houseInfo.getHsRent() % 100 == 0 ) && rent > 0 && rent <= 4) {
+        if ((check < 5 || (check ==5 && houseInfo.getHsRent() % 100 == 0) ) && rent > 0 && rent <= 4) {
             rent--;
         }
         if (rent == 0) {
@@ -311,7 +314,7 @@ public class House_managementServiceImpl implements House_managementService {
         } else {
             hsRent = "8000以上";
         }
-
+        System.out.println(hsRent);
         criteria3.andEdlDetailEqualTo(hsRent);
 
         entrydlExample.or(criteria2);
@@ -500,5 +503,30 @@ public class House_managementServiceImpl implements House_managementService {
         entrydlExample.or(criteria1);
         List<Entrydl> list = entrydlMapper.selectByExample(entrydlExample);
         return list;
+    }
+
+    @Override
+    public int deleteById(int id) {
+        OrderExample orderExample = new OrderExample();
+        OrderExample.Criteria criteria = orderExample.createCriteria();
+        criteria.andHsIdEqualTo(id);
+        List<Order>  orderList = orderMapper.selectByExample(orderExample);
+        if(orderList.size() > 0){
+            return  -1;
+
+        }else {
+            System.out.println(deleteHouse(id));
+            return id;
+        }
+    }
+
+    @Override
+    public int updateById(int id, int rent, String req) {
+        Rentalinfo rentalinfo = new Rentalinfo();
+        rentalinfo.setRtlfId(id);
+        rentalinfo.setRtlfRent(rent);
+        rentalinfo.setRtlfRequest(req);
+
+        return rentalinfoMapper.updateByPrimaryKeySelective(rentalinfo);
     }
 }
