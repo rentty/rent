@@ -92,11 +92,11 @@
             </div>
 
             <div class="header-top-right">
-                <el-dropdown>
+                <el-dropdown  @command="handleCommand">
                     <el-avatar size="small" src="http://qzapp.qlogo.cn/qzapp/101803315/2D0C55FD46D7E9EA3B9C3B431346168C/30"></el-avatar>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item><a href="/base.html">个人中心</a></el-dropdown-item>
-                        <el-dropdown-item divided><span><a href="/signout">退出</a></span></el-dropdown-item>
+                        <el-dropdown-item command="/base.html">个人中心</el-dropdown-item>
+                        <el-dropdown-item command="/signout" divided>退 出</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -225,6 +225,11 @@
         el: '#head',
         data: function(){
             return{}
+        },
+        methods: {
+            handleCommand(command) {
+                window.location.href=command
+            }
         }
     });
     var vue =  new Vue({
