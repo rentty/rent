@@ -47,7 +47,7 @@ public class PayController {
     private final String ALIPAY_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3bVOvgQpgqb4TYvrz0fbhz7/r5wkD7cmJPWSUXWvJITJVMWdidaNYw+rvXoR2ISVWoLwpbsGXtfFvl1FZlYtSbTi7/BfBSpNgSpRUjqXthHj/uVb2rdAZdnxficWe0GU73wbETTbOyvKWj5U2H5Jj0hWP0T9RZ7rD+74mfhe30FpUDBtjG7wu6TIkAe7DIMFf2q+S6GSgLqAqb9xqvwxCtSvdZqDyTVY6X3c5f+53VAD236ovm1fT1Jkiw4Br/Ak6xF5EOEBm2QYzW657sNKe2e42b4tFONm+hqe2868TFJUynxHwuNx0Ojh261cSHnGaEp7g+PQXHugNvm8ubt7BwIDAQAB";
 
     //这是沙箱接口路径,正式路径为https://openapi.alipay.com/gateway.do
-    private final String GATEWAY_URL ="https://openapi.alipaydev.com/gateway.do";
+    private final String GATEWAY_URL ="https://openapi.alipaydv.com/gateway.do";
     private final String FORMAT = "JSON";
     //签名方式
     private final String SIGN_TYPE = "RSA2";
