@@ -13,15 +13,15 @@
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/light-carousel.css" rel="stylesheet" type="text/css">
-<link href="css/calendar.css" rel="stylesheet" type="text/css">
+<!--<link href="css/calendar.css" rel="stylesheet" type="text/css">-->
 <!-- js -->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 <!--vue-->
-	<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<!--	<script  src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
 <!--axios-->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-	<script src="js/calendar.js"></script>
+<!--	<script src="js/calendar.js"></script>-->
 
 <!-- //js -->
 <link href='http://fonts.useso.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
@@ -124,7 +124,7 @@
 </head>
 	
 <body>
-<!--<script src="js\vue.min.js"></script>-->
+<script src="./js/vue.min.js"></script>
 <!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
 <script src="element-ui/lib/index.js"></script>
 <!-- header -->
@@ -219,9 +219,9 @@
 				<div class="sample1">
 					<div class="carousel">
 						<ul>
-							<li> <img :src="img1" alt="室内图"> </li>
-							<li> <img :src="img2" alt="户型图"> </li>
-							<li> <img :src="img3" alt="环境图"> </li>
+							<li> <img :src="img1" alt="室内图" style="height: 300px"> </li>
+							<li> <img :src="img2" alt="户型图" style="height: 300px"> </li>
+							<li> <img :src="img3" alt="环境图" style="height: 300px"> </li>
 
 						</ul>
 						<div class="controls">
@@ -370,44 +370,48 @@
 					<p>未看房前，请不要支付任何费用。遇到"不方便看房"、"先交定金"、"房东人在外地"、"邮寄合同证件"等情况需谨慎，谨防上当受骗</p>
 					<a href="#"><i>!温馨提示</i></a>
 				</div>
-				<div class="comments">
+				<div class="comments" >
 					<h4>评论</h4>
-					<div class="comments-grid">
-						<div class="comments-grid-left">
-							<img src="images/5.png" alt=" " class="img-responsive" />
-						</div>
-						<div class="comments-grid-right">
-							<h3><a href="#">Adam Smith</a></h3>
-							<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 28th May, 2016</h5>
-							<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
-							<div class="reply">
-								<a href="#">Reply</a>
+					<div >
+						<div class="comments-grid " >
+							<div class="comments-grid-left">
+								<img src="images/5.png" alt=" " class="img-responsive" />
 							</div>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-					<div class="comments-grid">
-						<div class="comments-grid-left">
-							<img src="images/4.png" alt=" " class="img-responsive" />
-						</div>
-						<div class="comments-grid-right">
-							<h3><a href="#">James Rick</a></h3>
-							<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 28th May, 2016</h5>
-							<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
-							<div class="reply">
-								<a href="#">Reply</a>
+							<div class="comments-grid-right">
+								<h3><a href="#">Adam Smith</a></h3>
+								<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 28th May, 2016</h5>
+								<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+								<div class="reply">
+									<a href="#">Reply</a>
+								</div>
 							</div>
+							<div class="clearfix"> </div>
 						</div>
-						<div class="clearfix"> </div>
+						<div class="comments-grid">
+							<div class="comments-grid-left">
+								<img src="images/4.png" alt=" " class="img-responsive" />
+							</div>
+							<div class="comments-grid-right">
+								<h3><a href="#">James Rick</a></h3>
+								<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 28th May, 2016</h5>
+								<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+								<div class="reply">
+									<a href="#">Reply</a>
+								</div>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
 					</div>
+
+
 				</div>
 
 			</div>
 
 			<div class="col-md-5 single-right">
-				<div class="categories">
+				<div id="cat" class="categories">
 					<h1>{{ title }}</h1>
-					<h3 id="rent">{{ rent }} <font size="3px">元/月 起</font>    |   {{ hsType }}  |  {{ hsArea }}<font size="3px"> m²</font> </h3>
+					<h3 id="rent">{{ rent }} <font size="3px">元/月 起</font>    |   {{ hsType }}  |  {{ hsArea }}666<font size="3px"> m²</font> </h3>
 
 						<span>朝向  {{ hsOriented }}</span><br/><br/>
 					    <span>楼层  {{ hsLayer }}</span><br/><br/>
@@ -419,245 +423,141 @@
 
 				<div class="categories categories-mid">
 					<h3>预订</h3>
-					<div id="calendar">
+<!--					<div id="calendar">-->
+						<form action="/createOrder" method="get">
+							<input id="hsid" type="hidden" name="rtlf_Id" value="1"/><br/><br/>
+							预定时间<input type="text" name="time" placeholder="2019.11.22"/><br/><br/>
+							时间  <input type="text" name="during" />月<br/><br/>
+							<input type="submit" value="下订单">
+						</form>
 
-					</div>
+<!--					</div>-->
 					<br/>
-					<label>金额  </label>
+
 <!--					&nbsp;&nbsp;-->
 <!--					<form :action="'createOrder?rtlf_Id='rtlf_Id'&time='time'&during='during" method="get">-->
 
 <!--						<button>提交订单</button>-->
 <!--					</form>-->
-
-					<div class="related-posts">
-						<h3>相关推荐</h3>
-						<div class="related-post">
-							<div class="related-post-left">
-								< a href=" ">< img src="images/6.jpg" alt=" " class="img-responsive" /></ a>
-						</div>
-						<div class="related-post-right">
-							<h4>< a href="single.html">Donec sollicitudin</ a></h4>
-							<p>Aliquam dapibus tincidunt metus.
-								<span>Praesent justo dolor, lobortis.</span>
-							</p >
-						</div>
-						<div class="clearfix"> </div>
-
-					</div>
-					<div class="related-post">
-						<div class="related-post-left">
-							< a href="single.html">< img src="images/7.jpg" alt=" " class="img-responsive" /></ a>
-					</div>
-					<div class="related-post-right">
-						<h4>< a href="single.html">Donec sollicitudin</ a></h4>
-						<p>Aliquam dapibus tincidunt metus.
-							<span>Praesent justo dolor, lobortis.</span>
-						</p >
-					</div>
-					<div class="clearfix"> </div>
 				</div>
-				<div class="related-post">
-					<div class="related-post-left">
-						< a href="single.html">< img src="images/8.jpg" alt=" " class="img-responsive" /></ a>
-				</div>
-				<div class="related-post-right">
-					<h4>< a href="single.html">Donec sollicitudin</ a></h4>
-					<p>Aliquam dapibus tincidunt metus.
-						<span>Praesent justo dolor, lobortis.</span>
-					</p >
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-		<div class="write-reply">
-			<br/>
-			<br/>
-			<h3>评论和建议</h3>
-			<form action="#" method="post">
-				<textarea name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Write a comment here...</textarea>
-				<input type="text" name="Name" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name...';}" required="">
-				<input type="email" name="Email" value="Email..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email...';}" required="">
-				<input type="text" name="Website" value="Website..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Website...';}" required="">
-				<input type="submit" value="Send" >
-			</form>
-		</div>
-<script>
-	var hsId,rent;
-	$(function () {
-		hsId = Getparam("hsId");
+					<div class="write-reply">
+						<br/>
+						<br/>
+						<h3>评论和建议</h3>
+						<form action="#" method="post">
+							<textarea name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Write a comment here...</textarea>
+							<input type="text" name="Name" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name...';}" required="">
+							<input type="email" name="Email" value="Email..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email...';}" required="">
+							<input type="text" name="Website" value="Website..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Website...';}" required="">
+							<input type="submit" value="Send" >
+						</form>
+						<script>
 
-		function Getparam(str) {
-			var ref = window.location.search.split("=")[1];
-			return ref;
-		}
-		rent = $("#rent").text();
-	});
+								function Getparam() {
+									var ref = window.location.search.split("=")[1];
+									return ref;
+								}
 
-	let vue = new Vue({
-		el: ".categories",
-		data() {
-			return{
-				title: "整租.上海",
-				rent: 3000,
-				hsArea: 666,
+								$(function () {
+									$("hsid").attr("value",Getparam());
+								});
 
-				hsOriented: "朝南",
-				hsLayer: "2/3层",
-				hsType: "1室1厅",
-				hsAddress: "上海西路1122号",
-				rtlfReleasetime: "2019/10/30"
-			}
-		},
-		mounted(){
-			axios.
-			get("http://localhost:8080/getHouseDetail?hsId=1")
-					.then(response => {
-						console.log(response);
-						console.log(response.data.data.showHousedl)
-						let data = response.data.data.showHousedl
-						this.title = data.title
-						this.rent = data.rent
-						this.hsType = data.hsType
-						this.hsArea = data.hsArea
-						this.hsOriented = data.hsOriented
-						this.hsAddress = data.hsAddress
-						this.hsLayer = data.hsLayer
-						this.rtlfReleasetime = data.rtlfReleasetime.split("T")[0]
-						console.log(data.rtlfReleasetime.split("T")[0])
-					})
-					.catch(function (error) { // 请求失败处理
-						console.log(error);
-					});
-		}
+							let vue = new Vue({
+								el: ".single",
+								data() {
+									return{
+										img1: "images/15.jpg",
+										img2: "images/15.jpg",
+										img3: "images/15.jpg",
 
-	});
+										id: Getparam(),
 
-	let vue1 = new Vue({
-		el: ".single",
-		data(){
-			return {
-				img1: "images/15.jpg",
-				img2: "images/15.jpg",
-				img3: "images/15.jpg",
+										title: "整租.上海",
+										rent: 3000,
+										hsArea: 666,
 
-			}
-		},
-		mounted(){
-			axios.
-			get("http://localhost:8080/getHousePic?hsId=1")
-					.then(response =>{
-						let data = response.data.data.Housedl
-						this.img1 = data.hsdIdoormaddr
-						this.img2 = data.hsdFloorpaddr
-						this.img3 = data.hsdConditionmaddr
-					})
-					.catch(function (error) { // 请求失败处理
-						console.log(error);
-					});
-		}
-	});
+										hsOriented: "朝南",
+										hsLayer: "2/3层",
+										hsType: "1室1厅",
+										hsAddress: "上海西路1122号",
+										rtlfReleasetime: "2019/10/30"
+									}
+								},
 
-	var date = new Date();
-	var string1 = date.toLocaleDateString();
-	var string2 = string1.split("/");
-	var string3 = string2.join("-");
+								mounted(){
+									axios.
+									get("http://localhost:8080/showDetail?id="+this.id)
+											.then(response => {
+												console.log(response);
+												console.log(response.data.data.housedetail)
+												let data = response.data.data.housedetail
 
-	let c = new Calendar({
-		// 设置显示位置
-		parent: 'calendar',
-		// 初始化显示时间（默认选中时间）
-		time: string3,
-		// viewMode：
-		// 0 - 日期模式（默认值）
-		viewMode: 0,
-		// pickMode：
-		// multiple - 多选模式
-		pickMode: 'multiple',
-		// 配置日期选择的事件处理器 onDatePick，参数如下：
-		// time - 选中的多个日期（已排序）时间
-		// $el - 点击的 DOM 节点
-		// calendar - 日历控件的实例
-		onDatePick: function (time, $el, calendar) {
-			console.log('选择时间：' + time)
-			console.log('选择的 DOM 节点：' + $el)
-			console.log('日历实例：' + calendar)
-		},
-		// 配置今天选择的事件处理器 onTodayPick，参数如下：
-		// 1. 先切换到日期试图模式；
-		// 2. 触发日期选择的业务逻辑；
-		onTodayPick: function (time, $el, calendar) {
-			console.log('选择时间：', time)
-			console.log('选择的 DOM 节点：', $el)
-			console.log('日历实例：', calendar)
-		}
-	})
+												this.img1 = data.hsdIdoormaddr
+												this.img2 = data.hsdFloorpaddr
+												this.img3 = data.hsdConditionmaddr
+
+												this.title = data.hsTitle
+												this.rent = data.rtlfRent
+												this.hsType = data.hsType
+												this.hsArea = data.hsArea
+												this.hsOriented = data.hsOriented
+												this.hsAddress = data.hsAddress
+												this.hsLayer = data.hsLayer
+
+												this.rtlfReleasetime = data.rtlfReleasetime.split("T")[0]
+												console.log(data.rtlfReleasetime.split("T")[0])
+											})
+											.catch(function (error) { // 请求失败处理
+												console.log(error);
+											});
+								}
+
+							});
+
+							vue.id = hsId;
 
 
 
-</script>
-				</div>
-				<div class="related-posts">
-					<h3>相关推荐</h3>
-					<div class="related-post">
-						<div class="related-post-left">
-							<a href="single.html"><img src="images/6.jpg" alt=" " class="img-responsive" /></a>
-						</div>
-						<div class="related-post-right">
-							<h4><a href="single.html">Donec sollicitudin</a></h4>
-							<p>Aliquam dapibus tincidunt metus. 
-								<span>Praesent justo dolor, lobortis.</span>
-							</p>
-						</div>
-						<div class="clearfix"> </div>
 
+							// let c = new Calendar({
+							// 	// 设置显示位置
+							// 	parent: 'calendar',
+							// 	// 初始化显示时间（默认选中时间）
+							// 	time: string3,
+							// 	// viewMode：
+							// 	// 0 - 日期模式（默认值）
+							// 	viewMode: 0,
+							// 	// pickMode：
+							// 	// multiple - 多选模式
+							// 	pickMode: 'multiple',
+							// 	// 配置日期选择的事件处理器 onDatePick，参数如下：
+							// 	// time - 选中的多个日期（已排序）时间
+							// 	// $el - 点击的 DOM 节点
+							// 	// calendar - 日历控件的实例
+							// 	onDatePick: function (time, $el, calendar) {
+							// 		console.log('选择时间：' + time)
+							// 		console.log('选择的 DOM 节点：' + $el)
+							// 		console.log('日历实例：' + calendar)
+							// 		timeArr = time;
+							// 	},
+							// 	// 配置今天选择的事件处理器 onTodayPick，参数如下：
+							// 	// 1. 先切换到日期试图模式；
+							// 	// 2. 触发日期选择的业务逻辑；
+							// 	onTodayPick: function (time, $el, calendar) {
+							// 		console.log('选择时间：', time)
+							// 		console.log('选择的 DOM 节点：', $el)
+							// 		console.log('日历实例：', calendar)
+							// 	}
+							// })
+
+
+
+
+						</script>
 					</div>
-					<div class="related-post">
-						<div class="related-post-left">
-							<a href="single.html"><img src="images/7.jpg" alt=" " class="img-responsive" /></a>
-						</div>
-						<div class="related-post-right">
-							<h4><a href="single.html">Donec sollicitudin</a></h4>
-							<p>Aliquam dapibus tincidunt metus. 
-								<span>Praesent justo dolor, lobortis.</span>
-							</p>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-					<div class="related-post">
-						<div class="related-post-left">
-							<a href="single.html"><img src="images/8.jpg" alt=" " class="img-responsive" /></a>
-						</div>
-						<div class="related-post-right">
-							<h4><a href="single.html">Donec sollicitudin</a></h4>
-							<p>Aliquam dapibus tincidunt metus. 
-								<span>Praesent justo dolor, lobortis.</span>
-							</p>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-				</div>
-				<div class="write-reply">
-					<br/>
-					<br/>
-					<h3>评论和建议</h3>
-					<form action="#" method="post">
-						<textarea name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Write a comment here...</textarea>
-						<input type="text" name="Name" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name...';}" required="">
-						<input type="email" name="Email" value="Email..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email...';}" required="">
-						<input type="text" name="Website" value="Website..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Website...';}" required="">
-						<input type="submit" value="Send" >
-					</form>
-				</div>
-			</div>
-			<div class="clearfix">
-			</div>
-
-		</div>
-	</div>
 
 
-	<script src="js/bootstrap.js"></script>
+
 
 	<script type="text/javascript">
 		$(document).ready(function() {

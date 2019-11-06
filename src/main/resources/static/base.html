@@ -191,7 +191,7 @@
 				},
 				mounted() {
 					axios
-							.get('http://localhost:8080/showHouse/showSingle')//请求展示接口
+							.get('http://localhost:8080/showSingle')//请求展示接口
 							.then(response => {
 								console.log(response)
 								let data = response.data.data.houses

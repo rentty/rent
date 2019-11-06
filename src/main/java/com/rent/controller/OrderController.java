@@ -48,15 +48,15 @@ public class OrderController {
            //Userinfo userinfo = (Userinfo) httpServletRequest.getSession().getAttribute("user");
             HashMap map = (HashMap) httpServletRequest.getSession().getAttribute("userMap");
             if(map == null){
-                httpServletResponse.sendRedirect("/admin/user/login");
-                return "redirect:/admin/user/login";
+                httpServletResponse.sendRedirect("/login.html");
+
             }
             Userinfo userinfo = (Userinfo) map.get("user");
             System.out.println(map.get("status"));
         //检测session 里是否存在 user ,若是有则可创建订单,若是没有则跳转登录界面
             if(userinfo == null ){
-                httpServletResponse.sendRedirect("/admin/user/login");
-                return "redirect:/admin/user/login";//跳转登录
+                httpServletResponse.sendRedirect("/login.html");
+
             }
         //创建订单需要获取 当前 页面显示的  房屋出租信息  出租房屋主键 户主主键
             if (rtlf_Id!=null){
