@@ -172,6 +172,15 @@
                         class="el-menu-vertical-demo"
                         default-active="1-2">
                     <!--:collapse="isCollapse"-->
+                    <el-submenu index="0">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>个人管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="0-1" @click="ToMine">个人信息</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-location"></i>
@@ -179,7 +188,7 @@
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="1-1" @click="ToAdd">添加房屋</el-menu-item>
-                            <el-menu-item index="1-2" @click="ToMana">管理房屋</el-menu-item>
+                            <el-menu-item index="1-2" @click="">管理房屋</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="2">
@@ -188,7 +197,7 @@
                             <span>订单管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="2-1">查看订单</el-menu-item>
+                            <el-menu-item index="2-1" @click="ToOrder">查看订单</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -259,6 +268,7 @@
         data: function() {
 
             return {
+                id:'',
                 dialogFormVisible : false,
                 formLabelWidth: '120px',
                 form : {
@@ -390,10 +400,13 @@
                 vue.getData()
             },
             ToAdd(){
-                window.location.href = 'addHouse.html';
+                window.location.href = 'addHouse.html?id='+this.id;
             },
-            ToMana(){
-                window.location.href = 'houseManag.html';
+            ToMine(){
+                window.location.href = 'houseMyself.html?id='+this.id;
+            },
+            ToOrder(){
+                window.location.href = 'order.html?id='+this.id;
             },
         },
         watch: {
@@ -401,6 +414,7 @@
     })
 </script>
 <script>
+    vue.id = window.location.search.split("=")[1];
     $.ajax({
         url: 'http://localhost:8080/householdinfo/getHouse',//地址
         data: {id:2},

@@ -411,6 +411,22 @@ public class UsermanagementServiceImpl implements UsermanagementService {
         return 0;
     }
 
+    @Override
+    public Registy getRegisty(int id) {
+
+        return registyMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateMine(int id, String name, String phone) {
+        Userinfo userinfo = new Userinfo();
+        userinfo.setUifNickname(name);
+        userinfo.setUifId(id);
+        userinfo.setUifPhone(phone);
+
+        return  userinfoMapper.updateByPrimaryKeySelective(userinfo);
+    }
+
     /*
    @Cacheable(key = "#username+'~'+#password",value = "userLogin")
     public HashMap Login(String username, String password)

@@ -213,17 +213,24 @@
             <el-col :span="12" >
                 <el-menu
                         class="el-menu-vertical-demo"
-                        @open="handleOpen"
-                        @close="handleClose"
                         default-active="1-1">
-                        <!--:collapse="isCollapse"-->
+                    <!--:collapse="isCollapse"-->
+                    <el-submenu index="0">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>个人管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="0-1" @click="ToMine">个人信息</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>房屋管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="1-1" @click="ToAdd">添加房屋</el-menu-item>
+                            <el-menu-item index="1-1" @click="">添加房屋</el-menu-item>
                             <el-menu-item index="1-2" @click="ToMana">管理房屋</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
@@ -233,11 +240,10 @@
                             <span>订单管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="2-1">查看订单</el-menu-item>
+                            <el-menu-item index="2-1" @click="ToOrder">查看订单</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
-
             </el-col>
         </div>
         <div class="col-md-8 single-right">
@@ -382,6 +388,7 @@
             };
             return {
                 //isCollapse: false,
+                id:'',
                 lng:'',
                 lat:'',
                 form: {
@@ -447,11 +454,14 @@
 
         },
         methods:{
-            ToAdd(){
-                window.location.href = 'addHouse.html';
+            ToMine(){
+                window.location.href = 'houseMyself.html?id='+this.id;
             },
             ToMana(){
-                window.location.href = 'houseManag.html';
+                window.location.href = 'houseManag.html?id='+this.id;
+            },
+            ToOrder(){
+                window.location.href = 'order.html?id='+this.id;
             },
             handleOpen(key, keyPath){
                 //console.log(key, keyPath);
@@ -550,6 +560,7 @@
     })
 </script>
 <script>
+    vue.id = window.location.search.split("=")[1];
     var map = new AMap.Map('container',{ zoom: 10, center: [116.39,39.9] });
     AMap.plugin([ 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView', 'AMap.MapType', 'AMap.Geolocation', ],
         function(){
@@ -628,6 +639,8 @@
 
     }
     map.on('click', showInfoClick);
+
+    console.log(window.location.search.split("=")[1]);
 </script>
 </body>
 </html>

@@ -140,5 +140,17 @@ public interface UsermanagementService {
      * @return
      */
     public int dataToMap(String address,String lng,String lat);
+
+    /**
+     * 返回注册表
+     * @return
+     */
+    public Registy getRegisty(int id);
+
+    /**
+     * 返回注册表
+     * @return
+     */
+    public int updateMine(int id,String name,String phone);
 }
 
