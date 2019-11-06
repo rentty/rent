@@ -83,7 +83,8 @@ public class UserController {
     @ResponseBody
     public Result getUserById(int id){
 
-            return Result.ok().data("user",usermanagementService.getUserinfo(id));
+            return Result.ok().data("user",usermanagementService.getUserinfo(id))
+                    .data("reg",usermanagementService.getRegisty(id));
 
     }
 
@@ -161,5 +162,13 @@ public class UserController {
             System.out.println("1");
         }
         return Result.ok();
+    }
+
+    @ApiOperation(value = "修改个人信息")
+    @PostMapping("/updateMine")
+    @ResponseBody
+    public Result updateMine(int uifId,String uifNickname,String uifPhone){
+
+        return Result.ok().data("num",usermanagementService.updateMine(uifId,uifNickname,uifPhone));
     }
 }

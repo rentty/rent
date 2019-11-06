@@ -59,7 +59,7 @@ public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandl
         registyExample.createCriteria().andRgtUserEqualTo(user.getUserName());
         Registy registy = registyMapper.selectByExample(registyExample).get(0);
         int id = registy.getRgtId();
-        System.out.println(id);
+        //System.out.println(id);
 //        System.out.println(mapper.writeValueAsString(authentication.getPrincipal().toString()));
         Userinfo userinfo = userinfoMapper.selectByPrimaryKey(id);
         HashMap map = new HashMap();
