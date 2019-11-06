@@ -58,7 +58,7 @@ public class HouseShowController {
 
         return Result.ok().data("houses", house_managementService.searchEntity(keyword,list));
     }
-
+//获取条目栏------------------------------------------------------------------------
     @ApiOperation(value = "获取筛选栏目和条件")
     @GetMapping("/showValue")
     @ResponseBody

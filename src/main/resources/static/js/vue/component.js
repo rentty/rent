@@ -15,39 +15,61 @@ var arrs=[{title:'湛江',arr:[{addr:'http://www.baidu.com',texts:'霞山',id:'0
     el:'#house-gallery',
       data (){
           return{
-              result:[],
+              result:[{hsId:15}],
               gallerylength:0,
           }
       },
-      async mounted(){
+      async  mounted(){
           await axios.
-          get("http://localhost:8080/testss?username=qq1")
+          get("http://localhost:8080/query", {
+              params: {
+                  a:'101',
+                  b:'501',
+                  c:'601',
+
+              }
+          })
               .then(response => {
 
-                  console.log(response);
-                  console.log(response.data);
-                  this.result=response.data;
-                  this.gallerylength=this.result.length;
-                  console.log(this.gallerylength)
 
+
+                  this.result=response.data.data.houses;
+                  console.log("ssssssssssssssssssssss");//bug------------------------------------------------------------------------------------
+                  console.log(response.data);
+                  console.log(this.result);
+                  this.gallerylength=this.result.length;
               })
               .catch(function (error) { // 请求失败处理
                   console.log(error);
               });
+
+             /* .then(response => {
+                  alert("alltest");
+                  /* console.log("all");
+                  console.log(response);
+                  console.log(response.data);
+                  this.result=response.data;
+                  this.gallerylength=this.result.length;
+                  console.log(this.gallerylength)*/
+
+              /*})
+              .catch(function (error) { // 请求失败处理
+                  console.log(error);
+              });*/
       },
 
     /*data:{
     result,
     }*/
-  })
+  });
 //分页+展示
 Vue.component("page",{
     props:["item","gallerylength"],//指定v-bing:item 的值
     template:"#page-template",
     data(){
         var pagelinum = 3;
-        var allpage = Math.ceil(this.gallerylength/pagelinum);
-        alert("gallerylength"+vm.gallerylength);
+        var allpage = Math.ceil(this.item.length/pagelinum);
+        //alert("gallerylength"+vm.gallerylength);
         //异步获取长度问题------------------------------------------------------------------------------------------
         console.log(this.item);
         var showItem = 0;
@@ -149,10 +171,48 @@ Vue.component("page",{
       },
       async  mounted(){
           await axios.
-          get("http://localhost:8080/tiaomu")
+          get("http://localhost:8080/showValue")
               .then(response => {
                //异步点击无反应-----------------------------------------------------------------------------------不变色
-                  this.arrs=response.data;
+                 //处理成二维数组---
+                 var entrydls = response.data.data.entrydls;
+                  var test=new Array(3);
+                  var arr1=new Array();
+                  var arr3=new Array();
+                  var arr4=new Array();
+                  var num=[0,0,0];
+                  for(i=0;i<entrydls.length;i++)
+                  {
+                      if(entrydls[i].dlId==1)
+                      {
+                          arr1[num[0]]={id:entrydls[i].edlId,texts:entrydls[i].edlDetail};
+                          num[0]++;
+                      }
+
+                      else if(entrydls[i].dlId==3)
+                      {
+                          arr3[num[1]]={id:entrydls[i].edlId,texts:entrydls[i].edlDetail};
+                          num[1]++;
+                      }
+
+                      else if(entrydls[i].dlId==4)
+                      {
+                          arr4[num[2]]={id:entrydls[i].edlId,texts:entrydls[i].edlDetail};
+                          num[2]++;
+                      }
+
+                  }
+                  test[0]={title:'区域',arr:arr1};
+                  test[1]={title:'户型',arr:arr3};
+                  test[2]={title:'租金',arr:arr4};
+                  console.log("test");
+                  console.log(test);
+                  this.arrs=test;
+//处理成二维数组---
+
+                 // var test1=new Array();
+                 console.log(this.arrs);
+                  //this.arrs=response.data;
                   var selectcenter=new Array(this.arrs.length);
                   for(i=0;i<this.arrs.length;i++)
                   {
@@ -160,14 +220,8 @@ Vue.component("page",{
                       selectcenter[i][0]={id:this.arrs[i].arr[0].id,selectonclass:'selecton'};
                       for(j=1;j<this.arrs[i].arr.length;j++)
                       {
-
                           selectcenter[i][j]={id:this.arrs[i].arr[j].id,selectonclass:'selectno'};
 
-                         /* 二维数组
-                          0 1 2 3
-                        0 {id,selecton}---------------------------------------------------------------------------
-                        1
-                        2  */
                       }
 
 
@@ -182,8 +236,9 @@ Vue.component("page",{
               });
       },
       methods:{
-					selectcolumn: function(indexs,index)
+          async	selectcolumn(indexs,index)
 					{//id条目id
+
 						
 						//异步变化的部分------------------------------------------------------------------------------------
 						for(i=0;i<this.selecton[indexs].length;i++)
@@ -200,16 +255,20 @@ Vue.component("page",{
                                  arrid[i]=this.selecton[i][j].id;
                                  break;
                              }
+						console.log("iddddd");
+						console.log(arrid);
 						//id变色，三者传输-------------------------------------------------------------
-                        axios.get('/updatagallery', {
+                    await    axios.get('http://localhost:8080/query', {
                             params: {
-                                a:arrid[0],
-                                b:arrid[1],
-                                c:arrid[2],
+                                a:arrid[0].toString(),
+                                b:arrid[1].toString(),
+                                c:arrid[2].toString(),
                             }
                         })
                             .then(function (response) {
-                                vm.result=response.data;
+                                console.log("joint")
+                                console.log(response.data.data.houses);
+                                vm.result=response.data.data.houses;
                                 console.log("sas"+vm.result);
                             })
                             .catch(function (error) {
@@ -221,7 +280,24 @@ Vue.component("page",{
 				}
 			});
 //var result = [{title:'整租 · 水岸金桥苑 · 1居室',price:'2000元/月'},{title:'整租 · 水岸金桥苑 · 3居室',price:'3000元/月'},{title:'整租 · 水岸金桥苑 · 4居室',price:'5000元/月'},{title:'整租 · 水岸金桥苑 · 5居室',price:'2000元/月'},{title:'整租 · 水岸金桥苑 · 6居室',price:'3000元/月'},{title:'整租 · 水岸金桥苑 · 7居室',price:'5000元/月'}];
-
+//房屋降序==价格、面积
+function sorthouse(sorttype,order)
+{
+    if (sorttype=='price') 
+    return sortKey(vm.result,'hsRent',order);
+    else if (sorttype=='area')
+        return sortKey(vm.result,'hsArea',order);
+}
+function sortKey(array,key,order){
+    return array.sort(function(a,b){
+        var x = a[key];
+        var y = b[key];
+        if (order=='ascending')
+            return ((x<y)?-1:(x>y)?1:0);
+        else if(order=='descending')
+        return ((x>y)?-1:(x<y)?1:0)
+    })
+}
 
 
 

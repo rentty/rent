@@ -110,14 +110,14 @@
 
 <!--条目栏-->
 <div class="container">
-		<div class="collapse navbar-collapse nav-wil" id="tiaomu" >
+		<div class="collapse navbar-collapse nav-wil" id="tiaomu"  style="margin:0 15%;">
 			
 					<nav>
 					<ol class="list-unstyled">
 								
 						<li v-for="arrk,indexs in arrs" class="clearfix">
 							<ul class="nav navbar-nav" style="float: left;">
-								<li><a href="#" class="selectno">{{arrk.title}}</a></li>
+								<li><a href="#" class="selectno">{{arrk.title}}:</a></li>
 							  <li  v-for="lis,index in arrk.arr"><a v-bind:href="lis.addr" v-bind:class="selecton[indexs][index].selectonclass" v-on:click="selectcolumn(indexs,index)" v-bind:title="lis.texts">{{lis.texts}}</a></li>
 							</ul>
 						</li>
@@ -128,23 +128,24 @@
 		</div>
 		
 <!-- gallery -->
-	<div class="gallery">
+	<div class="gallery" style="padding-top: 0px">
 		<div class="container">
-			<div class="collapse navbar-collapse nav-wil" >
+			<div class="collapse navbar-collapse nav-wil"  style="margin:0 15%;">
 						<nav>
 							<ul class="nav navbar-nav" style="float: left;">
-								<li><a href="index.html" class="hvr-bounce-to-bottom">综合排序</a></li>
-								<li><a href="#" class="hvr-bounce-to-bottom">价格由低到高</a></li>
-								<li><a href="#" class="hvr-bounce-to-bottom">价格由高到低</a></li>
-								<li><a href="#" class="hvr-bounce-to-bottom">面积从大到小</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom" onclick="sorthouse('price','ascending')">综合排序</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom" onclick="sorthouse('price','ascending')">价格由低到高</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom" onclick="sorthouse('price','descending')">价格由高到低</a></li>
+								<li><a href="#" class="hvr-bounce-to-bottom" onclick="sorthouse('area','descending')">面积从大到小</a></li>
 								<!--<li><a href="mail.html" class="hvr-bounce-to-bottom">Mail Us</a></li>-->
 							</ul>
 						</nav>
 					</div>
 			
-			<div class="gallery-grids carouselGallery-grid hidden-xs">
+			<div class="gallery-grids carouselGallery-grid hidden-xs" style="margin:0 15%;">
 				<!--展示组件-->
 		<div id="house-gallery">
+
         <page v-bind:item="result" v-bind:gallerylength="gallerylength"></page>
        </div>
 				<div class="clearfix"> </div>
@@ -178,13 +179,10 @@
 	</script>
 
 	<!--分页********************************************************-->
-	<template id="page-template"><!--只有一个<></>-->
-    	<div class="">
-    	<!--<ol>
-    		 <li v-for="(object, index) in item.slice(biganindex-1,pagelinum+biganindex-1)">
-    {{ index }} - {{ object.message }}
-  </li>
-    	</ol>-->
+<!--只有一个<></>-->
+	<template id="page-template">
+    	<div>
+
     	<ol class="list-unstyled" id="house-gallery">
 					<house-gallery v-bind:item="tool" v-for="tool in item.slice(biganindex-1,pagelinum+biganindex-1)"></house-gallery>
 		</ol>			
@@ -204,30 +202,33 @@
     <!--展示template-->
     <template id="gallery-template">
     <li class="clearfix">
-				  <div class="gallery-grid col-md-3">                                                                                     
-					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144" style="background-image:url(images/8.jpg);">  
+				  <div class="gallery-grid col-md-3">
+					  <a  :href="'http://localhost:8080/single.html?hsId='+item.hsId">
+					<div class="carouselGallery-col-1 carouselGallery-carousel" data-likes="3144"  :style="'background-image:url('+item.hsdIdoorMAddr+');'"> <!--style="background-image:url(http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg);"-->
 						<div class="carouselGallery-item">                                                                  
 							<div class="carouselGallery-item-meta">
 								<span class="carouselGallery-item-meta-user">
-								Temporibus
+								点击查看详情
 							</span>
 							<span class="carouselGallery-item-meta-likes">
 									<span class="glyphicon glyphicon-heart heart" aria-hidden="true"></span>4535
 								</span>
 							</div>
-						</div>'
-					</div>'
-				 </div>'
-				<div style="float: right;" >{{item.price}}</div>
-					<h2><a href="#" style="text-decoration: none;">{{item.title}}</a></h2><!--房屋标题信息-->
+						</div>
+					</div>
+					  </a>
+				 </div>
+				<div style="float: right;color:orange" >{{item.hsRent}}元/月</div>
+					<h2><a  :href="'http://localhost:8080/single.html?hsId='+item.hsId" style="text-decoration: none;color: black">{{item. hsTitle}}</a></h2><!--房屋标题信息-->
 					<ol class="list-unstyled"><!--主要信息-->
-						<li>整套 · 65m² · 南北</li>
-						<li>嘉定-江桥</li>
+						<li>所属区域:{{item.hsCity}}{{item.hsDistrict}}</li>
+						<li>面积:{{item.hsArea}}</li>
 					</ol>
-					<ol style="position: relative;top: 120px;" class="list-unstyled">
-						<li style="float: left;">A-----------------------------------</li>
-						<li style="float: left;">B-----------------------------------</li>
-					</ol>
+					<!--<ol style="position: relative;top: 120px;" class="list-unstyled">
+						<li style="float: left;">A-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</li>
+						<li style="float: left;">B-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</li>
+					</ol>-->
+
     </li>
     </template>
     
