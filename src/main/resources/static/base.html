@@ -33,72 +33,70 @@
 	});
 </script>
 <!-- start-smoth-scrolling -->
-
+	<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- start-smoth-scrolling -->
+	<script src="js\vue.min.js"></script>
+	<script src="element-ui/lib/index.js"></script>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 </head>
 	
 <body>
 <!-- header -->
-	<div class="header">	
-		<div class="header-top">
-			<div class="container"> 
-				<div class="header-top-left">
-					<ul>
-						<li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>13556506447</li>
-						<li><a href="mailto:info@example.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@YQ</a></li>
-					</ul>
-				</div>
-				<div class="header-top-left1">
-
-					<ul class="social-icons">
-						<li><a href="login.html" class="icon icon-border facebook"></a><font color="white">Login</font></li>
-
-					</ul>
-				</div>
-				<div class="header-top-right">
-					<div class="search">
-						<input class="search_box" type="checkbox" id="search_box">
-						<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
-						<div class="search_form">
-							<form action="#" method="post">
-								<input type="text" name="Search" placeholder="Search...">
-								<input type="submit" value=" ">
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
+<div class="header" id="head">
+	<div class="header-top">
+		<div class="container">
+			<div class="header-top-left">
+				<ul>
+					<li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>13556506447</li>
+					<li><a href="mailto:1426413088@qq.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@YQ</a></li>
+				</ul>
 			</div>
+
+
+			<div class="header-top-right">
+				<el-dropdown  @command="handleCommand">
+					<el-avatar size="small" src="http://qzapp.qlogo.cn/qzapp/101803315/2D0C55FD46D7E9EA3B9C3B431346168C/30"></el-avatar>
+					<el-dropdown-menu slot="dropdown">
+						<el-dropdown-item v-bind:command="'houseMyself.html?id='+id+ '&status='+status">个人中心</el-dropdown-item>
+						<el-dropdown-item command="/signout" divided>退 出</el-dropdown-item>
+					</el-dropdown-menu>
+				</el-dropdown>
+			</div>
+			<div class="clearfix"> </div>
 		</div>
-		<div class="header-bottom">
-			<div class="container">
-				<nav class="navbar navbar-default">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	</div>
+	<div class="header-bottom">
+		<div class="container">
+			<nav class="navbar navbar-default">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
-					  </button>
-						<div class="logo">
-							<h1><a class="navbar-brand" href="base.html">Rent <span>Index</span></a></h1>
-						</div>
+					</button>
+					<div class="logo">
+						<h1><a class="navbar-brand" href="index.html">Rent </a></h1>
 					</div>
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
-						<nav>
-							<ul class="nav navbar-nav">
-								<li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
-								<li><a href="gallery.html" class="hvr-bounce-to-bottom">找房</a></li>
-								<li><a href="searchByMap.html" class="hvr-bounce-to-bottom">地图找房</a></li>
-							</ul>
-						</nav>
-					</div>
-					<!-- /.navbar-collapse -->
-				</nav>
-			</div>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+					<nav>
+						<ul class="nav navbar-nav">
+							<li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
+							<li><a href="gallery.html" class="hvr-bounce-to-bottom">找房</a></li>
+							<li><a href="searchByMap.html" class="hvr-bounce-to-bottom">地图找房</a></li>
+						</ul>
+					</nav>
+				</div>
+				<!-- /.navbar-collapse -->
+			</nav>
 		</div>
 	</div>
+</div>
 <!-- //header -->
 <!-- banner -->
 	<div class="banner">
@@ -329,6 +327,27 @@
 								
 			});
 	</script>
+<script>
+
+	var districtStr = "0" ;
+	var vue2 = new Vue({
+		el: '#head',
+		data: function(){
+			var id =window.location.search.split("&")[0].split("=")[1];
+			var status=window.location.search.split("&")[1].split("=")[1];
+			return{
+				id,
+				status,
+			}
+		},
+		methods: {
+			handleCommand(command) {
+				window.location.href=command
+			}
+		}
+	});
+
+</script>
 <!-- //here ends scrolling icon -->
 </body>
 </html>
