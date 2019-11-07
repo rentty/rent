@@ -1,8 +1,10 @@
 package com.rent.controller;
 
 import com.rent.bean.Dialog;
+import com.rent.bean.Housedl;
 import com.rent.bean.Userinfo;
 import com.rent.common.Result;
+import com.rent.mapper.HousedlMapper;
 import com.rent.service.FastDFSClientUtil;
 import com.rent.service.HelloService;
 import io.swagger.annotations.Api;
@@ -25,6 +27,9 @@ public class HelloController {
     @Autowired
     HelloService helloService;
 
+    @Autowired
+    HousedlMapper housedlMapper;
+
     @GetMapping("/hehe")
     @ResponseBody
     @ApiOperation("swagger测试")
@@ -43,8 +48,9 @@ public class HelloController {
     @Autowired
     FastDFSClientUtil dfsClient;
     @PostMapping("/upload")
-    public Result fdfsUpload(@RequestParam("file") MultipartFile file[], HttpServletRequest request) {
-       // System.out.println("*****");
+    @ResponseBody
+    public Result fdfsUpload(@RequestParam("file") MultipartFile file[], HttpServletRequest request,int hid) {
+        System.out.println(hid);
         try {
             for(int i=0;i<file.length;i++){
                 String fileUrl = dfsClient.uploadFile(file[i]);

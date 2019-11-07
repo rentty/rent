@@ -345,12 +345,29 @@
                     <input type="file" name="file">
                     <input type="submit" value="提交">
                 </form>-->
-                <el-form  action="/upload" method="post" enctype="multipart/form-data" :model="formImg" ref="formImg"  >
+                <el-form  action="/upload" method="post" id="upload" enctype="multipart/form-data" :model="formImg" ref="formImg"  >
+                    <el-form-item label="室内图" prop="file1">
                     <el-input v-model="formImg.file1"  type="file"  name="file"></el-input>
+                    </el-form-item>
+                    <el-form-item label="户型图" prop="file2">
                     <el-input v-model="formImg.file2"  type="file"  name="file"></el-input>
+                    </el-form-item>
+                    <el-form-item label="环境图" prop="file3">
                     <el-input v-model="formImg.file3"  type="file"  name="file"></el-input>
+                    </el-form-item>
+                    <el-input v-model="formImg.hid"  type="hidden" ></el-input>
                     <!--<el-input type="submit" value="提交"></el-input>-->
                 </el-form>
+                <h5>房屋设施</h5>
+                <el-checkbox-group v-model="checkList">
+                    <el-checkbox label="1" >写字台</el-checkbox>
+                    <el-checkbox label="2" >冰箱</el-checkbox>
+                    <el-checkbox label="3" >单人床</el-checkbox>
+                    <el-checkbox label="4" >厨房</el-checkbox>
+                    <el-checkbox label="5" >双人床</el-checkbox>
+                    <el-checkbox label="6">宽带</el-checkbox>
+                    <el-checkbox label="7" >梳妆台</el-checkbox>
+                </el-checkbox-group>
             </div>
 
             <div class="rentMsg">
@@ -400,6 +417,7 @@
             };
             return {
                 //isCollapse: false,
+                checkList: [],
                 id:'',
                 lng:'',
                 lat:'',
@@ -407,6 +425,7 @@
                     file1:'',
                     file2:'',
                     file3:'',
+                    hid:'23',
                 },
                 form: {
                     area:"100",
@@ -508,8 +527,26 @@
                                 cancelButtonText: '我还要修改，取消添加',
                                 type: 'warning'
                             }).then(() => {
-                                this.$refs['formImg'].submit();
-                                /*$.ajax({
+                                //console.log(this.checkList);
+                                var str = "";
+                                var x = 0;
+                                for(var j = 1;j<=7;j++){
+                                    x=0;
+                                    for(var i = 0;i<this.checkList.length;i++){
+                                        if(this.checkList[i] == j){
+                                            x=1;
+                                        }
+                                    }
+                                    if(x == 1){
+                                        str = str + "1,";
+                                    }else {
+                                        str = str + "0,";
+                                    }
+                                }
+                                str = str.substring(0,str.length-1);
+                                console.log(str);
+                                //document.getElementById("upload").submit();
+                                $.ajax({
                                     url: 'http://localhost:8080/householdinfo/addHouse',//地址
                                     data: {
                                         hsType:this.form.type1 + "室"+this.form.type2+ "卫",
@@ -543,11 +580,11 @@
 
                                         console.log(data)
                                     }
-                                })*/
+                                })
                             }).catch(() => {
                                 this.$message({
                                     type: 'info',
-                                    message: '已取消删除'
+                                    message: '出现错误'
                                 });
                             });
 
@@ -579,6 +616,7 @@
 </script>
 <script>
     vue.id = window.location.search.split("=")[1];
+    vue.formImg.hid = vue.id;
     var map = new AMap.Map('container',{ zoom: 10, center: [116.39,39.9] });
     AMap.plugin([ 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView', 'AMap.MapType', 'AMap.Geolocation', ],
         function(){
