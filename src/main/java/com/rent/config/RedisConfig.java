@@ -34,7 +34,7 @@ public class RedisConfig {
         jedisConnectionFactory.resetConnection();
 
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(60*20)) // 20分钟缓存失效
+                .entryTtl(Duration.ofSeconds(60*60*24)) // 20分钟缓存失效
                 // 设置key的序列化方式
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 // 设置value的序列化方式

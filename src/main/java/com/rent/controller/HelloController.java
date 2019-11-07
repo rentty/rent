@@ -18,9 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
-@CrossOrigin
-@Controller
-@Api(tags = "HelloController", description = "hehe管理")
+@Api("房屋展示")
+@RestController
 public class HelloController {
 
     @Autowired
@@ -53,6 +52,13 @@ public class HelloController {
             e.printStackTrace();
         }
         return Result.ok();
+    }
+    @ApiOperation(value = "ces")
+    @GetMapping("/testss1111111")
+    @ResponseBody
+    public String testss(String username)
+    {
+     return helloService.testss(username);
     }
 
 }

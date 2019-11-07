@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@CacheConfig(cacheManager = "cacheManager")
+@CacheConfig( cacheNames = "helo",cacheManager = "cacheManager")
 public class HelloService {
 
     @Autowired
@@ -48,6 +48,12 @@ public class HelloService {
         System.out.println("***********************");
         return "ok";
     }
+    @Cacheable
+    public String testss(String username)
+    {
+        return "ok";
+    }
+
   /*  public void updateCache(int key)
     {
         redisTemplate.delete("test::"+key);

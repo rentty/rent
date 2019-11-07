@@ -12,7 +12,9 @@ import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@CacheConfig(cacheNames = "House_managementService",cacheManager = "cacheManager")
 public class House_managementServiceImpl implements House_managementService {
     @Autowired
     ExpandMapper expandMapper;
@@ -347,8 +350,9 @@ public class House_managementServiceImpl implements House_managementService {
 
         return 1;
     }
-
+//--------------------------------------------------------------------------------------------------
     @Override
+    @Cacheable(value = "showHousesByRent")
     public List<HouseSituation> showHousesByRent() {
         RentalinfoExample example = new RentalinfoExample();
         example.setOrderByClause("rtlf_Rent desc");
