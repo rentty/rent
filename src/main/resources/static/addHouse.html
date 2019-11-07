@@ -339,6 +339,18 @@
 
             <div class="houseDl">
                 <el-divider>详细信息</el-divider>
+                <!--<form action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file">
+                    <input type="file" name="file">
+                    <input type="file" name="file">
+                    <input type="submit" value="提交">
+                </form>-->
+                <el-form  action="/upload" method="post" enctype="multipart/form-data" :model="formImg" ref="formImg"  >
+                    <el-input v-model="formImg.file1"  type="file"  name="file"></el-input>
+                    <el-input v-model="formImg.file2"  type="file"  name="file"></el-input>
+                    <el-input v-model="formImg.file3"  type="file"  name="file"></el-input>
+                    <!--<el-input type="submit" value="提交"></el-input>-->
+                </el-form>
             </div>
 
             <div class="rentMsg">
@@ -391,6 +403,11 @@
                 id:'',
                 lng:'',
                 lat:'',
+                formImg:{
+                    file1:'',
+                    file2:'',
+                    file3:'',
+                },
                 form: {
                     area:"100",
                     layer:"1",
@@ -491,7 +508,8 @@
                                 cancelButtonText: '我还要修改，取消添加',
                                 type: 'warning'
                             }).then(() => {
-                                $.ajax({
+                                this.$refs['formImg'].submit();
+                                /*$.ajax({
                                     url: 'http://localhost:8080/householdinfo/addHouse',//地址
                                     data: {
                                         hsType:this.form.type1 + "室"+this.form.type2+ "卫",
@@ -525,7 +543,7 @@
 
                                         console.log(data)
                                     }
-                                })
+                                })*/
                             }).catch(() => {
                                 this.$message({
                                     type: 'info',
