@@ -58,8 +58,8 @@
         }
         .btnGro{
             position: absolute;
-            left: 35%;
-            width: 30%;
+            left: 25%;
+            width: 50%;
             top: 240px;
         }
     </style>
@@ -238,8 +238,8 @@
                 <label>{{type}}</label>
             </div>
             <div class="btnGro" >
-                <el-button type="primary" icon="el-icon-edit" @click="editMine()">修改个人信息</el-button>
-                <el-button type="primary" icon="el-icon-edit" @click="editMine()">修改个人信息</el-button>
+                <el-button type="primary" icon="el-icon-edit" @click="editMine()">修改信息</el-button>
+                <el-button type="primary" icon="el-icon-edit" @click="becomeHou()">成为户主</el-button>
             </div>
         </div>
 
@@ -294,6 +294,9 @@
             }
         },
         methods:{
+            becomeHou(){
+
+            },
             ToAdd(){
                 window.location.href = 'addHouse.html?id='+this.id;
             },
