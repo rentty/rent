@@ -90,6 +90,13 @@
             }
         });
     </script>
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- start-smoth-scrolling -->
+    <script src="js\vue.min.js"></script>
+    <script src="element-ui/lib/index.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 </head>
 
 <body>
@@ -98,7 +105,7 @@
 <script src="element-ui/lib/index.js"></script>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <!-- header -->
-<div class="header">
+<div class="header" id="head">
     <div class="header-top">
         <div class="container">
             <div class="header-top-left">
@@ -107,15 +114,16 @@
                     <li><a href="mailto:1426413088@qq.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@YQ</a></li>
                 </ul>
             </div>
-            <div class="header-top-left1">
-                <!--右侧上图标-->
-                <ul class="social-icons">
-                    <li><a href="short-codes.html" class="glyphicon glyphicon-log-in" style="color: rgb(255,255,255)">   Login</a></li>
 
-                </ul>
-            </div>
+
             <div class="header-top-right">
-
+                <el-dropdown  @command="handleCommand">
+                    <el-avatar size="small" src="http://qzapp.qlogo.cn/qzapp/101803315/2D0C55FD46D7E9EA3B9C3B431346168C/30"></el-avatar>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item v-bind:command="'houseMyself.html?id='+id+ '&status='+status">个人中心</el-dropdown-item>
+                        <el-dropdown-item command="/signout" divided>退 出</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
             </div>
             <div class="clearfix"> </div>
         </div>
@@ -132,17 +140,16 @@
                         <span class="icon-bar"></span>
                     </button>
                     <div class="logo">
-                        <h1><a class="navbar-brand" href="index.html">Rent <span>Index</span></a></h1>
+                        <h1><a class="navbar-brand" href="index.html">Rent </a></h1>
                     </div>
                 </div>
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                     <nav>
                         <ul class="nav navbar-nav">
-                            <li><a href="base.html" class="hvr-bounce-to-bottom">首页</a></li>
-                            <li><a href="services.html" class="hvr-bounce-to-bottom">找房</a></li>
-                            <li><a href="searchByMap.html" class="hvr-bounce-to-bottom">地图找房</a></li>
+                            <li><a :href="'base.html?id='+id+ '&status='+status" class="hvr-bounce-to-bottom">首页</a></li>
+                            <li><a :href="'gallery.html?id='+id+ '&status='+status" class="hvr-bounce-to-bottom">找房</a></li>
+                            <li><a :href="'searchByMap.html?id='+id+ '&status='+status" class="hvr-bounce-to-bottom">地图找房</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -880,6 +887,27 @@
             }
         }
     }
+</script>
+<script>
+
+    var districtStr = "0" ;
+    var vue2 = new Vue({
+        el: '#head',
+        data: function(){
+            var id =window.location.search.split("&")[0].split("=")[1];
+            var status=window.location.search.split("&")[1].split("=")[1];
+            return{
+                id,
+                status,
+            }
+        },
+        methods: {
+            handleCommand(command) {
+                window.location.href=command
+            }
+        }
+    });
+
 </script>
 </body>
 </html>
