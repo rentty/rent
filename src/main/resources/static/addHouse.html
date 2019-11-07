@@ -122,18 +122,6 @@
         });*/
     </script>
     <!-- start-smoth-scrolling -->
-    <script>
-        $(function () {
-            var hsId = Getparam("hsId");
-            console.log(hsId);
-            function Getparam(str) {
-
-                var ref = window.location.search.split("=")[1];
-                return ref;
-            }
-
-        });
-    </script>
 </head>
 
 <body>
@@ -419,13 +407,14 @@
                 //isCollapse: false,
                 checkList: [],
                 id:'',
+                status:'',
                 lng:'',
                 lat:'',
                 formImg:{
                     file1:'',
                     file2:'',
                     file3:'',
-                    hid:'23',
+                    hid:'3',
                 },
                 form: {
                     area:"100",
@@ -491,10 +480,10 @@
         },
         methods:{
             ToMine(){
-                window.location.href = 'houseMyself.html?id='+this.id;
+                window.location.href = 'houseMyself.html?id='+this.id+"&status=" +this.status;
             },
             ToMana(){
-                window.location.href = 'houseManag.html?id='+this.id;
+                window.location.href = 'houseManag.html?id='+this.id+"&status=" +this.status;
             },
             ToOrder(){
                 window.location.href = 'order.html?id='+this.id;
@@ -545,8 +534,8 @@
                                 }
                                 str = str.substring(0,str.length-1);
                                 console.log(str);
-                                //document.getElementById("upload").submit();
-                                $.ajax({
+                                document.getElementById("upload").submit();
+                                /*$.ajax({
                                     url: 'http://localhost:8080/householdinfo/addHouse',//地址
                                     data: {
                                         hsType:this.form.type1 + "室"+this.form.type2+ "卫",
@@ -558,7 +547,7 @@
                                         hsLayer:this.form.layer,
                                         hsOriented:this.form.ori,
                                         hsLongitude:this.lng,
-                                        username:"猎妈人",
+                                        username:"haha",
 
                                         hsdIdoormaddr:"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg",
                                         hsdFloorpaddr:"http://129.211.66.219/M00/00/00/rBEADF2hlXqAYSByAACy6PTftEc050.jpg",
@@ -580,7 +569,7 @@
 
                                         console.log(data)
                                     }
-                                })
+                                })*/
                             }).catch(() => {
                                 this.$message({
                                     type: 'info',
@@ -615,7 +604,9 @@
     })
 </script>
 <script>
-    vue.id = window.location.search.split("=")[1];
+    vue.id = window.location.search.split("=")[1].split("&")[0];
+    vue.status = window.location.search.split("=")[2];
+
     vue.formImg.hid = vue.id;
     var map = new AMap.Map('container',{ zoom: 10, center: [116.39,39.9] });
     AMap.plugin([ 'AMap.ToolBar', 'AMap.Scale', 'AMap.OverView', 'AMap.MapType', 'AMap.Geolocation', ],
@@ -696,7 +687,6 @@
     }
     map.on('click', showInfoClick);
 
-    console.log(window.location.search.split("=")[1]);
 </script>
 </body>
 </html>

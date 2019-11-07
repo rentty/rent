@@ -80,18 +80,7 @@
         });*/
     </script>
     <!-- start-smoth-scrolling -->
-    <script>
-        $(function () {
-            var hsId = Getparam("hsId");
-            console.log(hsId);
-            function Getparam(str) {
 
-                var ref = window.location.search.split("=")[1];
-                return ref;
-            }
-
-        });
-    </script>
 </head>
 
 <body>
@@ -269,6 +258,7 @@
 
             return {
                 id:'',
+                status:'',
                 dialogFormVisible : false,
                 formLabelWidth: '120px',
                 form : {
@@ -373,8 +363,10 @@
             },
             getData(){
                 $.ajax({
-                    url: 'http://localhost:8080/admin/sysuser/getAllRentalinfo',//地址
-                    data: {},
+                    url: 'http://localhost:8080/admin/sysuser/getAllRentalinfoById',//地址
+                    data: {
+                        id:vue.id,
+                    },
                     type: 'GET',//类型
                     //请求成功
                     success: function (data) {
@@ -400,10 +392,10 @@
                 vue.getData()
             },
             ToAdd(){
-                window.location.href = 'addHouse.html?id='+this.id;
+                window.location.href = 'addHouse.html?id='+this.id+"&status=" +this.status;
             },
             ToMine(){
-                window.location.href = 'houseMyself.html?id='+this.id;
+                window.location.href = 'houseMyself.html?id='+this.id+"&status=" +this.status;
             },
             ToOrder(){
                 window.location.href = 'order.html?id='+this.id;
@@ -414,10 +406,11 @@
     })
 </script>
 <script>
-    vue.id = window.location.search.split("=")[1];
+    vue.id = window.location.search.split("=")[1].split("&")[0];
+    vue.status = window.location.search.split("=")[2];
     $.ajax({
         url: 'http://localhost:8080/householdinfo/getHouse',//地址
-        data: {id:2},
+        data: {id:vue.id},
         type: 'GET',//类型
         //请求成功
         success: function (data) {

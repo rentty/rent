@@ -109,6 +109,13 @@ public class SysUserController {
         return Result.ok().data("rentalinfo",house_managementService.findAllRentalinfo());
     }
 
+    @ApiOperation(value = "获取所有出租信息ById")
+    @GetMapping("/getAllRentalinfoById")
+    @ResponseBody
+    public Result getAllRentalinfo(int id){
+        return Result.ok().data("rentalinfo",house_managementService.findAllRentalinfoById(id));
+    }
+
     @ApiOperation(value = "获取所有评论信息")
     @GetMapping("/getAllReview")
     @ResponseBody

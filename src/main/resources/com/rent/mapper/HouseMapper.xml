@@ -168,7 +168,7 @@
       #{hsLongitude,jdbcType=DOUBLE}, #{hsLatitude,jdbcType=DOUBLE}, #{hsStatus,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.rent.bean.House">
+  <insert id="insertSelective" parameterType="com.rent.bean.House" useGeneratedKeys="true" keyProperty="hsId">
     insert into rent_house
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="hsId != null">

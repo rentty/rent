@@ -49,7 +49,7 @@ public class HelloController {
     FastDFSClientUtil dfsClient;
     @PostMapping("/upload")
     @ResponseBody
-    public Result fdfsUpload(@RequestParam("file") MultipartFile file[], HttpServletRequest request,int hid) {
+    public Result fdfsUpload(@RequestParam("file") MultipartFile file[], HttpServletRequest request,@RequestParam("hid") int hid) {
         System.out.println(hid);
         try {
             for(int i=0;i<file.length;i++){

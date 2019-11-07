@@ -533,4 +533,11 @@ public class House_managementServiceImpl implements House_managementService {
 
         return rentalinfoMapper.updateByPrimaryKeySelective(rentalinfo);
     }
+
+    @Override
+    public List<Rentalinfo> findAllRentalinfoById(int id) {
+        RentalinfoExample rentalinfoExample = new RentalinfoExample();
+        rentalinfoExample.createCriteria().andRtlfHhidEqualTo(id);
+        return rentalinfoMapper.selectByExample(rentalinfoExample);
+    }
 }

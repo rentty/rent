@@ -107,4 +107,9 @@ public interface House_managementService {
   *  修改出租信息
   */
  public int updateById(int id,int rent,String req);
+
+ /**
+  *  查询所有的出租信息byid
+  */
+ public List<Rentalinfo> findAllRentalinfoById(int id);
 }

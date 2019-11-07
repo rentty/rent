@@ -102,7 +102,7 @@
     </script>
     <!-- start-smoth-scrolling -->
     <script>
-        $(function () {
+        /*$(function () {
             var hsId = Getparam("hsId");
             console.log(hsId);
             function Getparam(str) {
@@ -111,7 +111,7 @@
                 return ref;
             }
 
-        });
+        });*/
     </script>
 </head>
 
@@ -239,7 +239,8 @@
             </div>
             <div class="btnGro" >
                 <el-button type="primary" icon="el-icon-edit" @click="editMine()">修改信息</el-button>
-                <el-button type="primary" icon="el-icon-edit" @click="becomeHou()">成为户主</el-button>
+                <el-button type="primary" icon="el-icon-edit" @click="becomeHou()"
+                           id="btnToHou" >成为户主</el-button>
             </div>
         </div>
 
@@ -286,6 +287,8 @@
                 name:'',
                 type:'',
                 id:'',
+                status:'',
+                bool:false,
                 form : {
                     uifId : '',
                     uifNickname : '',
@@ -298,10 +301,27 @@
 
             },
             ToAdd(){
-                window.location.href = 'addHouse.html?id='+this.id;
+                if(this.status == 0){
+                    vue.$notify({
+                        title: '失败',
+                        message: '你不是户主，没有相关权限',
+                        type: 'error'
+                    });
+                }else {
+                    window.location.href = 'addHouse.html?id='+this.id+"&status=" +this.status;
+                }
+
             },
             ToMana(){
-                window.location.href = 'houseManag.html?id='+this.id;
+                if(this.status == 0){
+                    vue.$notify({
+                        title: '失败',
+                        message: '你不是户主，没有相关权限',
+                        type: 'error'
+                    });
+                }else {
+                    window.location.href = 'houseManag.html?id=' + this.id+"&status=" +this.status;
+                }
             },
             ToOrder(){
                 window.location.href = 'order.html?id='+this.id;
@@ -342,11 +362,16 @@
 </script>
 <script>
     var myData;
-    vue.id = window.location.search.split("=")[1];
+    vue.id = window.location.search.split("=")[1].split("&")[0];
+    vue.status = window.location.search.split("=")[2];
+    if(vue.status == "1"){
+        $("#btnToHou").attr('disabled',true);
+    }
+    console.log(vue.id + ','+vue.status);
     $.ajax({
         url: 'http://localhost:8080/admin/user/getUserById',//地址
         data: {
-            id: window.location.search.split("=")[1],
+            id: window.location.search.split("=")[1].split("&")[0],
         },
         dataType: "json",
         type: 'GET',//类型

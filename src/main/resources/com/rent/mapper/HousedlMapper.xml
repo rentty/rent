@@ -101,7 +101,7 @@
   </delete>
   <insert id="insert" parameterType="com.rent.bean.Housedl">
     insert into rent_housedl (hsd_Id, hsd_IdoorMAddr, hsd_FloorPAddr, 
-      hsd_ConditionMAddr, `hsd_Facility desc`)
+      hsd_ConditionMAddr, hsd_FacilityDesc)
     values (#{hsdId,jdbcType=INTEGER}, #{hsdIdoormaddr,jdbcType=VARCHAR}, #{hsdFloorpaddr,jdbcType=VARCHAR}, 
       #{hsdConditionmaddr,jdbcType=VARCHAR}, #{hsdFacilityDesc,jdbcType=VARCHAR})
   </insert>
