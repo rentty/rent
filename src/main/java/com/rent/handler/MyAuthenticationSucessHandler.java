@@ -74,7 +74,7 @@ public class MyAuthenticationSucessHandler implements AuthenticationSuccessHandl
         }
         map.put("user",userinfo);
         request.getSession().setAttribute("userMap",map);
-        redirectStrategy.sendRedirect(request, response, "/base.html?rgtId="+id+"&status="+userinfo.getUifUsertype());
+        redirectStrategy.sendRedirect(request, response, "/base.html?id="+id+"&status="+userinfo.getUifUsertype());
         return;
     }
 }

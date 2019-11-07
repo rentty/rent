@@ -43,11 +43,13 @@ public class HelloController {
     @Autowired
     FastDFSClientUtil dfsClient;
     @PostMapping("/upload")
-    public Result fdfsUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    public Result fdfsUpload(@RequestParam("file") MultipartFile file[], HttpServletRequest request) {
        // System.out.println("*****");
         try {
-            String fileUrl = dfsClient.uploadFile(file);
-            System.out.println(fileUrl);
+            for(int i=0;i<file.length;i++){
+                String fileUrl = dfsClient.uploadFile(file[i]);
+                System.out.println(fileUrl);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
