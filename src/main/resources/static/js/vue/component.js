@@ -7,6 +7,15 @@ var arrs=[{title:'湛江',arr:[{addr:'http://www.baidu.com',texts:'霞山',id:'0
 		
 		Vue.component('house-gallery', {
    props:["item"],//指定v-bing:item 的值
+            data (){
+                var id =window.location.search.split("&")[0].split("=")[1];
+                var status=window.location.search.split("&")[1].split("=")[1];
+                return{
+                    id,
+                    status,
+
+                }
+            },
    template:'#gallery-template',
     });
 
