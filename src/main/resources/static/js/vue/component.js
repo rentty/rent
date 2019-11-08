@@ -6,16 +6,7 @@ var result = [{title:'整租 · 水岸金桥苑 · 1居室',price:'2000元/月'}
 var arrs=[{title:'湛江',arr:[{addr:'http://www.baidu.com',texts:'霞山',id:'001'},{addr:'#',texts:'3'},{addr:'#',texts:'霞山'},{addr:'#',texts:'霞山'},{addr:'#',texts:'霞山'}]},{title:'广州',arr:[{addr:'#',texts:'2'},{addr:'#',texts:'3'}]},{title:'湛江',arr:[{addr:'#',texts:'霞山'},{addr:'#',texts:'3'}]},];
 		
 		Vue.component('house-gallery', {
-   props:["item"],//指定v-bing:item 的值
-            data (){
-                var id =window.location.search.split("&")[0].split("=")[1];
-                var status=window.location.search.split("&")[1].split("=")[1];
-                return{
-                    id,
-                    status,
-
-                }
-            },
+   props:["item",'id','status'],//指定v-bing:item 的值
    template:'#gallery-template',
     });
 
@@ -26,9 +17,13 @@ var arrs=[{title:'湛江',arr:[{addr:'http://www.baidu.com',texts:'霞山',id:'0
           return{
               result:[{hsId:15}],
               gallerylength:0,
+              id:0,
+              status:15,
           }
       },
       async  mounted(){
+    this.id =window.location.search.split("&")[0].split("=")[1];
+    this.status=window.location.search.split("&")[1].split("=")[1];
           await axios.
           get("http://localhost:8080/query", {
               params: {
@@ -73,11 +68,11 @@ var arrs=[{title:'湛江',arr:[{addr:'http://www.baidu.com',texts:'霞山',id:'0
   });
 //分页+展示
 Vue.component("page",{
-    props:["item","gallerylength"],//指定v-bing:item 的值
+    props:["item","gallerylength",'id','status'],//指定v-bing:item 的值
     template:"#page-template",
     data(){
         var pagelinum = 3;
-        var allpage = Math.ceil(this.item.length/pagelinum);
+        var allpage = Math.ceil(10/pagelinum);
         //alert("gallerylength"+vm.gallerylength);
         //异步获取长度问题------------------------------------------------------------------------------------------
         console.log(this.item);
